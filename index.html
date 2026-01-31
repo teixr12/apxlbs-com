@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="pt-BR" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Apex Labs | Software Customizado & Soluções AI - Possua Sua Tecnologia</title>
+    <meta name="description" content="Soluções enterprise de software customizado, automação e IA. Corte custos em 40%, aumente produtividade em 300%. Direto-response marketing & funis desde 2011.">
+    <meta name="keywords" content="software customizado, soluções IA, automação, groove.cm, marketing direto, desenvolvimento sob medida, apex labs">
+    <meta name="author" content="Apex Labs - DBE11 TLDA">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="https://apxlbs.com">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://apxlbs.com">
+    <meta property="og:title" content="Apex Labs | Possua Sua IA. Possua Seu Futuro.">
+    <meta property="og:description" content="Software customizado que corta custos em 40%. Marketing direto & funis de vendas desde 2011.">
+    <meta property="og:image" content="https://apxlbs.com/og-image.jpg">
+    <meta property="og:locale" content="pt_BR">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 100; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
+        .whatsapp-float:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); border-color: rgba(255, 255, 255, 0.4); }
+        .tech-grid { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.25; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 100px 100px; }
+        .glow-apple { position: fixed; pointer-events: none; z-index: 0; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%); filter: blur(60px); }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-strong { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(30px) saturate(200%); -webkit-backdrop-filter: blur(30px) saturate(200%); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .line-reveal { overflow: hidden; }
+        .line-reveal > span { display: block; transform: translateY(100%); opacity: 0; }
+        .magnetic-btn { transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .cred-card { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .cred-card:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.2); box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5); }
+        .faq-item { transition: all 0.3s ease; }
+        .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease; opacity: 0; }
+        .faq-item.active .faq-content { max-height: 600px; opacity: 1; padding-top: 1rem; }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+        .dopamine-cta { background: linear-gradient(180deg, rgba(28, 28, 30, 0.8) 0%, rgba(0, 0, 0, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 40px 80px -20px rgba(0,0,0,0.6), inset 0 0.5px 0 rgba(255,255,255,0.1); }
+        .pixel-hero { position: relative; overflow: hidden; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+        .lang-select { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: rgba(255,255,255,0.8); padding: 0.5rem 1rem; border-radius: 9999px; font-size: 0.875rem; cursor: pointer; transition: all 0.3s; }
+        .lang-select:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.25); }
+        .groove-badge { background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%); border: 1px solid rgba(255,255,255,0.15); }
+        .text-gradient-neutral { background: linear-gradient(135deg, #ffffff 0%, #a1a1aa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .noise { position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: 0.015; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+        @media (max-width: 768px) { .whatsapp-float { width: 56px; height: 56px; bottom: 20px; right: 20px; } }
+        [dir="rtl"] .ai-native-quote { padding-left: 0; padding-right: 2rem; border-left: none; border-right: 1px solid rgba(255,255,255,0.2); }
+        .ai-native-quote { position: relative; padding-left: 2rem; border-left: 1px solid rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="tech-grid"></div>
+    <div class="glow-apple w-[600px] h-[600px] -top-20 -right-20"></div>
+    <div class="glow-apple w-[500px] h-[500px] bottom-0 left-0 opacity-50"></div>
+
+    <a href="https://wa.me/5519999118467?text=Olá!%20Vi%20o%20site%20da%20Apex%20Labs%20e%20gostaria%20de%20saber%20mais%20sobre%20soluções%20customizadas" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/><path d="M9 17c.5.3 1.5.5 2.5.5s2-.5 2.5-1 0-2-1-2.5-2-.5-2.5 0-1 1-1.5 1.5.5 1 1 1.5z"/></svg>
+    </a>
+
+    <nav class="fixed w-full z-50 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex justify-between items-center">
+            <div class="flex items-center gap-4 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <span class="text-2xl font-black tracking-tighter">APEX<span class="text-neutral-500">LABS</span></span>
+            </div>
+            <div class="hidden lg:flex items-center gap-8 text-sm font-medium text-neutral-400">
+                <a href="#evidence" class="hover:text-white transition-colors" data-i18n="nav.evidence">Evidências</a>
+                <a href="#authority" class="hover:text-white transition-colors" data-i18n="nav.authority">Credibilidade</a>
+                <a href="#ai-native" class="hover:text-white transition-colors" data-i18n="nav.philosophy">Filosofia</a>
+                <a href="#problem" class="hover:text-white transition-colors" data-i18n="nav.problem">O Problema</a>
+                <a href="#case-studies" class="hover:text-white transition-colors" data-i18n="nav.cases">Cases</a>
+                <a href="#faq" class="hover:text-white transition-colors" data-i18n="nav.faq">FAQ</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <select class="lang-select" id="languageSelector" onchange="changeLanguage(this.value)">
+                    <option value="pt">🇧🇷 PT</option>
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="it">🇮🇹 IT</option>
+                    <option value="de">🇩🇪 DE</option>
+                    <option value="fr">🇫🇷 FR</option>
+                    <option value="ar">🇦🇪 UAE</option>
+                </select>
+                <button onclick="document.getElementById('strategy').scrollIntoView({behavior: 'smooth'})" class="magnetic-btn hidden sm:block px-6 py-3 bg-white text-black text-sm font-semibold rounded-full hover:bg-neutral-200 transition-colors" data-i18n="nav.cta">Agendar Consultoria</button>
+            </div>
+        </div>
+        <div class="h-px bg-gradient-to-r from-transparent via-white/20 to-transparent transform scale-x-0 transition-transform duration-500" id="navLine"></div>
+    </nav>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="mb-8 opacity-0 hero-fade">
+                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs font-medium tracking-wider uppercase text-neutral-400">
+                            <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                            <span data-i18n="hero.badge">Trusted By 7-Figure Founders</span>
+                        </span>
+                    </div>
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-[0.9] tracking-tight mb-8">
+                        <div class="line-reveal"><span class="block" data-i18n="hero.line1">WE BUILD THE</span></div>
+                        <div class="line-reveal"><span class="block text-gradient-neutral" data-i18n="hero.line2">SOFTWARE YOU OWN.</span></div>
+                        <div class="line-reveal"><span class="block text-neutral-500" data-i18n="hero.line3">NOT RENT.</span></div>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-neutral-400 mb-12 leading-relaxed font-light max-w-xl hero-fade opacity-0" data-i18n="hero.subtitle">Custom AI, automation, and analytics engines that cut costs by 40% and increase output by 3x. No subscriptions. No limits. Just permanent competitive advantage.</p>
+                    <div class="flex flex-wrap gap-4 hero-fade opacity-0">
+                        <button onclick="document.getElementById('strategy').scrollIntoView({behavior: 'smooth'})" class="magnetic-btn group px-8 py-4 bg-white text-black font-bold text-lg rounded-full hover:bg-neutral-200 transition-all flex items-center gap-3 shadow-2xl">
+                            <span data-i18n="hero.cta1">Get Free Growth Plan</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </button>
+                        <button onclick="document.getElementById('evidence').scrollIntoView({behavior: 'smooth'})" class="magnetic-btn px-8 py-4 border border-white/20 text-white font-semibold rounded-full hover:bg-white/5 transition-all" data-i18n="hero.cta2">See The Evidence</button>
+                    </div>
+                </div>
+                <div class="relative hero-fade opacity-0">
+                    <div class="pixel-hero aspect-square lg:aspect-[4/3] bg-gradient-to-br from-neutral-900 to-black flex items-center justify-center">
+                        <div class="text-center p-8">
+                            <div class="w-32 h-32 mx-auto mb-6 rounded-full bg-gradient-to-tr from-neutral-800 to-neutral-600 flex items-center justify-center text-6xl">🚀</div>
+                            <p class="text-2xl font-bold text-white mb-2">Apex Labs</p>
+                            <p class="text-neutral-500">Technology Partners</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="evidence" class="py-32 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-16">
+                <p class="text-sm font-mono text-neutral-500 mb-4 tracking-widest uppercase" data-i18n="evidence.label">The Evidence</p>
+                <h2 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
+                    <span data-i18n="evidence.title1">THE AI GAP IS WIDENING.</span><br>
+                    <span class="text-neutral-600" data-i18n="evidence.title2">OWN YOUR ADVANTAGE OR RENT YOUR IRRELEVANCE.</span>
+                </h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" class="cred-card rounded-2xl p-8 block group">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white font-bold text-xs border border-white/10">M</div>
+                            <span class="text-xs font-bold tracking-wider text-neutral-500">MCKINSEY</span>
+                        </div>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-600 group-hover:text-white transition-colors"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+                    </div>
+                    <blockquote class="text-lg font-medium text-white mb-4">"<span data-i18n="evidence.mckinsey">AI could add</span> <span class="text-neutral-300 font-bold">$13 trillion</span> <span data-i18n="evidence.mckinsey2">to the global economy by 2030.</span>"</blockquote>
+                    <p class="text-xs text-neutral-600" data-i18n="evidence.mckinsey3">75% of executives plan to increase AI investment</p>
+                </a>
+                <a href="https://www.gartner.com/en/newsroom/artificial-intelligence" target="_blank" class="cred-card rounded-2xl p-8 block group">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white font-bold text-xs border border-white/10">G</div>
+                            <span class="text-xs font-bold tracking-wider text-neutral-500">GARTNER</span>
+                        </div>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-600 group-hover:text-white transition-colors"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+                    </div>
+                    <blockquote class="text-lg font-medium text-white mb-4">"<span data-i18n="evidence.gartner1">By 2025,</span> <span class="text-neutral-300 font-bold">75% of enterprises</span> <span data-i18n="evidence.gartner2">will operationalize AI.</span>"</blockquote>
+                    <p class="text-xs text-neutral-600" data-i18n="evidence.gartner3">5x increase in streaming data infrastructure</p>
+                </a>
+                <a href="https://hbr.org/2023/10/ai-business-transformation" target="_blank" class="cred-card rounded-2xl p-8 block group">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-white font-bold text-xs border border-white/10">H</div>
+                            <span class="text-xs font-bold tracking-wider text-neutral-500">HARVARD BUSINESS REVIEW</span>
+                        </div>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-600 group-hover:text-white transition-colors"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg>
+                    </div>
+                    <blockquote class="text-lg font-medium text-white mb-4">"<span data-i18n="evidence.hbr1">First-movers capture</span> <span class="text-neutral-300 font-bold">disproportionate value</span>."</blockquote>
+                    <p class="text-xs text-neutral-600" data-i18n="evidence.hbr2">Creating moats late adopters cannot cross</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="authority" class="py-32 border-t border-white/5 bg-neutral-950/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-16">
+                <p class="text-sm font-mono text-neutral-500 mb-4 tracking-widest uppercase" data-i18n="authority.label">Proven Track Record</p>
+                <h2 class="text-4xl md:text-6xl font-black mb-6"><span data-i18n="authority.title1">Not Just Developers.</span><br><span class="text-neutral-500" data-i18n="authority.title2">Growth Architects Since 2011.</span></h2>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+                <div class="space-y-8">
+                    <div class="groove-badge rounded-2xl p-8 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-all"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Groove.cm</h3>
+                                    <p class="text-sm text-neutral-500" data-i18n="authority.case">Case Study</p>
+                                </div>
+                            </div>
+                            <p class="text-neutral-300 text-lg leading-relaxed mb-4"><span data-i18n="authority.groove1">Rodrigo Teixeira, founder da Apex Labs, foi</span> <span class="text-white font-semibold" data-i18n="authority.groove2">CEO da Groove.cm por 3 anos</span><span data-i18n="authority.groove3">, responsável por tropicalizar a plataforma para o mercado brasileiro em 2020.</span></p>
+                            <p class="text-neutral-400 text-sm" data-i18n="authority.groove4">Levou a plataforma de SaaS de $0 para milhões em ARR no BR, implementando estruturas de funil, copywriting e automações que escalaram negócios digitais.</p>
+                        </div>
+                    </div>
+                    <div class="glass rounded-2xl p-8">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center border border-white/10 flex-shrink-0">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-white"><path d="M12 3v18"/><path d="M3 12h18"/><path d="m8 8 4-4 4 4"/><path d="m8 16 4 4 4-4"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white mb-2" data-i18n="authority.marketing.title">Direct-Response Marketing Since 2011</h3>
+                                <p class="text-neutral-400 leading-relaxed"><span data-i18n="authority.marketing.desc1">13+ anos criando funis de vendas, copy persuasiva e campanhas de aquisição. Não só codamos seu software</span>—<span class="text-white" data-i18n="authority.marketing.desc2">entendemos como vendê-lo</span>. <span data-i18n="authority.marketing.desc3">Cada linha de código é escrita pensando em conversão e LTV.</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="glass-strong rounded-2xl p-8 text-center">
+                        <div class="text-5xl font-black text-white mb-2">13+</div>
+                        <p class="text-neutral-400 uppercase tracking-widest text-sm" data-i18n="authority.stat1">Years in Direct Marketing</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 text-center">
+                        <div class="text-5xl font-black text-white mb-2">3yr</div>
+                        <p class="text-neutral-400 uppercase tracking-widest text-sm" data-i18n="authority.stat2">as Groove.cm CEO</p>
+                    </div>
+                    <div class="glass-strong rounded-2xl p-8 text-center">
+                        <div class="text-5xl font-black text-white mb-2">$10M+</div>
+                        <p class="text-neutral-400 uppercase tracking-widest text-sm" data-i18n="authority.stat3">Generated in Client Revenue</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="case-studies" class="py-32 border-t border-white/5 bg-neutral-950/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="mb-20">
+                <p class="text-sm font-mono text-neutral-500 mb-4 tracking-widest uppercase" data-i18n="cases.label">Proof of Work</p>
+                <h2 class="text-4xl md:text-6xl font-black mb-6" data-i18n="cases.title">Projects We've Shipped.</h2>
+                <p class="text-xl text-neutral-400 max-w-2xl" data-i18n="cases.subtitle">Real solutions. Real ownership. Real ROI. From SaaS platforms to high-ticket sales systems.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <!-- Groove.cm -->
+                <div class="group block">
+                    <div class="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6 bg-neutral-900 border border-white/5 group-hover:border-white/20 transition-all">
+                        <img src="images/groove.jpg" alt="Groove.cm Brazil Platform" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="hidden w-full h-full items-center justify-center bg-neutral-900 text-white font-bold text-xl">Groove.cm</div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-full glass text-xs text-white/60 border border-white/10">SaaS</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Groove.cm Brazil</h3>
+                    <p class="text-neutral-500 text-sm mb-4" data-i18n="cases.groove.desc">Tropicalização completa da plataforma para o mercado brasileiro. Implementação de funis localizados, gateway de pagamentos e estruturação da operação local.</p>
+                    <div class="flex gap-2"><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400" data-i18n="cases.groove.tag1">Tropicalização</span><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400">SaaS</span></div>
+                </div>
+                <!-- Tryno.io -->
+                <a href="https://tryno.io" target="_blank" class="group block">
+                    <div class="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6 bg-black border border-white/5 group-hover:border-white/20 transition-all">
+                        <img src="images/tryno-logo.jpg" alt="Tryno Logo" class="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="hidden w-full h-full items-center justify-center bg-black text-white font-bold text-xl">Tryno</div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute bottom-4 left-4 px-3 py-1 rounded-full glass text-xs text-white/60 border border-white/10">tryno.io</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Tryno</h3>
+                    <p class="text-neutral-500 text-sm mb-4" data-i18n="cases.tryno.desc">AI-powered platform. Custom automation workflows resulting in 60% faster operations.</p>
+                    <div class="flex gap-2"><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400">AI</span><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400" data-i18n="cases.tryno.tag2">Automation</span></div>
+                </a>
+                <!-- Weburn -->
+                <a href="#" target="_blank" class="group block">
+                    <div class="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6 bg-neutral-900 border border-white/5 group-hover:border-white/20 transition-all">
+                        <img src="images/weburn.jpg" alt="Weburn Black Friday Campaign" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="hidden w-full h-full items-center justify-center bg-neutral-900 text-white font-bold text-xl">Weburn</div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-full glass text-xs text-white/60 border border-white/10">E-commerce</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Weburn BlackFriday 2025</h3>
+                    <p class="text-neutral-500 text-sm mb-4" data-i18n="cases.weburn.desc">High-ticket sales system with custom checkout, anti-fraud automation, and real-time inventory management. 10x conversion during peak season.</p>
+                    <div class="flex gap-2"><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400">E-commerce</span><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400">High-Ticket</span></div>
+                </a>
+                <!-- Lokalyze -->
+                <div class="group block">
+                    <div class="relative overflow-hidden rounded-2xl aspect-[4/3] mb-6 bg-neutral-900 border border-white/5 group-hover:border-white/20 transition-all">
+                        <img src="images/lokalyze.jpg" alt="Lokalyze AI Platform Interface" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="hidden w-full h-full items-center justify-center bg-neutral-900 text-white font-bold text-xl">Lokalyze</div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="absolute top-4 right-4 px-3 py-1 rounded-full glass text-xs text-white/60">Enterprise</div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Lokalyze AI</h3>
+                    <p class="text-neutral-500 text-sm mb-4" data-i18n="cases.lokalyze.desc">Enterprise translation engine. 99.9% accuracy across 40+ languages.</p>
+                    <div class="flex gap-2"><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400">NLP</span><span class="px-3 py-1 rounded-full glass text-xs text-neutral-400">Enterprise</span></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-16 border-t border-white/5">
+                <div class="text-center"><div class="text-6xl font-black mb-2 counter" data-target="40">0%</div><p class="text-sm text-neutral-500 uppercase tracking-widest" data-i18n="stats.cost">Cost Reduction</p></div>
+                <div class="text-center"><div class="text-6xl font-black mb-2 counter" data-target="300">0%</div><p class="text-sm text-neutral-500 uppercase tracking-widest" data-i18n="stats.output">Output Increase</p></div>
+                <div class="text-center"><div class="text-6xl font-black mb-2 counter" data-target="100">0%</div><p class="text-sm text-neutral-500 uppercase tracking-widest" data-i18n="stats.ownership">Ownership</p></div>
+                <div class="text-center"><div class="text-6xl font-black mb-2 counter" data-target="13">0</div><p class="text-sm text-neutral-500 uppercase tracking-widest" data-i18n="stats.years">Years Experience</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="strategy" class="py-32 border-t border-white/5 relative">
+        <div class="max-w-5xl mx-auto px-6 lg:px-8">
+            <div class="dopamine-cta rounded-3xl p-8 md:p-16 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full bg-gradient-to-b from-white/5 to-transparent pointer-events-none"></div>
+                <div class="relative z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-neutral-400 mb-8 border border-white/10">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-300"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/></svg>
+                        <span data-i18n="cta.label">FREE STRATEGY SESSION</span>
+                    </div>
+                    <h2 class="text-4xl md:text-6xl font-black mb-6 text-gradient-neutral" data-i18n="cta.title">Get Your Free Growth Plan</h2>
+                    <p class="text-xl text-neutral-400 max-w-2xl mx-auto mb-10" data-i18n="cta.desc">In 30 minutes, we'll audit your current tech stack and deliver a custom roadmap showing exactly where AI and automation will increase revenue and cut costs.</p>
+                    <form action="https://formspree.io/f/xnjvkdpe" method="POST" class="max-w-md mx-auto space-y-4 text-left">
+                        <input type="text" name="name" placeholder="Your Name" data-i18n-placeholder="form.name" required class="w-full px-6 py-4 rounded-xl bg-black/50 border border-white/10 text-white placeholder-neutral-600 focus:border-white/30 focus:outline-none transition-colors">
+                        <input type="email" name="email" placeholder="Business Email" data-i18n-placeholder="form.email" required class="w-full px-6 py-4 rounded-xl bg-black/50 border border-white/10 text-white placeholder-neutral-600 focus:border-white/30 focus:outline-none transition-colors">
+                        <input type="text" name="company" placeholder="Company Name" data-i18n-placeholder="form.company" class="w-full px-6 py-4 rounded-xl bg-black/50 border border-white/10 text-white placeholder-neutral-600 focus:border-white/30 focus:outline-none transition-colors">
+                        <input type="text" name="whatsapp" placeholder="WhatsApp (optional)" data-i18n-placeholder="form.whatsapp" class="w-full px-6 py-4 rounded-xl bg-black/50 border border-white/10 text-white placeholder-neutral-600 focus:border-white/30 focus:outline-none transition-colors">
+                        <input type="hidden" name="_subject" value="New Growth Plan Request - Apex Labs">
+                        <input type="hidden" name="_next" value="https://apxlbs.com/thanks.html">
+                        <button type="submit" class="w-full py-4 bg-white text-black font-bold text-lg rounded-xl hover:bg-neutral-200 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2 shadow-2xl">
+                            <span data-i18n="form.submit">Claim Your Free Plan</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </button>
+                        <p class="text-xs text-neutral-600 text-center" data-i18n="form.note">Usually $500. Free for qualified businesses. No commitment.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-32 border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <p class="text-sm font-mono text-neutral-500 mb-4 tracking-widest uppercase">FAQ</p>
+                <h2 class="text-4xl md:text-6xl font-black mb-6" data-i18n="faq.title">Common Questions</h2>
+                <p class="text-xl text-neutral-400" data-i18n="faq.subtitle">Everything you need to know about custom software ownership</p>
+            </div>
+            <div class="space-y-4">
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer border border-white/5 hover:border-white/20" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-start gap-4">
+                        <h3 class="text-lg font-semibold text-white pr-4" data-i18n="faq.q1">How long does custom software take to build?</h3>
+                        <div class="faq-icon w-6 h-6 rounded-full glass flex items-center justify-center flex-shrink-0 border border-white/10"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-400"><path d="M5 12h14"/><path d="M12 5v14"/></svg></div>
+                    </div>
+                    <div class="faq-content text-neutral-400 leading-relaxed" data-i18n="faq.a1">Most MVPs ship in 4-8 weeks. Enterprise solutions typically take 3-6 months. We use agile methodologies with weekly demos so you see progress constantly.</div>
+                </div>
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer border border-white/5 hover:border-white/20" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-start gap-4">
+                        <h3 class="text-lg font-semibold text-white pr-4" data-i18n="faq.q2">What does 'owning' the software mean exactly?</h3>
+                        <div class="faq-icon w-6 h-6 rounded-full glass flex items-center justify-center flex-shrink-0 border border-white/10"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-400"><path d="M5 12h14"/><path d="M12 5v14"/></svg></div>
+                    </div>
+                    <div class="faq-content text-neutral-400 leading-relaxed" data-i18n="faq.a2">You get 100% of the source code, database rights, and IP. No licenses, no subscriptions, no vendor lock-in. Deploy it anywhere, modify it anytime, sell it if you want.</div>
+                </div>
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer border border-white/5 hover:border-white/20" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-start gap-4">
+                        <h3 class="text-lg font-semibold text-white pr-4" data-i18n="faq.q3">Isn't custom software more expensive than SaaS?</h3>
+                        <div class="faq-icon w-6 h-6 rounded-full glass flex items-center justify-center flex-shrink-0 border border-white/10"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-400"><path d="M5 12h14"/><path d="M12 5v14"/></svg></div>
+                    </div>
+                    <div class="faq-content text-neutral-400 leading-relaxed" data-i18n="faq.a3">Short-term: yes. Long-term: no. If you're spending $3k+/month on SaaS tools, a $30k custom solution pays for itself in 10 months—and then it's free forever while scaling with you.</div>
+                </div>
+                <div class="faq-item glass rounded-2xl p-6 cursor-pointer border border-white/5 hover:border-white/20" onclick="toggleFAQ(this)">
+                    <div class="flex justify-between items-start gap-4">
+                        <h3 class="text-lg font-semibold text-white pr-4" data-i18n="faq.q4">Do you provide support after launch?</h3>
+                        <div class="faq-icon w-6 h-6 rounded-full glass flex items-center justify-center flex-shrink-0 border border-white/10"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-neutral-400"><path d="M5 12h14"/><path d="M12 5v14"/></svg></div>
+                    </div>
+                    <div class="faq-content text-neutral-400 leading-relaxed" data-i18n="faq.a4">Yes. We offer 3-12 month support packages covering bug fixes, updates, and optimizations. After that, we can train your team or remain on retainer.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 border-t border-white/5 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-white/[0.02] to-transparent"></div>
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-5xl md:text-7xl font-black mb-6"><span data-i18n="final.title1">STOP RENTING.</span><br><span class="text-neutral-500" data-i18n="final.title2">START OWNING.</span></h2>
+            <p class="text-xl text-neutral-400 mb-12" data-i18n="final.subtitle">Your competitors are already building. How long will you wait?</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://wa.me/5519999118467" target="_blank" class="magnetic-btn px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-3">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    <span data-i18n="final.whatsapp">WhatsApp Direct</span>
+                </a>
+                <button onclick="document.getElementById('strategy').scrollIntoView({behavior: 'smooth'})" class="magnetic-btn px-8 py-4 border border-white/20 text-white font-semibold rounded-full hover:bg-white/5 transition-all" data-i18n="final.back">Back to Free Plan</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-neutral-950 border-t border-white/10 pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
+                <div>
+                    <h4 class="font-bold text-white mb-6" data-i18n="footer.company">Company</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#authority" class="text-neutral-500 hover:text-white transition-colors" data-i18n="footer.about">About</a></li>
+                        <li><a href="#case-studies" class="text-neutral-500 hover:text-white transition-colors" data-i18n="footer.cases">Case Studies</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-6" data-i18n="footer.solutions.title">Solutions</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="#" class="text-neutral-500 hover:text-white transition-colors" data-i18n="footer.solutions.custom">Custom Development</a></li>
+                        <li><a href="#" class="text-neutral-500 hover:text-white transition-colors" data-i18n="footer.solutions.ai">AI Automation</a></li>
+                        <li><a href="#" class="text-neutral-500 hover:text-white transition-colors" data-i18n="footer.solutions.analytics">Analytics</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-6" data-i18n="footer.resources">Resources</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="https://tryno.io" target="_blank" class="text-neutral-500 hover:text-white transition-colors flex items-center gap-2">Tryno <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></svg></a></li>
+                        <li><a href="https://github.com/teixr12" target="_blank" class="text-neutral-500 hover:text-white transition-colors flex items-center gap-2">GitHub <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-6" data-i18n="footer.contact">Contact</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="https://wa.me/5519999118467" target="_blank" class="text-neutral-500 hover:text-white transition-colors flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> WhatsApp</a></li>
+                        <li><a href="https://www.linkedin.com/in/rodrigoteixeira-oficial/" target="_blank" class="text-neutral-500 hover:text-white transition-colors flex items-center gap-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-2 text-sm text-neutral-500">
+                    <span data-i18n="footer.made">Made with</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-neutral-400"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <span data-i18n="footer.brazil">in Brazil.</span>
+                    <span class="text-neutral-600">Estd. 2025</span>
+                </div>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/apxlbs" target="_blank" class="w-10 h-10 rounded-full glass flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-all">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                    <a href="https://www.linkedin.com/in/rodrigoteixeira-oficial/" target="_blank" class="w-10 h-10 rounded-full glass flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-all">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="https://github.com/teixr12" target="_blank" class="w-10 h-10 rounded-full glass flex items-center justify-center text-neutral-400 hover:bg-white hover:text-black transition-all">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-white/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-xs text-neutral-600 space-y-1">
+                    <p class="font-semibold text-neutral-500">DBE11 TLDA</p>
+                    <p>CNPJ: 53.903.617/0001-83</p>
+                    <p>São Paulo, SP - Brazil</p>
+                    <p>&copy; 2026 Apex Labs. All rights reserved.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs text-neutral-600" data-i18n="footer.initiative">An initiative by</span>
+                    <span class="text-white font-bold">Grupo DBTX</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            pt: {
+                "nav.evidence": "Evidências", "nav.authority": "Credibilidade", "nav.philosophy": "Filosofia",
+                "nav.problem": "O Problema", "nav.story": "Nossa História", "nav.solutions": "Soluções",
+                "nav.cases": "Cases", "nav.faq": "FAQ", "nav.cta": "Agendar Consultoria",
+                "hero.badge": "Trusted By 7-Figure Founders", "hero.line1": "WE BUILD THE",
+                "hero.line2": "SOFTWARE YOU OWN.", "hero.line3": "NOT RENT.",
+                "hero.subtitle": "Custom AI, automation, and analytics engines that cut costs by 40% and increase output by 3x. No subscriptions. No limits. Just permanent competitive advantage.",
+                "hero.cta1": "Get Free Growth Plan", "hero.cta2": "See The Evidence",
+                "evidence.label": "The Evidence","evidence.title1": "THE AI GAP IS WIDENING.",
+                "evidence.title2": "OWN YOUR ADVANTAGE OR RENT YOUR IRRELEVANCE.",
+                "evidence.mckinsey": "AI could add", "evidence.mckinsey2": "to the global economy by 2030.",
+                "evidence.mckinsey3": "75% of executives plan to increase AI investment",
+                "evidence.gartner1": "By 2025,", "evidence.gartner2": "will operationalize AI.",
+                "evidence.gartner3": "5x increase in streaming data infrastructure",
+                "evidence.hbr1": "First-movers capture", "evidence.hbr2": "Creating moats late adopters cannot cross",
+                "authority.label": "Proven Track Record", "authority.title1": "Not Just Developers.",
+                "authority.title2": "Growth Architects Since 2011.", "authority.case": "Case Study",
+                "authority.groove1": "Rodrigo Teixeira, founder da Apex Labs, foi",
+                "authority.groove2": "CEO da Groove.cm por 3 anos",
+                "authority.groove3": ", responsável por tropicalizar a plataforma para o mercado brasileiro em 2020.",
+                "authority.groove4": "Levou a plataforma de SaaS de $0 para milhões em ARR no BR, implementando estruturas de funil, copywriting e automações que escalaram negócios digitais.",
+                "authority.marketing.title": "Direct-Response Marketing Since 2011",
+                "authority.marketing.desc1": "13+ anos criando funis de vendas, copy persuasiva e campanhas de aquisição. Não só codamos seu software",
+                "authority.marketing.desc2": "entendemos como vendê-lo",
+                "authority.marketing.desc3": "Cada linha de código é escrita pensando em conversão e LTV.",
+                "authority.stat1": "Years in Direct Marketing", "authority.stat2": "as Groove.cm CEO",
+                "authority.stat3": "Generated in Client Revenue",
+                "cases.label": "Proof of Work", "cases.title": "Projects We've Shipped.", 
+                "cases.subtitle": "Real solutions. Real ownership. Real ROI. From SaaS platforms to high-ticket sales systems.",
+                "cases.groove.desc": "Tropicalização completa da plataforma para o mercado brasileiro. Implementação de funis localizados, gateway de pagamentos e estruturação da operação local.",
+                "cases.groove.tag1": "Tropicalização",
+                "cases.tryno.desc": "AI-powered platform. Custom automation workflows resulting in 60% faster operations.",
+                "cases.tryno.tag2": "Automation",
+                "cases.weburn.desc": "High-ticket sales system with custom checkout, anti-fraud automation, and real-time inventory management. 10x conversion during peak season.",
+                "cases.lokalyze.desc": "Enterprise translation engine. 99.9% accuracy across 40+ languages.",
+                "stats.cost": "Cost Reduction", "stats.output": "Output Increase", 
+                "stats.ownership": "Ownership", "stats.years": "Years Experience",
+                "cta.label": "FREE STRATEGY SESSION", "cta.title": "Get Your Free Growth Plan",
+                "cta.desc": "In 30 minutes, we'll audit your current tech stack and deliver a custom roadmap showing exactly where AI and automation will increase revenue and cut costs.",
+                "form.name": "Your Name", "form.email": "Business Email", "form.company": "Company Name",
+                "form.whatsapp": "WhatsApp (optional)", "form.submit": "Claim Your Free Plan",
+                "form.note": "Usually $500. Free for qualified businesses. No commitment.",
+                "faq.title": "Common Questions", "faq.subtitle": "Everything you need to know about custom software ownership",
+                "faq.q1": "How long does custom software take to build?", 
+                "faq.a1": "Most MVPs ship in 4-8 weeks. Enterprise solutions typically take 3-6 months. We use agile methodologies with weekly demos so you see progress constantly.",
+                "faq.q2": "What does 'owning' the software mean exactly?", 
+                "faq.a2": "You get 100% of the source code, database rights, and IP. No licenses, no subscriptions, no vendor lock-in. Deploy it anywhere, modify it anytime, sell it if you want.",
+                "faq.q3": "Isn't custom software more expensive than SaaS?", 
+                "faq.a3": "Short-term: yes. Long-term: no. If you're spending $3k+/month on SaaS tools, a $30k custom solution pays for itself in 10 months—and then it's free forever while scaling with you.",
+                "faq.q4": "Do you provide support after launch?", 
+                "faq.a4": "Yes. We offer 3-12 month support packages covering bug fixes, updates, and optimizations. After that, we can train your team or remain on retainer.",
+                "final.title1": "STOP RENTING.", "final.title2": "START OWNING.",
+                "final.subtitle": "Your competitors are already building. How long will you wait?",
+                "final.whatsapp": "WhatsApp Direct", "final.back": "Back to Free Plan",
+                "footer.company": "Company", "footer.about": "About", "footer.cases": "Case Studies",
+                "footer.solutions.title": "Solutions", "footer.solutions.custom": "Custom Development", 
+                "footer.solutions.ai": "AI Automation", "footer.solutions.analytics": "Analytics",
+                "footer.resources": "Resources", "footer.contact": "Contact",
+                "footer.made": "Made with", "footer.brazil": "in Brazil.", "footer.initiative": "An initiative by"
+            },
+            en: { "nav.evidence": "Evidence", "nav.authority": "Credibility", "nav.philosophy": "Philosophy", "nav.problem": "The Problem", "nav.story": "Our Story", "nav.cta": "Book Consultation", "hero.line1": "WE BUILD THE", "hero.line2": "SOFTWARE YOU OWN.", "hero.line3": "NOT RENT.", "footer.brazil": "in Brazil." },
+            es: { "nav.evidence": "Evidencias", "nav.authority": "Credibilidad", "nav.philosophy": "Filosofía", "nav.problem": "El Problema", "nav.story": "Nuestra Historia", "nav.cta": "Agendar Consulta", "hero.line1": "CREAMOS EL", "hero.line2": "SOFTWARE QUE TIENES.", "hero.line3": "NO ALQUILAS.", "footer.brazil": "en Brasil." },
+            it: { "nav.evidence": "Evidenze", "nav.authority": "Credibilità", "nav.philosophy": "Filosofia", "nav.problem": "Il Problema", "nav.story": "La Nostra Storia", "nav.cta": "Prenota Consulenza", "hero.line1": "COSTRUIAMO IL", "hero.line2": "SOFTWARE CHE POSSIEDI.", "hero.line3": "NON AFFITTI.", "footer.brazil": "in Brasile." },
+            de: { "nav.evidence": "Beweise", "nav.authority": "Glaubwürdigkeit", "nav.philosophy": "Philosophie", "nav.problem": "Das Problem", "nav.story": "Unsere Geschichte", "nav.cta": "Beratung Terminieren", "hero.line1": "WIR BAUEN DIE", "hero.line2": "SOFTWARE DIE DIR GEHÖRT.", "hero.line3": "NICHT MIETEN.", "footer.brazil": "in Brasilien." },
+            fr: { "nav.evidence": "Preuves", "nav.authority": "Crédibilité", "nav.philosophy": "Philosophie", "nav.problem": "Le Problème", "nav.story": "Notre Histoire", "nav.cta": "Prendre Rendez-vous", "hero.line1": "NOUS CONSTRUISONS LE", "hero.line2": "LOGICIEL QUE VOUS POSSEDEZ.", "hero.line3": "PAS EN LOCATION.", "footer.brazil": "au Brésil." },
+            ar: { "nav.evidence": "الأدلة", "nav.authority": "المصداقية", "nav.philosophy": "الفلسفة", "nav.problem": "المشكلة", "nav.story": "قصتنا", "nav.cta": "حجز استشارة", "hero.line1": "نحن نبني", "hero.line2": "البرمجيات التي تمتلكها.", "hero.line3": "لا الإيجار.", "footer.brazil": "في البرازيل." }
+        };
+
+        const defaultLang = 'en';
+
+        function changeLanguage(lang) {
+            localStorage.setItem('preferredLanguage', lang);
+            document.documentElement.lang = lang;
+            if (lang === 'ar') { document.documentElement.dir = 'rtl'; } 
+            else { document.documentElement.dir = 'ltr'; }
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const text = getNestedTranslation(translations, lang, key) || getNestedTranslation(translations, defaultLang, key) || el.textContent;
+                el.textContent = text;
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                const text = getNestedTranslation(translations, lang, key) || getNestedTranslation(translations, defaultLang, key) || el.placeholder;
+                el.placeholder = text;
+            });
+        }
+
+        function getNestedTranslation(obj, lang, key) {
+            if (!obj[lang]) return null;
+            return key.split('.').reduce((o, i) => o && o[i], obj[lang]);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('preferredLanguage') || 'pt';
+            const selector = document.getElementById('languageSelector');
+            if (selector) selector.value = savedLang;
+            changeLanguage(savedLang);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined') return;
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.set(".line-reveal > span", { y: "100%", opacity: 0 });
+            gsap.set(".hero-fade", { y: 30, opacity: 0 });
+            const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+            tl.to(".line-reveal > span", { y: 0, opacity: 1, duration: 1, stagger: 0.1, delay: 0.2 })
+              .to(".hero-fade", { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, "-=0.5");
+
+            ScrollTrigger.create({
+                trigger: "body", start: "top -100",
+                onUpdate: (self) => {
+                    const navLine = document.getElementById('navLine');
+                    const navbar = document.getElementById('navbar');
+                    if (!navLine || !navbar) return;
+                    if (self.scroll() > 100) {
+                        gsap.to(navLine, { scaleX: 1, duration: 0.3 });
+                        gsap.to(navbar, { backgroundColor: "rgba(0,0,0,0.95)", backdropFilter: "blur(20px)" });
+                    } else {
+                        gsap.to(navLine, { scaleX: 0, duration: 0.3 });
+                        gsap.to(navbar, { backgroundColor: "transparent", backdropFilter: "blur(0px)" });
+                    }
+                }
+            });
+
+            document.querySelectorAll('section:not(:first-child)').forEach(section => {
+                gsap.fromTo(section.querySelectorAll('h2, h3, p, .cred-card, .glass, .faq-item'), 
+                    { opacity: 0, y: 40 },
+                    { opacity: 1, y: 0, duration: 0.8, stagger: 0.05, ease: "power3.out", scrollTrigger: { trigger: section, start: "top 85%", toggleActions: "play none none reverse" }}
+                );
+            });
+
+            document.querySelectorAll('.counter').forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const suffix = counter.innerHTML.replace(/[0-9]/g, '');
+                ScrollTrigger.create({
+                    trigger: counter, start: "top 90%", once: true,
+                    onEnter: () => {
+                        gsap.to(counter, {
+                            innerHTML: target, duration: 2, snap: { innerHTML: 1 },
+                            onUpdate: function() { counter.innerHTML = Math.round(this.targets()[0].innerHTML) + suffix; }
+                        });
+                    }
+                });
+            });
+
+            if (window.matchMedia("(hover: hover)").matches) {
+                document.querySelectorAll('.magnetic-btn').forEach(btn => {
+                    btn.addEventListener('mousemove', (e) => {
+                        const rect = btn.getBoundingClientRect();
+                        gsap.to(btn, { x: (e.clientX - rect.left - rect.width/2) * 0.3, y: (e.clientY - rect.top - rect.height/2) * 0.3, duration: 0.3 });
+                    });
+                    btn.addEventListener('mouseleave', () => {
+                        gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+                    });
+                });
+            }
+
+            let mouseX = 0, mouseY = 0;
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+                gsap.to('.tech-grid', { x: mouseX * -20, y: mouseY * -20, duration: 1 });
+                gsap.to('.glow-apple', { x: mouseX * 40, y: mouseY * 40, duration: 1.5 });
+            }, { passive: true });
+        });
+
+        function toggleFAQ(el) {
+            const wasActive = el.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+            if (!wasActive) el.classList.add('active');
+        }
+    </script>
+</body>
+</html>
