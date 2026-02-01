@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obra 360° — Gestão Premium de Obras</title>
+    <!-- © 2026 APXLBS.COM e DBE11 LTDA - CNPJ: 53.903.617/0001-83. Todos os direitos reservados. Proibida a reprodução total ou parcial sem autorização expressa. -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -60,10 +62,25 @@
     </script>
     
     <style>
+        /* PROTEÇÃO DE PROPRIEDADE INTELECTUAL 
+           © 2026 APXLBS.COM e DBE11 LTDA - CNPJ: 53.903.617/0001-83
+           Este código é protegido por direitos autorais. 
+           Proibida cópia, modificação ou distribuição não autorizada. */
+        
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            user-select: none; /* Proteção básica contra cópia */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+        }
+        
+        /* Permitir seleção em inputs específicos */
+        input, textarea {
+            user-select: text;
+            -webkit-user-select: text;
         }
         
         /* Apple-style transitions */
@@ -164,6 +181,42 @@
             position: relative;
             height: 100%;
             width: 100%;
+        }
+        
+        /* Modal animations */
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        .modal-animate {
+            animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        /* Timeline */
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #d4a373, transparent);
+        }
+        
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        
+        /* Glass morphism for modal */
+        .modal-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        .dark .modal-glass {
+            background: rgba(30, 30, 30, 0.95);
         }
     </style>
 </head>
@@ -389,7 +442,7 @@
                                     </span>
                                 </div>
                                 <p class="text-3xl font-semibold text-gray-900 dark:text-white mb-1">R$ 3.2M</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Receita 2024</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Receita 2026</p>
                                 <div class="mt-4 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                                     <div class="h-full progress-fill bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full" style="width: 68%"></div>
                                 </div>
@@ -417,7 +470,7 @@
                                     <span class="text-purple-600 text-sm font-semibold">85%</span>
                                 </div>
                                 <p class="text-3xl font-semibold text-gray-900 dark:text-white mb-1">R$ 850K</p>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Meta Q4 (Faltam R$ 150K)</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Meta Q4 2026 (Faltam R$ 150K)</p>
                                 <div class="mt-4 h-1.5 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
                                     <div class="h-full progress-fill bg-gradient-to-r from-purple-400 to-purple-600 rounded-full" style="width: 85%"></div>
                                 </div>
@@ -440,7 +493,7 @@
 
                                 <div class="space-y-4">
                                     <!-- Obra 1 -->
-                                    <div class="group p-5 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-transparent hover:border-sand-300 dark:hover:border-sand-700 transition-all cursor-pointer hover:shadow-lg">
+                                    <div class="group p-5 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-transparent hover:border-sand-300 dark:hover:border-sand-700 transition-all cursor-pointer hover:shadow-lg" onclick="openObraModal('vista-mar')">
                                         <div class="flex items-start justify-between mb-4">
                                             <div class="flex items-center gap-4">
                                                 <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-sand-200 to-sand-300 dark:from-sand-800 dark:to-sand-900 flex items-center justify-center">
@@ -483,7 +536,7 @@
                                     </div>
 
                                     <!-- Obra 2 -->
-                                    <div class="p-5 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-transparent hover:border-ocean-300 dark:hover:border-ocean-700 transition-all cursor-pointer hover:shadow-lg">
+                                    <div class="p-5 rounded-2xl bg-white/50 dark:bg-gray-800/50 border border-transparent hover:border-ocean-300 dark:hover:border-ocean-700 transition-all cursor-pointer hover:shadow-lg" onclick="openObraModal('paraiso')">
                                         <div class="flex items-start justify-between mb-4">
                                             <div class="flex items-center gap-4">
                                                 <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-ocean-200 to-ocean-300 dark:from-ocean-800 dark:to-ocean-900 flex items-center justify-center">
@@ -529,7 +582,7 @@
                             <!-- Pipeline & Hot Lead -->
                             <div class="space-y-6">
                                 <div class="glass-card rounded-3xl p-6">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Pipeline Q4</h3>
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6">Pipeline Q4 2026</h3>
                                     
                                     <div class="space-y-4">
                                         <div class="flex items-center justify-between p-4 rounded-2xl bg-gradient-to-r from-sand-50 to-white dark:from-sand-900/20 dark:to-gray-800/50 border border-sand-100 dark:border-sand-800 hover:shadow-md transition-all cursor-pointer">
@@ -674,7 +727,7 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                             <!-- Obra Cards (repeated from dashboard + more) -->
-                            <div class="glass-card rounded-3xl overflow-hidden hover-lift group">
+                            <div class="glass-card rounded-3xl overflow-hidden hover-lift group cursor-pointer" onclick="openObraModal('vista-mar')">
                                 <div class="h-40 bg-gradient-to-br from-sand-200 to-sand-300 dark:from-sand-800 dark:to-sand-900 relative overflow-hidden">
                                     <div class="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
                                     <div class="absolute top-4 right-4 px-3 py-1.5 bg-white/90 dark:bg-gray-900/90 backdrop-blur text-sand-700 dark:text-sand-300 text-xs font-bold rounded-full shadow-lg">
@@ -706,7 +759,7 @@
                                         </div>
                                         <div class="flex justify-between text-sm">
                                             <span class="text-gray-500">Entrega</span>
-                                            <span class="font-medium text-amber-600">20 dias</span>
+                                            <span class="font-medium text-amber-600">15 Fev 2026</span>
                                         </div>
                                     </div>
 
@@ -721,7 +774,7 @@
                                 </div>
                             </div>
 
-                            <div class="glass-card rounded-3xl overflow-hidden hover-lift group">
+                            <div class="glass-card rounded-3xl overflow-hidden hover-lift group cursor-pointer" onclick="openObraModal('paraiso')">
                                 <div class="h-40 bg-gradient-to-br from-ocean-200 to-ocean-300 dark:from-ocean-800 dark:to-ocean-900 relative overflow-hidden">
                                     <div class="absolute top-4 right-4 px-3 py-1.5 bg-white/90 dark:bg-gray-900/90 backdrop-blur text-ocean-700 dark:text-ocean-300 text-xs font-bold rounded-full shadow-lg">
                                         45% Concluído
@@ -747,7 +800,7 @@
                                         </div>
                                         <div class="flex justify-between text-sm">
                                             <span class="text-gray-500">Entrega</span>
-                                            <span class="font-medium text-gray-600 dark:text-gray-400">60 dias</span>
+                                            <span class="font-medium text-gray-600 dark:text-gray-400">20 Mar 2026</span>
                                         </div>
                                     </div>
 
@@ -762,7 +815,7 @@
                                 </div>
                             </div>
 
-                            <div class="glass-card rounded-3xl overflow-hidden hover-lift group opacity-75">
+                            <div class="glass-card rounded-3xl overflow-hidden hover-lift group opacity-75 cursor-pointer" onclick="openObraModal('chacara')">
                                 <div class="h-40 bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 relative overflow-hidden">
                                     <div class="absolute inset-0 flex items-center justify-center">
                                         <span class="px-4 py-2 bg-amber-500 text-white text-sm font-bold rounded-full shadow-lg">Aguardando material</span>
@@ -788,7 +841,7 @@
                                         </div>
                                         <div class="flex justify-between text-sm">
                                             <span class="text-gray-500">Entrega</span>
-                                            <span class="font-medium text-gray-600 dark:text-gray-400">90 dias</span>
+                                            <span class="font-medium text-gray-600 dark:text-gray-400">30 Abr 2026</span>
                                         </div>
                                     </div>
 
@@ -974,8 +1027,8 @@
                             <div class="flex items-center gap-3">
                                 <button class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl">Exportar</button>
                                 <select class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm">
-                                    <option>Novembro 2024</option>
-                                    <option>Outubro 2024</option>
+                                    <option>Novembro 2026</option>
+                                    <option>Outubro 2026</option>
                                 </select>
                             </div>
                         </div>
@@ -1016,56 +1069,11 @@
                             </div>
                         </div>
 
-                        <!-- Chart Section -->
+                        <!-- Real Chart Section with Chart.js -->
                         <div class="glass-card rounded-3xl p-6">
                             <h3 class="font-semibold text-gray-900 dark:text-white mb-6">Fluxo de Caixa (Últimos 6 meses)</h3>
-                            <div class="h-64 w-full bg-gradient-to-b from-gray-50 to-white dark:from-gray-900/50 dark:to-gray-900 rounded-2xl flex items-end justify-between px-8 pb-8 pt-12 gap-4">
-                                <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
-                                    <div class="w-full bg-sand-200 dark:bg-sand-800 rounded-t-lg relative overflow-hidden transition-all group-hover:bg-sand-300 dark:group-hover:bg-sand-700" style="height: 60%">
-                                        <div class="absolute bottom-0 w-full bg-emerald-400 dark:bg-emerald-600 transition-all" style="height: 70%"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Jun</span>
-                                </div>
-                                <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
-                                    <div class="w-full bg-sand-200 dark:bg-sand-800 rounded-t-lg relative overflow-hidden transition-all group-hover:bg-sand-300" style="height: 75%">
-                                        <div class="absolute bottom-0 w-full bg-emerald-400 dark:bg-emerald-600" style="height: 65%"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Jul</span>
-                                </div>
-                                <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
-                                    <div class="w-full bg-sand-200 dark:bg-sand-800 rounded-t-lg relative overflow-hidden transition-all group-hover:bg-sand-300" style="height: 45%">
-                                        <div class="absolute bottom-0 w-full bg-emerald-400 dark:bg-emerald-600" style="height: 60%"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Ago</span>
-                                </div>
-                                <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
-                                    <div class="w-full bg-sand-200 dark:bg-sand-800 rounded-t-lg relative overflow-hidden transition-all group-hover:bg-sand-300" style="height: 85%">
-                                        <div class="absolute bottom-0 w-full bg-emerald-400 dark:bg-emerald-600" style="height: 72%"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Set</span>
-                                </div>
-                                <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
-                                    <div class="w-full bg-sand-200 dark:bg-sand-800 rounded-t-lg relative overflow-hidden transition-all group-hover:bg-sand-300" style="height: 70%">
-                                        <div class="absolute bottom-0 w-full bg-emerald-400 dark:bg-emerald-600" style="height: 68%"></div>
-                                    </div>
-                                    <span class="text-xs text-gray-500">Out</span>
-                                </div>
-                                <div class="flex-1 flex flex-col items-center gap-2 group cursor-pointer">
-                                    <div class="w-full bg-sand-200 dark:bg-sand-800 rounded-t-lg relative overflow-hidden transition-all ring-2 ring-sand-400" style="height: 90%">
-                                        <div class="absolute bottom-0 w-full bg-emerald-400 dark:bg-emerald-600" style="height: 75%"></div>
-                                    </div>
-                                    <span class="text-xs font-semibold text-sand-600">Nov</span>
-                                </div>
-                            </div>
-                            <div class="flex items-center justify-center gap-6 mt-4">
-                                <div class="flex items-center gap-2">
-                                    <div class="w-3 h-3 rounded-full bg-emerald-400 dark:bg-emerald-600"></div>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Receita</span>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <div class="w-3 h-3 rounded-full bg-sand-300 dark:bg-sand-700"></div>
-                                    <span class="text-sm text-gray-600 dark:text-gray-400">Despesa</span>
-                                </div>
+                            <div class="relative h-80 w-full">
+                                <canvas id="financeChart"></canvas>
                             </div>
                         </div>
 
@@ -1159,18 +1167,18 @@
                                 <p class="text-sm text-gray-600 font-medium mb-3">Auxiliar</p>
                                 <span class="inline-flex items-center gap-1 text-xs text-gray-500 bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-full">
                                     <i data-lucide="clock" class="w-3 h-3"></i>
-                                    Férias até 15/12
+                                    Férias até 15/01/2026
                                 </span>
                             </div>
                         </div>
 
                         <!-- Work Schedule -->
                         <div class="glass-card rounded-3xl p-6">
-                            <h3 class="font-semibold text-gray-900 dark:text-white mb-6">Escala da Semana</h3>
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-6">Escala da Semana - Janeiro 2026</h3>
                             <div class="grid grid-cols-7 gap-2 text-center">
                                 <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/50">
                                     <div class="text-xs font-medium text-gray-500 mb-1">SEG</div>
-                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">18</div>
+                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">19</div>
                                     <div class="mt-2 space-y-1">
                                         <div class="text-xs p-1.5 bg-sand-100 text-sand-700 rounded-lg truncate">Vista Mar</div>
                                         <div class="text-xs p-1.5 bg-ocean-100 text-ocean-700 rounded-lg truncate">Paraíso</div>
@@ -1178,32 +1186,32 @@
                                 </div>
                                 <div class="p-3 rounded-xl bg-sand-50 dark:bg-sand-900/20 ring-2 ring-sand-200 dark:ring-sand-800">
                                     <div class="text-xs font-medium text-sand-600 mb-1">TER</div>
-                                    <div class="text-lg font-semibold text-sand-700 dark:text-sand-300">19</div>
+                                    <div class="text-lg font-semibold text-sand-700 dark:text-sand-300">20</div>
                                     <div class="mt-2 text-xs text-gray-400">Hoje</div>
                                 </div>
                                 <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/50 opacity-50">
                                     <div class="text-xs font-medium text-gray-500 mb-1">QUA</div>
-                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">20</div>
+                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">21</div>
                                 </div>
                                 <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/50">
                                     <div class="text-xs font-medium text-gray-500 mb-1">QUI</div>
-                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">21</div>
+                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">22</div>
                                     <div class="mt-2 space-y-1">
                                         <div class="text-xs p-1.5 bg-purple-100 text-purple-700 rounded-lg truncate">Reunião</div>
                                     </div>
                                 </div>
                                 <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/50">
                                     <div class="text-xs font-medium text-gray-500 mb-1">SEX</div>
-                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">22</div>
+                                    <div class="text-lg font-semibold text-gray-900 dark:text-white">23</div>
                                 </div>
                                 <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/30">
                                     <div class="text-xs font-medium text-gray-400 mb-1">SÁB</div>
-                                    <div class="text-lg font-semibold text-gray-400">23</div>
+                                    <div class="text-lg font-semibold text-gray-400">24</div>
                                     <div class="mt-2 text-xs text-gray-400">Folga</div>
                                 </div>
                                 <div class="p-3 rounded-xl bg-gray-50 dark:bg-gray-900/30">
                                     <div class="text-xs font-medium text-gray-400 mb-1">DOM</div>
-                                    <div class="text-lg font-semibold text-gray-400">24</div>
+                                    <div class="text-lg font-semibold text-gray-400">25</div>
                                     <div class="mt-2 text-xs text-gray-400">Folga</div>
                                 </div>
                             </div>
@@ -1218,7 +1226,7 @@
                                 <button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors">
                                     <i data-lucide="chevron-left" class="w-5 h-5"></i>
                                 </button>
-                                <span class="font-medium text-lg">Novembro 2024</span>
+                                <span class="font-medium text-lg">Janeiro 2026</span>
                                 <button class="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors">
                                     <i data-lucide="chevron-right" class="w-5 h-5"></i>
                                 </button>
@@ -1267,7 +1275,7 @@
                                     <div class="text-sm text-gray-400">28</div>
                                 </div>
                                 <div class="p-2 border-b border-r border-gray-200 dark:border-gray-800 h-32">
-                                    <div class="text-sm font-bold text-sand-600 bg-sand-100 w-7 h-7 flex items-center justify-center rounded-full">19</div>
+                                    <div class="text-sm font-bold text-sand-600 bg-sand-100 w-7 h-7 flex items-center justify-center rounded-full">20</div>
                                     <div class="mt-1 text-xs p-1.5 bg-amber-100 text-amber-700 rounded-lg border border-amber-200">
                                         <strong>14:00</strong> - Visita Carlos E.
                                         <div class="text-amber-600 mt-0.5">R$ 520K potencial</div>
@@ -1275,17 +1283,17 @@
                                     <div class="text-xs p-1.5 bg-sand-100 text-sand-700 rounded-lg mt-1 truncate">16:30 - Vista Mar</div>
                                 </div>
                                 <div class="p-2 border-b border-r border-gray-200 dark:border-gray-800 h-32">
-                                    <div class="text-sm text-gray-700 dark:text-gray-300">20</div>
-                                </div>
-                                <div class="p-2 border-b border-r border-gray-200 dark:border-gray-800 h-32">
                                     <div class="text-sm text-gray-700 dark:text-gray-300">21</div>
-                                    <div class="text-xs p-1.5 bg-purple-100 text-purple-700 rounded-lg truncate">Reunião equipe</div>
                                 </div>
                                 <div class="p-2 border-b border-r border-gray-200 dark:border-gray-800 h-32">
                                     <div class="text-sm text-gray-700 dark:text-gray-300">22</div>
+                                    <div class="text-xs p-1.5 bg-purple-100 text-purple-700 rounded-lg truncate">Reunião equipe</div>
+                                </div>
+                                <div class="p-2 border-b border-r border-gray-200 dark:border-gray-800 h-32">
+                                    <div class="text-sm text-gray-700 dark:text-gray-300">23</div>
                                 </div>
                                 <div class="p-2 border-b border-r border-gray-200 dark:border-gray-800 h-32 bg-gray-50/50 dark:bg-gray-900/20">
-                                    <div class="text-sm text-gray-400">23</div>
+                                    <div class="text-sm text-gray-400">24</div>
                                 </div>
                             </div>
                         </div>
@@ -1319,7 +1327,282 @@
         </main>
     </div>
 
+    <!-- Modal de Detalhamento de Obra -->
+    <div id="obraModal" class="fixed inset-0 z-[60] hidden">
+        <div class="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity" onclick="closeObraModal()"></div>
+        <div class="absolute inset-x-4 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[800px] top-20 bottom-4 md:bottom-auto modal-glass rounded-3xl shadow-2xl overflow-hidden flex flex-col modal-animate max-h-[90vh]">
+            <!-- Header -->
+            <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between bg-gradient-to-r from-sand-50 to-white dark:from-gray-900 dark:to-gray-800">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-sand-400 to-sand-600 flex items-center justify-center shadow-lg">
+                        <i data-lucide="home" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div>
+                        <h2 id="modalObraTitle" class="text-xl font-bold text-gray-900 dark:text-white">Residência Vista Mar</h2>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">ID: #OB-2026-001 • Iniciada em 15/09/2025</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-sm font-bold rounded-full">Em Andamento</span>
+                    <button onclick="closeObraModal()" class="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl transition-colors">
+                        <i data-lucide="x" class="w-6 h-6 text-gray-500"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex-1 overflow-y-auto p-6">
+                <!-- Progress Overview -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-400">Progresso Geral</span>
+                        <span id="modalProgressText" class="text-2xl font-bold text-sand-600 dark:text-sand-400">78%</span>
+                    </div>
+                    <div class="h-3 bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+                        <div id="modalProgressBar" class="h-full bg-gradient-to-r from-sand-400 to-sand-600 rounded-full transition-all duration-1000" style="width: 78%"></div>
+                    </div>
+                    <div class="mt-2 text-sm text-gray-500 dark:text-gray-400">Previsão de entrega: <span class="font-semibold text-gray-900 dark:text-white">15 de Fevereiro de 2026</span></div>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex gap-2 mb-6 border-b border-gray-200 dark:border-gray-700 pb-1">
+                    <button onclick="switchObraTab('resumo')" data-obra-tab="resumo" class="px-4 py-2 text-sm font-medium text-sand-600 dark:text-sand-400 border-b-2 border-sand-500 transition-colors">Resumo</button>
+                    <button onclick="switchObraTab('cronograma')" data-obra-tab="cronograma" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Cronograma</button>
+                    <button onclick="switchObraTab('materiais')" data-obra-tab="materiais" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Materiais</button>
+                    <button onclick="switchObraTab('financeiro')" data-obra-tab="financeiro" class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">Financeiro</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="obra-tab-resumo" class="obra-tab-content space-y-6">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl text-center">
+                            <p class="text-xs text-gray-500 mb-1">Área Total</p>
+                            <p class="text-xl font-bold text-gray-900 dark:text-white">80m²</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl text-center">
+                            <p class="text-xs text-gray-500 mb-1">Valor Contrato</p>
+                            <p class="text-xl font-bold text-gray-900 dark:text-white">R$ 420K</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl text-center">
+                            <p class="text-xs text-gray-500 mb-1">Dias Restantes</p>
+                            <p class="text-xl font-bold text-amber-600">26 dias</p>
+                        </div>
+                        <div class="p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl text-center">
+                            <p class="text-xs text-gray-500 mb-1">Equipe</p>
+                            <p class="text-xl font-bold text-gray-900 dark:text-white">4 pessoas</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Fotos Recentes</h3>
+                        <div class="grid grid-cols-3 gap-3">
+                            <div class="aspect-square bg-gradient-to-br from-sand-200 to-sand-300 dark:from-sand-800 dark:to-sand-900 rounded-xl flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+                                <i data-lucide="image" class="w-8 h-8 text-sand-600/50"></i>
+                            </div>
+                            <div class="aspect-square bg-gradient-to-br from-ocean-200 to-ocean-300 dark:from-ocean-800 dark:to-ocean-900 rounded-xl flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+                                <i data-lucide="image" class="w-8 h-8 text-ocean-600/50"></i>
+                            </div>
+                            <div class="aspect-square bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-900 rounded-xl flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity">
+                                <i data-lucide="image" class="w-8 h-8 text-gray-600/50"></i>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2 text-center">Última atualização: Ontem, 18:30</p>
+                    </div>
+                </div>
+
+                <div id="obra-tab-cronograma" class="obra-tab-content hidden space-y-4">
+                    <div class="relative pl-8 space-y-6">
+                        <div class="timeline-item relative">
+                            <div class="absolute left-[-25px] w-5 h-5 rounded-full bg-emerald-500 border-4 border-white dark:border-gray-800 shadow"></div>
+                            <div class="glass-card rounded-2xl p-4 border-l-4 border-emerald-500">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Fundação e Estrutura</h4>
+                                    <span class="text-xs font-bold text-emerald-600">Concluído</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Concretagem da base e instalação de armaduras concluídas.</p>
+                                <p class="text-xs text-gray-400">01 Out - 20 Out 2025</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item relative">
+                            <div class="absolute left-[-25px] w-5 h-5 rounded-full bg-emerald-500 border-4 border-white dark:border-gray-800 shadow"></div>
+                            <div class="glass-card rounded-2xl p-4 border-l-4 border-emerald-500">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Instalações Hidráulicas</h4>
+                                    <span class="text-xs font-bold text-emerald-600">Concluído</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Tubulação de água e drenagem instalada e testada.</p>
+                                <p class="text-xs text-gray-400">21 Out - 05 Nov 2025</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item relative">
+                            <div class="absolute left-[-25px] w-5 h-5 rounded-full bg-sand-500 border-4 border-white dark:border-gray-800 shadow animate-pulse"></div>
+                            <div class="glass-card rounded-2xl p-4 border-l-4 border-sand-500 bg-sand-50/50 dark:bg-sand-900/20">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Revestimento Areia®</h4>
+                                    <span class="text-xs font-bold text-amber-600">Em Andamento</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Aplicação da resina e acabamento natural.</p>
+                                <p class="text-xs text-gray-400">06 Nov 2025 - 20 Jan 2026</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item relative opacity-50">
+                            <div class="absolute left-[-25px] w-5 h-5 rounded-full bg-gray-300 dark:bg-gray-600 border-4 border-white dark:border-gray-800"></div>
+                            <div class="glass-card rounded-2xl p-4 border-l-4 border-gray-300 dark:border-gray-600">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">Acabamento Final</h4>
+                                    <span class="text-xs font-bold text-gray-400">Pendente</span>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">Limpeza, vistoria e entrega das chaves.</p>
+                                <p class="text-xs text-gray-400">Previsto: 25 Jan - 15 Fev 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="obra-tab-materiais" class="obra-tab-content hidden space-y-4">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-2xl border border-red-100 dark:border-red-800">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center">
+                                    <i data-lucide="alert-circle" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-900 dark:text-white">Resina Areia® Premium</p>
+                                    <p class="text-sm text-red-600">Estoque crítico - 2 unidades restantes</p>
+                                </div>
+                            </div>
+                            <button class="px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-xl hover:bg-red-600 transition-colors">Pedir</button>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-2xl border border-emerald-100 dark:border-emerald-800">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center">
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-900 dark:text-white">Cimento CP II</p>
+                                    <p class="text-sm text-emerald-600">Estoque adequado - 50 sacos</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">Ok</span>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-900 rounded-2xl">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                                    <i data-lucide="box" class="w-5 h-5 text-gray-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-gray-900 dark:text-white">Areia Média</p>
+                                    <p class="text-sm text-gray-500">15m³ disponíveis</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">Ok</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="obra-tab-financeiro" class="obra-tab-content hidden">
+                    <div class="space-y-4">
+                        <div class="glass-card rounded-2xl p-6">
+                            <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Fluxo de Pagamentos</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Entrada (30%)</p>
+                                        <p class="text-xs text-gray-500">Assinatura do contrato</p>
+                                    </div>
+                                    <span class="font-bold text-emerald-600">R$ 126.000 ✓</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">2ª Parcela (30%)</p>
+                                        <p class="text-xs text-gray-500">Conclusão da fundação</p>
+                                    </div>
+                                    <span class="font-bold text-emerald-600">R$ 126.000 ✓</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200 dark:border-amber-800">
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">3ª Parcela (30%)</p>
+                                        <p class="text-xs text-amber-600">Vencimento próximo</p>
+                                    </div>
+                                    <span class="font-bold text-amber-600">R$ 126.000</span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-900 rounded-xl opacity-50">
+                                    <div>
+                                        <p class="font-medium text-gray-900 dark:text-white">Entrega (10%)</p>
+                                        <p class="text-xs text-gray-500">Finalização</p>
+                                    </div>
+                                    <span class="font-bold text-gray-600">R$ 42.000</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-4 bg-sand-50 dark:bg-sand-900/20 rounded-2xl border border-sand-200 dark:border-sand-800">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="font-semibold text-gray-900 dark:text-white">Total Recebido</span>
+                                <span class="text-xl font-bold text-sand-600">R$ 252.000</span>
+                            </div>
+                            <div class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                <div class="h-full bg-sand-500 rounded-full" style="width: 60%"></div>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-2">60% do valor total do contrato</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 flex gap-3">
+                <button class="flex-1 py-3 bg-sand-500 text-white rounded-xl font-semibold hover:bg-sand-600 transition-colors btn-press">
+                    Ver Relatório Completo
+                </button>
+                <button class="px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i data-lucide="share-2" class="w-5 h-5 text-gray-600 dark:text-gray-400"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // PROTEÇÃO DE PROPRIEDADE INTELECTUAL
+        // © 2026 APXLBS.COM e DBE11 LTDA - CNPJ: 53.903.617/0001-83
+        // Proibida a reprodução, distribuição ou modificação não autorizada.
+        
+        // Proteção contra cópia
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+        
+        document.addEventListener('keydown', function(e) {
+            // Desabilitar F12, Ctrl+Shift+I, Ctrl+U, Ctrl+S
+            if (e.key === 'F12' || 
+                (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+                (e.ctrlKey && e.key === 'u') || 
+                (e.ctrlKey && e.key === 's')) {
+                e.preventDefault();
+                showSecurityAlert();
+            }
+        });
+        
+        function showSecurityAlert() {
+            const alert = document.createElement('div');
+            alert.className = 'fixed top-4 left-1/2 -translate-x-1/2 bg-red-500 text-white px-6 py-3 rounded-full shadow-lg z-[100] animate-slide-up';
+            alert.textContent = '© 2026 APXLBS.COM - Acesso não autorizado detectado';
+            document.body.appendChild(alert);
+            setTimeout(() => alert.remove(), 3000);
+        }
+        
+        // Marca d'água no console
+        console.log('%c© 2026 APXLBS.COM e DBE11 LTDA', 'font-size: 24px; font-weight: bold; color: #d4a373;');
+        console.log('%cCNPJ: 53.903.617/0001-83 - Todos os direitos reservados', 'font-size: 14px; color: #666;');
+        console.log('%cEste é um sistema protegido. Cópia não autorizada é estritamente proibida.', 'font-size: 12px; color: #999; font-style: italic;');
+
         // Initialize Lucide icons
         lucide.createIcons();
 
@@ -1333,11 +1616,107 @@
                 html.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
             }
+            updateCharts();
         }
 
         // Check saved theme
         if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
+        }
+
+        // Chart.js Configuration
+        let financeChart = null;
+
+        function initFinanceChart() {
+            const ctx = document.getElementById('financeChart');
+            if (!ctx) return;
+            
+            const isDark = document.documentElement.classList.contains('dark');
+            const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)';
+            const textColor = isDark ? '#9ca3af' : '#6b7280';
+
+            financeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov'],
+                    datasets: [{
+                        label: 'Receita',
+                        data: [320, 380, 290, 420, 350, 485],
+                        backgroundColor: '#10b981',
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                    }, {
+                        label: 'Despesa',
+                        data: [180, 200, 150, 220, 190, 142],
+                        backgroundColor: '#d4a373',
+                        borderRadius: 6,
+                        barPercentage: 0.6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: textColor,
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: isDark ? 'rgba(30, 30, 30, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+                            titleColor: isDark ? '#fff' : '#111',
+                            bodyColor: isDark ? '#ccc' : '#333',
+                            borderColor: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': R$ ' + context.parsed.y.toLocaleString() + '.000';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                color: textColor
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: gridColor,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                color: textColor,
+                                callback: function(value) {
+                                    return 'R$ ' + value + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            if (financeChart) {
+                financeChart.destroy();
+                initFinanceChart();
+            }
         }
 
         // Login
@@ -1348,6 +1727,8 @@
                 loginScreen.classList.add('hidden');
                 document.getElementById('mainApp').classList.remove('hidden');
                 animateProgressBars();
+                // Initialize charts after login
+                setTimeout(initFinanceChart, 500);
             }, 500);
         }
 
@@ -1375,6 +1756,11 @@
             if (selectedTab) {
                 selectedTab.classList.remove('hidden');
                 animateProgressBars();
+                
+                // Initialize chart if on financeiro tab
+                if (tabName === 'financeiro' && !financeChart) {
+                    setTimeout(initFinanceChart, 100);
+                }
             }
 
             // Update title
@@ -1387,6 +1773,62 @@
                 'calendario': 'Agenda de Visitas'
             };
             document.getElementById('pageTitle').textContent = titles[tabName] || 'Dashboard';
+        }
+
+        // Modal Functions
+        function openObraModal(obraId) {
+            const modal = document.getElementById('obraModal');
+            const titles = {
+                'vista-mar': 'Residência Vista Mar',
+                'paraiso': 'Pousada Paraíso Natural',
+                'chacara': 'Chácara do Lago'
+            };
+            const progresses = {
+                'vista-mar': 78,
+                'paraiso': 45,
+                'chacara': 15
+            };
+            
+            document.getElementById('modalObraTitle').textContent = titles[obraId] || 'Detalhes da Obra';
+            document.getElementById('modalProgressText').textContent = progresses[obraId] + '%';
+            document.getElementById('modalProgressBar').style.width = progresses[obraId] + '%';
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            
+            // Reset tabs
+            switchObraTab('resumo');
+        }
+
+        function closeObraModal() {
+            const modal = document.getElementById('obraModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchObraTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('[data-obra-tab]').forEach(btn => {
+                btn.classList.remove('text-sand-600', 'dark:text-sand-400', 'border-b-2', 'border-sand-500');
+                btn.classList.add('text-gray-500', 'hover:text-gray-700');
+            });
+            
+            const activeBtn = document.querySelector(`[data-obra-tab="${tabName}"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-gray-500', 'hover:text-gray-700');
+                activeBtn.classList.add('text-sand-600', 'dark:text-sand-400', 'border-b-2', 'border-sand-500');
+            }
+
+            // Hide all tab contents
+            document.querySelectorAll('.obra-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            // Show selected
+            const selectedContent = document.getElementById(`obra-tab-${tabName}`);
+            if (selectedContent) {
+                selectedContent.classList.remove('hidden');
+            }
         }
 
         // Animate progress bars
@@ -1410,6 +1852,15 @@
         window.addEventListener('load', () => {
             // Any additional initialization
         });
+
+        // Expose functions globally
+        window.switchTab = switchTab;
+        window.toggleTheme = toggleTheme;
+        window.enterApp = enterApp;
+        window.toggleMobileMenu = toggleMobileMenu;
+        window.openObraModal = openObraModal;
+        window.closeObraModal = closeObraModal;
+        window.switchObraTab = switchObraTab;
     </script>
 </body>
 </html>
