@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Proposta Estratégica Exclusiva — Gustavo Ribeiro | Piscinas de Areia</title>
+    <meta name="description" content="Proposta exclusiva Obra 360° Elite para Piscinas de Areia. Sistema operacional sob medida para construção luxury.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        sand: {
+                            50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1',
+                            400: '#a8a29e', 500: '#d4a373', 600: '#bc8a5f', 700: '#a47e53',
+                            800: '#8b6f47', 900: '#735c3d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        html { -webkit-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; }
+        
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            line-height: 1.6; 
+            overflow-x: hidden;
+        }
+        
+        .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+        
+        .text-responsive-hero {
+            font-size: clamp(1.75rem, 5vw + 0.5rem, 4rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+        
+        .text-responsive-h2 {
+            font-size: clamp(1.5rem, 3vw + 0.5rem, 2.75rem);
+            line-height: 1.2;
+        }
+        
+        .text-responsive-body {
+            font-size: clamp(1rem, 1vw + 0.5rem, 1.125rem);
+            line-height: 1.7;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 163, 115, 0.15);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+        }
+        
+        .dark .glass-card {
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid rgba(212, 163, 115, 0.1);
+        }
+        
+        .timer-digit {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border: 1px solid rgba(212, 163, 115, 0.3);
+            color: #d4a373;
+            font-variant-numeric: tabular-nums;
+        }
+        
+        .touch-target { min-height: 44px; min-width: 44px; }
+        
+        @media (prefers-reduced-motion: no-preference) {
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+            }
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+        
+        .lock-screen {
+            position: fixed; inset: 0; background: rgba(0, 0, 0, 0.98);
+            z-index: 100; display: none; place-items: center; padding: 2rem;
+        }
+        .lock-screen.active { display: grid; }
+        
+        .pricing-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        
+        .pricing-card-featured {
+            background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        @media (min-width: 1024px) {
+            .pricing-card-featured { transform: scale(1.05); }
+        }
+        
+        .roi-badge {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+        
+        .check-green { color: #4ade80; }
+        .cross-gray { color: #6b7280; opacity: 0.5; }
+        
+        .nav-sticky {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .skip-link {
+            position: absolute; top: -40px; left: 0; background: #d4a373; color: white;
+            padding: 8px; text-decoration: none; z-index: 100;
+        }
+        .skip-link:focus { top: 0; }
+        
+        :focus-visible { outline: 2px solid #d4a373; outline-offset: 2px; }
+        
+        @media (max-width: 640px) {
+            .glass-card { margin-left: -0.5rem; margin-right: -0.5rem; }
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 antialiased">
+
+    <a href="#main-content" class="skip-link">Pular para conteúdo</a>
+
+    <!-- Lock Screen -->
+    <div id="lockScreen" class="lock-screen" role="alert">
+        <div class="text-center max-w-md mx-auto px-6">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full border-2 border-red-500 flex items-center justify-center">
+                <i data-lucide="lock" class="w-10 h-10 text-red-500"></i>
+            </div>
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-serif italic">Proposta Encerrada</h2>
+            <p class="text-lg text-gray-400 mb-8">
+                Esta proposta exclusiva expirou.<br>
+                <span class="text-sand-400">Entre em contato para uma nova avaliação.</span>
+            </p>
+            <a href="mailto:apexlabsdigital@gmail.com" class="inline-flex items-center gap-2 px-8 py-4 bg-sand-600 text-white rounded-full font-semibold hover:bg-sand-500 transition-all">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+                Solicitar Nova Proposta
+            </a>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <nav class="nav-sticky py-3 px-4 sm:px-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="text-sand-400 font-bold text-sm tracking-wider hidden sm:block">OBRA 360°</span>
+                <span class="text-gray-600 hidden sm:block">|</span>
+                <span class="text-xs text-gray-400 uppercase tracking-wider">Proposta Exclusiva</span>
+            </div>
+            <div id="timerNav" class="flex items-center gap-2 text-xs sm:text-sm">
+                <span class="text-gray-500 hidden sm:inline">Expira em:</span>
+                <div class="flex gap-1 font-mono">
+                    <span class="timer-digit px-1.5 py-1 rounded" id="navDays">07</span>
+                    <span class="text-sand-500">:</span>
+                    <span class="timer-digit px-1.5 py-1 rounded" id="navHours">00</span>
+                    <span class="text-sand-500">:</span>
+                    <span class="timer-digit px-1.5 py-1 rounded" id="navMinutes">00</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content" class="pt-14">
+        <!-- Hero Completo -->
+        <section class="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-sand-100 via-white to-sand-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900"></div>
+            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-sand-200/30 rounded-full blur-3xl -mr-48 -mt-48 pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sand-300/20 rounded-full blur-3xl -ml-24 -mb-24 pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-5xl mx-auto text-center">
+                <div class="mb-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs sm:text-sm">
+                    <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    <span>Oferta por tempo limitado</span>
+                </div>
+
+                <div class="inline-block mb-6 sm:mb-8">
+                    <span class="bg-gray-900 dark:bg-gray-800 text-sand-400 border border-sand-500/30 px-4 sm:px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase">
+                        Feito Sob Medida • Único • Não Escala
+                    </span>
+                </div>
+                
+                <h1 class="text-responsive-hero font-bold mb-6 sm:mb-8">
+                    Gustavo, você não precisa de<br>
+                    <span class="text-gray-400 line-through decoration-red-500/50">mais um software</span>.<br>
+                    <span class="font-serif italic text-sand-600 dark:text-sand-400 block mt-2">Você precisa de um sistema operacional</span>
+                    <span class="text-xl sm:text-2xl md:text-3xl font-normal text-gray-600 dark:text-gray-400 block mt-4">tão exclusivo quanto suas piscinas.</span>
+                </h1>
+                
+                <p class="text-responsive-body text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8 sm:mb-12 px-2 sm:px-0">
+                    Assim como você não vende "piscinas" — você vende experiências premium, feitas à mão, 
+                    que duram décadas — eu não estou vendendo código. Estou oferecendo <strong class="text-gray-900 dark:text-white">15 anos de experiência em digital e SaaS</strong> 
+                    condensados em uma operação que vai fazer a Piscinas de Areia funcionar com a precisão de um relógio suíço, 
+                    <span class="text-sand-600 font-semibold">mas com menos gente e zero risco de erro humano</span>.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
+                    <a href="#proposta" class="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-full shadow-2xl hover:scale-105 transition-all text-base sm:text-lg touch-target inline-flex items-center justify-center">
+                        Ver Proposta Exclusiva
+                    </a>
+                    <span id="heroValidity" class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0">Válida por 7 dias</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timer Mobile -->
+        <section class="py-6 px-4 bg-gray-900/50 border-y border-white/5 lg:hidden">
+            <div class="max-w-sm mx-auto text-center">
+                <p class="text-xs text-gray-400 mb-3 uppercase tracking-wider">Oferta expira em:</p>
+                <div class="flex justify-center gap-2 sm:gap-3">
+                    <div class="text-center">
+                        <div class="timer-digit w-14 sm:w-16 h-14 sm:h-16 rounded-lg flex items-center justify-center text-xl sm:text-2xl font-bold" id="mobDays">07</div>
+                        <span class="text-[10px] text-gray-500 mt-1 uppercase">Dias</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="timer-digit w-14 sm:w-16 h-14 sm:h-16 rounded-lg flex items-center justify-center text-xl sm:text-2xl font-bold" id="mobHours">00</div>
+                        <span class="text-[10px] text-gray-500 mt-1 uppercase">Hrs</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="timer-digit w-14 sm:w-16 h-14 sm:h-16 rounded-lg flex items-center justify-center text-xl sm:text-2xl font-bold" id="mobMinutes">00</div>
+                        <span class="text-[10px] text-gray-500 mt-1 uppercase">Min</span>
+                    </div>
+                    <div class="text-center">
+                        <div class="timer-digit w-14 sm:w-16 h-14 sm:h-16 rounded-lg flex items-center justify-center text-xl sm:text-2xl font-bold text-red-400" id="mobSeconds">00</div>
+                        <span class="text-[10px] text-gray-500 mt-1 uppercase">Seg</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bespoke Philosophy - COPY COMPLETA RESTAURADA -->
+        <section class="py-16 sm:py-24 bg-white dark:bg-gray-950 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+                    <div>
+                        <h2 class="text-responsive-h2 font-bold mb-6 sm:mb-8">
+                            Por que isso não é para qualquer um —<br>
+                            <span class="font-serif italic text-sand-600 font-normal">e por que isso é "barato"</span>
+                        </h2>
+                        
+                        <div class="space-y-4 sm:space-y-6 text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed">
+                            <p>
+                                Gustavo, você sabe melhor que ninguém: <strong class="text-gray-900 dark:text-white">o que é feito sob medida tem valor diferente</strong>. 
+                                Um piscineiro comum joga concreto e rezaria. Você projeta, cura, seleciona cada grão de areia. 
+                                O resultado é outro. O preço é outro. O cliente é outro.
+                            </p>
+                            
+                            <p>
+                                É exatamente assim que funciona o <strong class="text-gray-900 dark:text-white">Obra 360° Elite</strong>. Isso não é um SaaS que eu vendo 
+                                para 500 construtoras. Isso é uma <span class="text-sand-600 font-semibold">arquitetura operacional customizada</span> 
+                                que eu vou desenhar especificamente para a realidade da Piscinas de Areia — 
+                                com suas 5 obras simultâneas, seus fornecedores de resina, seus clientes de alto padrão em Camburi e Ilhabela.
+                            </p>
+                            
+                            <div class="bg-sand-50 dark:bg-sand-900/20 border-l-4 border-sand-500 p-4 sm:p-6 my-6 sm:my-8">
+                                <p class="font-serif italic text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                                    "Não estou te vendendo software. Estou te alugando 15 anos de aprendizado 
+                                    em otimização de processos digitais — algo que seu concorrente não pode comprar no mercado."
+                                </p>
+                            </div>
+                            
+                            <p>
+                                Qualquer um pode comprar um Trello. Qualquer um pode contratar um programador genérico para fazer um app. 
+                                <strong class="text-gray-900 dark:text-white">Mas ninguém — repito, ninguém — tem a combinação específica de:</strong>
+                            </p>
+                            
+                            <ul class="space-y-3 mt-4 sm:mt-6">
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>15 anos construindo sistemas de alta performance para negócios digitais</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>Entendimento profundo do setor de construção luxury (estudei cada etapa do seu processo)</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-600 mt-0.5 flex-shrink-0"></i>
+                                    <span>Capacidade de entregar uma solução white-label que parece ter sido desenvolvida internamente por 2 anos</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Card do Gustavo -->
+                    <div class="relative mt-8 lg:mt-0">
+                        <div class="absolute inset-0 bg-gradient-to-br from-sand-200 to-sand-400 rounded-2xl sm:rounded-3xl transform rotate-3 opacity-20"></div>
+                        <div class="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl relative">
+                            <div class="text-center mb-6 sm:mb-8">
+                                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-gray-900 rounded-full flex items-center justify-center mb-4">
+                                    <i data-lucide="user" class="w-8 h-8 sm:w-10 sm:h-10 text-sand-400"></i>
+                                </div>
+                                <h3 class="text-lg sm:text-xl font-bold">Gustavo Ribeiro</h3>
+                                <p class="text-sand-600 text-sm sm:text-base">Piscinas de Areia</p>
+                            </div>
+                            
+                            <div class="space-y-3 sm:space-y-4 border-t border-gray-200 dark:border-gray-700 pt-4 sm:pt-6">
+                                <div class="flex justify-between text-xs sm:text-sm">
+                                    <span class="text-gray-500">Operação atual</span>
+                                    <span class="font-semibold">5 obras simultâneas</span>
+                                </div>
+                                <div class="flex justify-between text-xs sm:text-sm">
+                                    <span class="text-gray-500">Ticket médio</span>
+                                    <span class="font-semibold">R$ 420.000</span>
+                                </div>
+                                <div class="flex justify-between text-xs sm:text-sm">
+                                    <span class="text-gray-500">Desafio identificado</span>
+                                    <span class="font-semibold text-red-600">Gargalo operacional</span>
+                                </div>
+                                <div class="flex justify-between text-xs sm:text-sm">
+                                    <span class="text-gray-500">Meta</span>
+                                    <span class="font-semibold text-emerald-600">Escala sem caos</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 sm:mt-8 p-3 sm:p-4 bg-gray-900 text-white rounded-xl text-center">
+                                <div class="text-[10px] sm:text-xs uppercase tracking-widest text-sand-400 mb-1">Solução Proposta</div>
+                                <div class="font-serif italic text-base sm:text-lg">Obra 360° Elite • Performance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problemas - COPY COMPLETA -->
+        <section class="py-16 sm:py-24 bg-sand-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-responsive-h2 font-bold text-center mb-12 sm:mb-16 px-2">
+                    O Que Está Quebrando na Sua Operação<br>
+                    <span class="font-serif italic text-sand-600 font-normal">(E você já sabe disso)</span>
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    <article class="glass-card p-6 sm:p-8 rounded-2xl border-t-4 border-red-500 hover-lift">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center mb-4 sm:mb-6">
+                            <i data-lucide="alert-triangle" class="w-6 h-6 sm:w-7 sm:h-7 text-red-600"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">O Imposto da Ineficiência</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+                            Você está gastando <strong class="text-gray-900 dark:text-white">R$ 20.000/mês</strong> do seu tempo (ou do seu sócio) 
+                            em WhatsApp, planilhas e "onde está o material?". Isso é R$ 240k/ano em custo de oportunidade. 
+                            Com o sistema, isso cai para R$ 2k/mês de supervisão.
+                        </p>
+                    </article>
+                    
+                    <article class="glass-card p-6 sm:p-8 rounded-2xl border-t-4 border-amber-500 hover-lift">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center mb-4 sm:mb-6">
+                            <i data-lucide="trending-down" class="w-6 h-6 sm:w-7 sm:h-7 text-amber-600"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">O Risco da Escala</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+                            Você quer crescer para 10 obras, mas sabe que do jeito atual, 
+                            <strong class="text-gray-900 dark:text-white">vai virar bagunça</strong>. Contratar mais 3 gerentes não resolve — 
+                            só aumenta a folha. Você precisa de <span class="font-semibold">leverage tecnológico</span>, 
+                            não mais gente.
+                        </p>
+                    </article>
+                    
+                    <article class="glass-card p-6 sm:p-8 rounded-2xl border-t-4 border-purple-500 hover-lift">
+                        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4 sm:mb-6">
+                            <i data-lucide="crown" class="w-6 h-6 sm:w-7 sm:h-7 text-purple-600"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">A Experiência do Cliente</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+                            Seus clientes pagam R$ 400k+ e recebem updates por WhatsApp. 
+                            O concorrente que te roubou aquele projeto de R$ 890k em Ilhabela? 
+                            Ele mostrou um <strong class="text-gray-900 dark:text-white">portal profissional</strong>. Você precisa parecer tão premium na entrega 
+                            quanto é na construção.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quem Somos - COPY COMPLETA -->
+        <section class="py-16 sm:py-24 bg-white dark:bg-gray-950 border-t border-sand-200 dark:border-sand-900 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12 sm:mb-16 px-2">
+                    <h2 class="text-responsive-h2 font-bold mb-4">Quem está por trás disso</h2>
+                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-serif italic text-base sm:text-lg lg:text-xl">
+                        "Não somos uma software house. Somos arquitetos de produtos digitais 
+                        que aplicam inteligência artificial para resolver problemas reais."
+                    </p>
+                </div>
+                
+                <!-- Origem APXLBS -->
+                <div class="max-w-4xl mx-auto mb-16 sm:mb-20">
+                    <div class="text-center mb-6 sm:mb-8">
+                        <span class="inline-block px-4 py-2 bg-sand-100 dark:bg-sand-900/30 rounded-lg text-sand-800 dark:text-sand-300 text-xs sm:text-sm font-semibold uppercase tracking-wider">
+                            A Origem da APXLBS
+                        </span>
+                    </div>
+                    
+                    <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl border border-sand-200 dark:border-sand-800">
+                        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center">
+                            Construímos produtos com IA.<br>
+                            <span class="font-serif italic text-sand-600 font-normal">E ajudamos você a construir os seus.</span>
+                        </h3>
+                        
+                        <div class="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed text-center max-w-3xl mx-auto text-sm sm:text-base">
+                            <p>
+                                A <strong class="text-gray-900 dark:text-white">APXLBS</strong> nasceu na era do <em>vibe coding</em> — um movimento onde a tecnologia 
+                                deixa de ser barreira e vira acelerador. Não acreditamos em software genérico que 
+                                tenta servir para todo mundo e acaba não servindo para ninguém.
+                            </p>
+                            
+                            <p>
+                                Nossa missão é simples: <strong class="text-gray-900 dark:text-white">desenvolver produtos digitais sob medida</strong> 
+                                que tirem a inteligência artificial do laboratório e coloquem em produção — 
+                                gerando resultado real, mensurável, imediato.
+                            </p>
+                            
+                            <p>
+                                Fazemos isso de três formas: desenvolvendo o produto com nosso time, 
+                                ensinando você a construir o seu próprio, ou disponibilizando as ferramentas 
+                                que criamos para quem quer ir além do básico.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bio Rodrigo -->
+                <div class="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+                    <div class="lg:col-span-2">
+                        <div class="relative max-w-xs sm:max-w-sm mx-auto">
+                            <div class="absolute inset-0 bg-gradient-to-br from-sand-300 to-sand-500 rounded-2xl sm:rounded-3xl transform rotate-3 opacity-20"></div>
+                            <div class="glass-card p-3 sm:p-4 rounded-2xl sm:rounded-3xl relative border border-sand-200 dark:border-sand-800 overflow-hidden">
+                                <img src="https://images.groovetech.io/iLEkz6ZnlHzAWeOelwFrhgIV2vNKGTouaEhF-vSt5IY/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzU3NTM2NzI3X0x1Y3JvRGlzcnVwdGl2b1NvY2lhbFByb29mR3JhbmRlc05vbWVzLnBuZw.webp" 
+                                     alt="Rodrigo Teixeira" 
+                                     class="w-full h-auto rounded-xl sm:rounded-2xl object-cover aspect-[4/5]">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-3">
+                        <div class="inline-block px-3 py-1 bg-gray-900 text-white text-xs font-bold rounded-full mb-4">
+                            O CARA QUE OS GURUS CHAMAM
+                        </div>
+                        
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-2">Rodrigo Teixeira</h3>
+                        <p class="text-sand-600 font-medium mb-6 text-base sm:text-lg">Fundador & Arquiteto de Produtos • APXLBS</p>
+                        
+                        <div class="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed mb-6 text-sm sm:text-base">
+                            <p>
+                                Sou o cara que os <strong class="text-gray-900 dark:text-white">gurus chamam quando querem faturar mais</strong> e não sabem como. 
+                                Durante 15 anos, ajudei dezenas de empresas e empreendedores a saírem do zero e 
+                                escalarem operações complexas usando tecnologia como alavanca — não como custo.
+                            </p>
+                            
+                            <p>
+                                Combinei expertise técnica profunda (desde infraestrutura até UX) 
+                                com visão estratégica de negócios. Não sou apenas um "desenvolvedor"; 
+                                sou um <strong class="text-gray-900 dark:text-white">operador que codifica</strong>. E mais importante: sou especialista em 
+                                <span class="text-sand-600 font-semibold">vibe coding</span> — usar IA e automação 
+                                para construir produtos em semanas, não anos.
+                            </p>
+                            
+                            <div class="bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 rounded-xl border-l-4 border-sand-500 my-6">
+                                <p class="font-serif italic text-base sm:text-lg text-gray-800 dark:text-gray-200">
+                                    "Quando vi a operação da Piscinas de Areia, não vi um 'cliente de software'. 
+                                    Vi um artesão premium tentando escalar com ferramentas de pedreiro. 
+                                    Decidi aplicar os mesmos princípios de arquitetura de produto que uso para 
+                                    startups de IA em Silicon Valley, mas na operação física do Gustavo."
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1.5 bg-sand-100 dark:bg-sand-900/30 text-sand-800 dark:text-sand-300 rounded-full text-xs sm:text-sm">Vibe Coding</span>
+                            <span class="px-3 py-1.5 bg-sand-100 dark:bg-sand-900/30 text-sand-800 dark:text-sand-300 rounded-full text-xs sm:text-sm">AI Product Strategy</span>
+                            <span class="px-3 py-1.5 bg-sand-100 dark:bg-sand-900/30 text-sand-800 dark:text-sand-300 rounded-full text-xs sm:text-sm">SaaS Architecture</span>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="globe" class="w-4 h-4"></i>
+                                <span>apxlbs.com</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="building-2" class="w-4 h-4"></i>
+                                <span>DBE11 LTDA • CNPJ: 53.903.617/0001-83</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bridge -->
+                <div class="max-w-3xl mx-auto text-center mt-16 sm:mt-20 pt-8 sm:pt-12 border-t border-gray-200 dark:border-gray-800 px-4">
+                    <h4 class="text-lg sm:text-xl font-bold mb-4">Por que isso importa para você, Gustavo?</h4>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm sm:text-base">
+                        Assim como você não vende "uma caixa d'água enterrada" — você vende um estilo de vida, 
+                        um santuário particular, uma obra de arte que acontece de ser molhada — 
+                        eu não estou vendendo "código". Estou aplicando uma <strong class="text-gray-900 dark:text-white">metodologia de precisão cirúrgica</strong> 
+                        desenvolvida ao longo de 15 anos para eliminar o caos operacional e liberar você 
+                        para fazer o que só você faz: criar experiências extraordinárias.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solução - 6 Módulos COPY COMPLETA -->
+        <section id="proposta" class="py-16 sm:py-24 bg-gray-900 text-white relative overflow-hidden px-4 sm:px-6 lg:px-8">
+            <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjEyLCAxNjMsIDExNSwgMC4xKSIvPjwvc3ZnPg==')] opacity-20 pointer-events-none"></div>
+            
+            <div class="max-w-6xl mx-auto relative z-10">
+                <div class="text-center mb-12 sm:mb-16 px-2">
+                    <span class="inline-block px-4 py-2 bg-sand-500/20 border border-sand-500/30 rounded-full text-sand-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-4">
+                        A Solução
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+                        Obra 360° Elite
+                    </h2>
+                    <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto">
+                        O sistema operacional completo para construção luxury. 
+                        Não é software pronto. É arquitetura sob medida.
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+                    <!-- Módulo 1 -->
+                    <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
+                            <i data-lucide="layout-dashboard" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Command Center</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                            Dashboard executivo em tempo real. Visualize todas as 5 obras simultâneas, 
+                            métricas de produtividade, gargalos de material e status de pagamento num único lugar.
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Timeline visual por obra</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Alertas de atraso automáticos</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Curva S de produtividade</li>
+                        </ul>
+                    </article>
+
+                    <!-- Módulo 2 -->
+                    <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
+                            <i data-lucide="users" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Cliente VIP Portal</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                            Portal white-label para seus clientes de R$400k+. Fotos diárias automáticas, 
+                            timeline de entregas, aprovação de mudanças e pagamentos integrados.
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> App white-label (iOS/Android)</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Feed de fotos automático</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Assinatura digital de aditivos</li>
+                        </ul>
+                    </article>
+
+                    <!-- Módulo 3 -->
+                    <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
+                            <i data-lucide="truck" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Supply Chain Inteligente</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                            Gestão preditiva de materiais críticos (resina, areia especial, equipamentos). 
+                            Integração com fornecedores e alertas de compra automáticos.
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Estoque em tempo real</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Pedidos automáticos</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Rastreamento de entregas</li>
+                        </ul>
+                    </article>
+
+                    <!-- Módulo 4 -->
+                    <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
+                            <i data-lucide="calculator" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Financeiro & DRE</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                            Custeio real por obra. Sabemos que cada piscina é única — o sistema calcula 
+                            margem real considerando materiais específicos, mão de obra alocada e imprevistos.
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Custeio ABC por projeto</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Provisão técnica automática</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Fluxo de caixa consolidado</li>
+                        </ul>
+                    </article>
+
+                    <!-- Módulo 5 -->
+                    <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
+                            <i data-lucide="clipboard-check" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Checklists & QA</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                            Protocolos digitais de qualidade. Do contrapiso à impermeabilização — 
+                            cada etapa só libera a próxima quando checkpoints específicos são validados.
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Checklists digitais por fase</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Fotos obrigatórias com geotag</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Assinatura do mestre de obras</li>
+                        </ul>
+                    </article>
+
+                    <!-- Módulo 6 -->
+                    <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
+                            <i data-lucide="bot" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">IA & Automações</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                            Agentes de IA que aprendem sua operação. Relatórios automáticos, previsão de prazos 
+                            baseada em dados históricos e identificação de padrões de problema.
+                        </p>
+                        <ul class="text-xs text-gray-500 space-y-2">
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Previsão de prazos com ML</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Relatórios automáticos semanais</li>
+                            <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> WhatsApp Business API</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Antes vs Depois COPY COMPLETA -->
+        <section class="py-16 sm:py-24 bg-sand-50 dark:bg-gray-950 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-responsive-h2 font-bold text-center mb-12 sm:mb-16 px-2">
+                    A Transformação<br>
+                    <span class="font-serif italic text-sand-600 font-normal">Do caos ao controle total</span>
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto">
+                    <div class="bg-red-50 dark:bg-red-900/10 border-2 border-red-200 dark:border-red-900/30 p-6 sm:p-8 rounded-2xl sm:rounded-3xl">
+                        <div class="flex items-center gap-3 mb-4 sm:mb-6">
+                            <div class="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
+                                <i data-lucide="x-circle" class="w-5 h-5 text-red-600"></i>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-red-800 dark:text-red-400">Antes: O Caos</h3>
+                        </div>
+                        <ul class="space-y-2 sm:space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start gap-2"><span class="text-red-500 mt-1">•</span> 15 grupos de WhatsApp por obra</li>
+                            <li class="flex items-start gap-2"><span class="text-red-500 mt-1">•</span> Planilhas que ninguém atualiza</li>
+                            <li class="flex items-start gap-2"><span class="text-red-500 mt-1">•</span> Cliente ligando perguntando "e aí?"</li>
+                            <li class="flex items-start gap-2"><span class="text-red-500 mt-1">•</span> Material acabando sem aviso</li>
+                            <li class="flex items-start gap-2"><span class="text-red-500 mt-1">•</span> Não sabe se está lucrando até fechar a obra</li>
+                            <li class="flex items-start gap-2"><span class="text-red-500 mt-1">•</span> Escalar = contratar mais gerentes caros</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-emerald-50 dark:bg-emerald-900/10 border-2 border-emerald-200 dark:border-emerald-900/30 p-6 sm:p-8 rounded-2xl sm:rounded-3xl">
+                        <div class="flex items-center gap-3 mb-4 sm:mb-6">
+                            <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600"></i>
+                            </div>
+                            <h3 class="text-lg sm:text-xl font-bold text-emerald-800 dark:text-emerald-400">Depois: O Controle</h3>
+                        </div>
+                        <ul class="space-y-2 sm:space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> Comunicação centralizada no sistema</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> Dados em tempo real, zero planilhas</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> Cliente acompanha pelo app, não te liga</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> Compras automáticas no ponto de pedido</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> Lucratividade por obra em tempo real</li>
+                            <li class="flex items-start gap-2"><span class="text-emerald-500 mt-1">•</span> Escalar = mais obras, mesma equipe</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Investimento COPY COMPLETA -->
+        <section id="investimento" class="py-16 sm:py-24 bg-[#0a0a0a] text-white px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-10 sm:mb-16 px-2">
+                    <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 mb-6 bg-white/5 backdrop-blur border border-white/10 rounded-full px-4 sm:px-6 py-2">
+                        <span class="text-sand-400 font-semibold text-xs sm:text-sm tracking-wider">OBRA 360°</span>
+                        <span class="text-gray-600 hidden sm:inline">|</span>
+                        <span class="text-gray-400 text-xs sm:text-sm">Solução</span>
+                        <span class="text-gray-600 hidden sm:inline">|</span>
+                        <span class="text-sand-400 font-semibold text-xs sm:text-sm tracking-wider">Investimento</span>
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">
+                        Escolha Seu Nível de Transformação
+                    </h2>
+                    <p class="text-gray-400 text-base sm:text-lg">
+                        Todos incluem garantia de adoção + propriedade total do código
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-start">
+                    <!-- Controle -->
+                    <article class="pricing-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 h-full flex flex-col">
+                        <div class="mb-6">
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide">CONTROLE</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm">Para quem quer começar a ter visibilidade</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider mb-2">Investimento Único</p>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-gray-400 text-base sm:text-lg">R$</span>
+                                <span class="text-4xl sm:text-5xl font-bold tracking-tight">28.000</span>
+                            </div>
+                            <p class="text-gray-500 text-xs sm:text-sm mt-2">+ R$ 3.500/mês implementação</p>
+                        </div>
+
+                        <div class="roi-badge rounded-xl p-3 sm:p-4 mb-6 flex justify-between items-center">
+                            <span class="text-xs sm:text-sm">ROI estimado 12 meses</span>
+                            <span class="text-xl sm:text-2xl font-bold">320%</span>
+                        </div>
+
+                        <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 text-xs sm:text-sm">
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Painel de gestão de obras</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>App mobile check-in/out</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Histórico centralizado</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Upload de fotos geolocalizadas</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Requisições automáticas</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Dashboard BI avançado</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Portal do cliente</span></li>
+                        </ul>
+
+                        <button onclick="window.open('https://wa.me/5519999118467?text=Oi%20Rodrigo,%20quero%20o%20plano%20CONTROLE', '_blank')" 
+                                class="w-full py-3 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold transition-all text-sm sm:text-base touch-target">
+                            Quero Este Plano
+                        </button>
+                    </article>
+
+                    <!-- Performance (Destaque) -->
+                    <article class="pricing-card-featured rounded-2xl sm:rounded-3xl p-6 sm:p-8 h-full flex flex-col relative lg:-mt-4">
+                        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black px-4 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-lg whitespace-nowrap">
+                            Recomendado
+                        </div>
+
+                        <div class="mb-6 pt-2">
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide">ALTA PERFORMANCE</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm">O mais escolhido. Melhor custo-benefício.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider mb-2">Investimento Único</p>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-gray-400 text-base sm:text-lg">R$</span>
+                                <span class="text-4xl sm:text-5xl font-bold tracking-tight">48.000</span>
+                            </div>
+                            <p class="text-gray-500 text-xs sm:text-sm mt-2">+ R$ 5.500/mês implementação</p>
+                        </div>
+
+                        <div class="roi-badge rounded-xl p-3 sm:p-4 mb-6 flex justify-between items-center">
+                            <span class="text-xs sm:text-sm">ROI estimado 12 meses</span>
+                            <span class="text-xl sm:text-2xl font-bold">775%</span>
+                        </div>
+
+                        <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 text-xs sm:text-sm">
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Tudo do plano Controle</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Requisições automatizadas</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Dashboard BI completo</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>WhatsApp integrado</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Relatórios automáticos</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Portal do cliente</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Geofencing avançado</span></li>
+                        </ul>
+
+                        <button onclick="window.open('https://wa.me/5519999118467?text=Oi%20Rodrigo,%20quero%20o%20plano%20ALTA%20PERFORMANCE', '_blank')" 
+                                class="w-full py-3 sm:py-4 rounded-full bg-white text-black font-bold hover:bg-gray-100 transition-all shadow-lg text-sm sm:text-base touch-target">
+                            Quero Este Plano
+                        </button>
+                    </article>
+
+                    <!-- Domínio Total -->
+                    <article class="pricing-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 h-full flex flex-col">
+                        <div class="mb-6">
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide">DOMÍNIO TOTAL</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm">Controle absoluto de toda operação</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider mb-2">Investimento Único</p>
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-gray-400 text-base sm:text-lg">R$</span>
+                                <span class="text-4xl sm:text-5xl font-bold tracking-tight">75.000</span>
+                            </div>
+                            <p class="text-gray-500 text-xs sm:text-sm mt-2">+ R$ 8.500/mês implementação</p>
+                        </div>
+
+                        <div class="roi-badge rounded-xl p-3 sm:p-4 mb-6 flex justify-between items-center">
+                            <span class="text-xs sm:text-sm">ROI estimado 12 meses</span>
+                            <span class="text-xl sm:text-2xl font-bold">1.150%</span>
+                        </div>
+
+                        <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 text-xs sm:text-sm">
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Tudo do plano Performance</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Portal exclusivo do cliente</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Geofencing avançado</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Controle financeiro completo</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>IA para previsão de custos</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Integrações ilimitadas</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Suporte prioritário vitalício</span></li>
+                        </ul>
+
+                        <button onclick="window.open('https://wa.me/5519999118467?text=Oi%20Rodrigo,%20quero%20o%20plano%20DOMINIO%20TOTAL', '_blank')" 
+                                class="w-full py-3 sm:py-4 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold transition-all text-sm sm:text-base touch-target">
+                            Quero Este Plano
+                        </button>
+                    </article>
+                </div>
+
+                <div class="mt-8 sm:mt-12 text-center max-w-2xl mx-auto px-4">
+                    <p class="text-xs sm:text-sm text-gray-500 mb-3">
+                        <i data-lucide="shield-check" class="w-4 h-4 inline mr-1"></i>
+                        Garantia de 30 dias: se não sentir diferença operacional, devolvemos 100%.
+                    </p>
+                    <p class="text-[10px] sm:text-xs text-gray-600">
+                        Setup inicial incluso. Migração de dados, configuração e treinamento.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Final COPY COMPLETA -->
+        <section class="py-16 sm:py-24 bg-gradient-to-br from-gray-900 to-gray-800 text-white text-center px-4 sm:px-6">
+            <div class="max-w-3xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 font-serif italic px-2">
+                    "Gustavo, seu concorrente vai ter isso. 
+                    <br>A pergunta é: quem chega primeiro?"
+                </h2>
+                <p class="text-base sm:text-lg text-gray-300 mb-8 leading-relaxed px-2">
+                    Essa proposta é válida por 7 dias. Após isso, a janela de implementação 
+                    será em 60 dias (estamos limitando a 3 clientes Elite por trimestre para 
+                    garantir qualidade).
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
+                    <a href="https://wa.me/5519999118467?text=Oi%20Rodrigo,%20vi%20a%20proposta%20e%20quero%20agendar%20uma%20call" 
+                       target="_blank"
+                       class="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-sand-600 text-white font-semibold rounded-full shadow-2xl hover:bg-sand-500 hover:scale-105 transition-all text-base sm:text-lg flex items-center justify-center gap-2 touch-target">
+                        <i data-lucide="calendar" class="w-5 h-5"></i>
+                        Agendar Implementação
+                    </a>
+                    <a href="mailto:apexlabsdigital@gmail.com" 
+                       class="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-transparent border-2 border-white/30 text-white font-semibold rounded-full hover:bg-white/10 transition-all text-base sm:text-lg touch-target">
+                        Enviar Dúvida
+                    </a>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mt-8 sm:mt-12 text-xs sm:text-sm text-gray-400">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="lock" class="w-4 h-4"></i>
+                        <span>SSL Seguro</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="server" class="w-4 h-4"></i>
+                        <span>AWS Cloud</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        <span>Backups Diários</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-950 text-gray-400 py-12 px-4 sm:px-6 lg:px-8 border-t border-gray-800">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8 items-center">
+                    <div class="text-center md:text-left">
+                        <a href="https://apxlbs.com" target="_blank" rel="noopener noreferrer" class="inline-block mb-3">
+                            <img src="https://images.groovetech.io/zLwliusigqNxj8mZZkkiPiY56BB1ZcWvsQdiwPg1haw/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzY5NDM3NTk4X3Bvd2VyZWRieWFweGxic3doaXRlLnBuZw.webp" 
+                                 alt="APXLBS" 
+                                 class="h-6 w-auto brightness-200 hover:brightness-100 transition-all mx-auto md:mx-0">
+                        </a>
+                        <p class="text-xs sm:text-sm leading-relaxed">
+                            Arquitetura de produtos digitais de alta performance.
+                            <br>DBE11 LTDA • CNPJ: 53.903.617/0001-83
+                        </p>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="text-white font-bold mb-2 text-sm">Contato</h4>
+                        <p class="text-xs sm:text-sm">apexlabsdigital@gmail.com</p>
+                        <p class="text-xs sm:text-sm">+55 19 99911-8467</p>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <h4 class="text-white font-bold mb-2 text-sm">Proposta</h4>
+                        <p class="text-xs sm:text-sm">Válida até: <span id="footerValidity" class="text-sand-500"></span></p>
+                        <p class="text-[10px] mt-1 text-gray-600">Documento confidencial. Uso exclusivo de Gustavo Ribeiro.</p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 pt-8 mt-8 text-center text-xs">
+                    <p>&copy; 2025 APXLBS. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Sticky CTA Mobile -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black to-transparent z-40">
+        <a href="https://wa.me/5519999118467?text=Oi%20Rodrigo,%20quero%20agendar%20minha%20implementação" 
+           target="_blank"
+           class="w-full bg-sand-600 text-white py-3.5 rounded-full text-base font-semibold flex items-center justify-center gap-2 shadow-2xl touch-target">
+            <i data-lucide="calendar" class="w-5 h-5"></i>
+            Agendar Implementação
+        </a>
+    </div>
+    <div class="h-20 lg:hidden"></div>
+
+    <script>
+        lucide.createIcons();
+
+        const PROPOSAL_DURATION = 7 * 24 * 60 * 60 * 1000;
+        let endTime;
+        const savedEndTime = localStorage.getItem('proposalEndTime');
+        
+        if (savedEndTime && parseInt(savedEndTime) > Date.now()) {
+            endTime = parseInt(savedEndTime);
+        } else {
+            endTime = Date.now() + PROPOSAL_DURATION;
+            localStorage.setItem('proposalEndTime', endTime);
+        }
+
+        const validityDate = new Date(endTime);
+        const dateStr = validityDate.toLocaleDateString('pt-BR');
+        document.getElementById('heroValidity').textContent = `Válida até ${dateStr}`;
+        document.getElementById('footerValidity').textContent = dateStr;
+
+        const timerEls = {
+            nav: { d: document.getElementById('navDays'), h: document.getElementById('navHours'), m: document.getElementById('navMinutes') },
+            mob: { d: document.getElementById('mobDays'), h: document.getElementById('mobHours'), m: document.getElementById('mobMinutes'), s: document.getElementById('mobSeconds') }
+        };
+
+        function updateTimer() {
+            const diff = endTime - Date.now();
+            if (diff <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('lockScreen').classList.add('active');
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+
+            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+            if (timerEls.nav.d) timerEls.nav.d.textContent = String(d).padStart(2, '0');
+            if (timerEls.nav.h) timerEls.nav.h.textContent = String(h).padStart(2, '0');
+            if (timerEls.nav.m) timerEls.nav.m.textContent = String(m).padStart(2, '0');
+
+            if (timerEls.mob.d) timerEls.mob.d.textContent = String(d).padStart(2, '0');
+            if (timerEls.mob.h) timerEls.mob.h.textContent = String(h).padStart(2, '0');
+            if (timerEls.mob.m) timerEls.mob.m.textContent = String(m).padStart(2, '0');
+            if (timerEls.mob.s) timerEls.mob.s.textContent = String(s).padStart(2, '0');
+        }
+
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
