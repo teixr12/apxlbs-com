@@ -64,7 +64,7 @@
         }
         
         .glass-card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(212, 163, 115, 0.15);
@@ -85,18 +85,12 @@
         
         .touch-target { min-height: 44px; min-width: 44px; }
         
-        @media (prefers-reduced-motion: no-preference) {
-            .hover-lift {
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
-            .hover-lift:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-            }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
-        @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
         
         .lock-screen {
@@ -143,8 +137,13 @@
         
         :focus-visible { outline: 2px solid #d4a373; outline-offset: 2px; }
         
-        @media (max-width: 640px) {
-            .glass-card { margin-left: -0.5rem; margin-right: -0.5rem; }
+        /* Correção específica para o hero background */
+        .hero-bg {
+            background: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 50%, #e7e5e4 100%);
+        }
+        
+        .dark .hero-bg {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0f0f0f 100%);
         }
     </style>
 </head>
@@ -192,43 +191,46 @@
     </nav>
 
     <main id="main-content" class="pt-14">
-        <!-- Hero Completo -->
-        <section class="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-br from-sand-100 via-white to-sand-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900"></div>
-            <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-sand-200/30 rounded-full blur-3xl -mr-48 -mt-48 pointer-events-none"></div>
-            <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sand-300/20 rounded-full blur-3xl -ml-24 -mb-24 pointer-events-none"></div>
+        <!-- Hero Section com cores corrigidas -->
+        <section class="hero-bg relative min-h-[90vh] flex items-center justify-center px-4 sm:px-6 py-20 overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-sand-200/40 dark:bg-sand-800/20 rounded-full blur-3xl -mr-48 -mt-48"></div>
+                <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sand-300/30 dark:bg-sand-700/10 rounded-full blur-3xl -ml-24 -mb-24"></div>
+            </div>
             
             <div class="relative z-10 max-w-5xl mx-auto text-center">
-                <div class="mb-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs sm:text-sm">
+                <!-- Badge de urgência -->
+                <div class="mb-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs sm:text-sm">
                     <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
                     <span>Oferta por tempo limitado</span>
                 </div>
 
                 <div class="inline-block mb-6 sm:mb-8">
-                    <span class="bg-gray-900 dark:bg-gray-800 text-sand-400 border border-sand-500/30 px-4 sm:px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase">
+                    <span class="bg-gray-900 text-sand-400 border border-sand-500/30 dark:bg-gray-800 px-4 sm:px-6 py-2 rounded-full text-xs font-bold tracking-widest uppercase">
                         Feito Sob Medida • Único • Não Escala
                     </span>
                 </div>
                 
-                <h1 class="text-responsive-hero font-bold mb-6 sm:mb-8">
+                <!-- H1 com cores corrigidas para máximo contraste -->
+                <h1 class="text-responsive-hero font-bold mb-6 sm:mb-8 text-gray-900 dark:text-white">
                     Gustavo, você não precisa de<br>
-                    <span class="text-gray-400 line-through decoration-red-500/50">mais um software</span>.<br>
-                    <span class="font-serif italic text-sand-600 dark:text-sand-400 block mt-2">Você precisa de um sistema operacional</span>
-                    <span class="text-xl sm:text-2xl md:text-3xl font-normal text-gray-600 dark:text-gray-400 block mt-4">tão exclusivo quanto suas piscinas.</span>
+                    <span class="text-gray-600 dark:text-gray-400 line-through decoration-red-500/60 decoration-2">mais um software</span>.<br>
+                    <span class="font-serif italic text-sand-800 dark:text-sand-300 block mt-2">Você precisa de um sistema operacional</span>
+                    <span class="text-xl sm:text-2xl md:text-3xl font-normal text-gray-700 dark:text-gray-300 block mt-4">tão exclusivo quanto suas piscinas.</span>
                 </h1>
                 
-                <p class="text-responsive-body text-gray-600 dark:text-gray-400 max-w-3xl mx-auto mb-8 sm:mb-12 px-2 sm:px-0">
+                <p class="text-responsive-body text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8 sm:mb-12 px-2 sm:px-0">
                     Assim como você não vende "piscinas" — você vende experiências premium, feitas à mão, 
                     que duram décadas — eu não estou vendendo código. Estou oferecendo <strong class="text-gray-900 dark:text-white">15 anos de experiência em digital e SaaS</strong> 
                     condensados em uma operação que vai fazer a Piscinas de Areia funcionar com a precisão de um relógio suíço, 
-                    <span class="text-sand-600 font-semibold">mas com menos gente e zero risco de erro humano</span>.
+                    <span class="text-sand-700 dark:text-sand-400 font-semibold">mas com menos gente e zero risco de erro humano</span>.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4 sm:px-0">
                     <a href="#proposta" class="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold rounded-full shadow-2xl hover:scale-105 transition-all text-base sm:text-lg touch-target inline-flex items-center justify-center">
                         Ver Proposta Exclusiva
                     </a>
-                    <span id="heroValidity" class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-0">Válida por 7 dias</span>
+                    <span id="heroValidity" class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mt-2 sm:mt-0">Válida por 7 dias</span>
                 </div>
             </div>
         </section>
@@ -258,17 +260,17 @@
             </div>
         </section>
 
-        <!-- Bespoke Philosophy - COPY COMPLETA RESTAURADA -->
+        <!-- Bespoke Philosophy -->
         <section class="py-16 sm:py-24 bg-white dark:bg-gray-950 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-start">
                     <div>
-                        <h2 class="text-responsive-h2 font-bold mb-6 sm:mb-8">
+                        <h2 class="text-responsive-h2 font-bold mb-6 sm:mb-8 text-gray-900 dark:text-white">
                             Por que isso não é para qualquer um —<br>
-                            <span class="font-serif italic text-sand-600 font-normal">e por que isso é "barato"</span>
+                            <span class="font-serif italic text-sand-700 dark:text-sand-400 font-normal">e por que isso é "barato"</span>
                         </h2>
                         
-                        <div class="space-y-4 sm:space-y-6 text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed">
+                        <div class="space-y-4 sm:space-y-6 text-gray-700 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
                             <p>
                                 Gustavo, você sabe melhor que ninguém: <strong class="text-gray-900 dark:text-white">o que é feito sob medida tem valor diferente</strong>. 
                                 Um piscineiro comum joga concreto e rezaria. Você projeta, cura, seleciona cada grão de areia. 
@@ -277,12 +279,12 @@
                             
                             <p>
                                 É exatamente assim que funciona o <strong class="text-gray-900 dark:text-white">Obra 360° Elite</strong>. Isso não é um SaaS que eu vendo 
-                                para 500 construtoras. Isso é uma <span class="text-sand-600 font-semibold">arquitetura operacional customizada</span> 
+                                para 500 construtoras. Isso é uma <span class="text-sand-700 dark:text-sand-400 font-semibold">arquitetura operacional customizada</span> 
                                 que eu vou desenhar especificamente para a realidade da Piscinas de Areia — 
                                 com suas 5 obras simultâneas, seus fornecedores de resina, seus clientes de alto padrão em Camburi e Ilhabela.
                             </p>
                             
-                            <div class="bg-sand-50 dark:bg-sand-900/20 border-l-4 border-sand-500 p-4 sm:p-6 my-6 sm:my-8">
+                            <div class="bg-sand-50 dark:bg-sand-900/20 border-l-4 border-sand-600 p-4 sm:p-6 my-6 sm:my-8">
                                 <p class="font-serif italic text-base sm:text-lg text-gray-800 dark:text-gray-200">
                                     "Não estou te vendendo software. Estou te alugando 15 anos de aprendizado 
                                     em otimização de processos digitais — algo que seu concorrente não pode comprar no mercado."
@@ -296,15 +298,15 @@
                             
                             <ul class="space-y-3 mt-4 sm:mt-6">
                                 <li class="flex items-start gap-3">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-600 mt-0.5 flex-shrink-0"></i>
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-700 dark:text-sand-400 mt-0.5 flex-shrink-0"></i>
                                     <span>15 anos construindo sistemas de alta performance para negócios digitais</span>
                                 </li>
                                 <li class="flex items-start gap-3">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-600 mt-0.5 flex-shrink-0"></i>
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-700 dark:text-sand-400 mt-0.5 flex-shrink-0"></i>
                                     <span>Entendimento profundo do setor de construção luxury (estudei cada etapa do seu processo)</span>
                                 </li>
                                 <li class="flex items-start gap-3">
-                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-600 mt-0.5 flex-shrink-0"></i>
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-700 dark:text-sand-400 mt-0.5 flex-shrink-0"></i>
                                     <span>Capacidade de entregar uma solução white-label que parece ter sido desenvolvida internamente por 2 anos</span>
                                 </li>
                             </ul>
@@ -313,31 +315,31 @@
                     
                     <!-- Card do Gustavo -->
                     <div class="relative mt-8 lg:mt-0">
-                        <div class="absolute inset-0 bg-gradient-to-br from-sand-200 to-sand-400 rounded-2xl sm:rounded-3xl transform rotate-3 opacity-20"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-sand-300 to-sand-500 rounded-2xl sm:rounded-3xl transform rotate-3 opacity-20"></div>
                         <div class="glass-card p-6 sm:p-8 rounded-2xl sm:rounded-3xl relative">
                             <div class="text-center mb-6 sm:mb-8">
                                 <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-gray-900 rounded-full flex items-center justify-center mb-4">
                                     <i data-lucide="user" class="w-8 h-8 sm:w-10 sm:h-10 text-sand-400"></i>
                                 </div>
-                                <h3 class="text-lg sm:text-xl font-bold">Gustavo Ribeiro</h3>
-                                <p class="text-sand-600 text-sm sm:text-base">Piscinas de Areia</p>
+                                <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Gustavo Ribeiro</h3>
+                                <p class="text-sand-700 dark:text-sand-400 text-sm sm:text-base">Piscinas de Areia</p>
                             </div>
                             
                             <div class="space-y-3 sm:space-y-4 border-t border-gray-200 dark:border-gray-700 pt-4 sm:pt-6">
                                 <div class="flex justify-between text-xs sm:text-sm">
-                                    <span class="text-gray-500">Operação atual</span>
-                                    <span class="font-semibold">5 obras simultâneas</span>
+                                    <span class="text-gray-600 dark:text-gray-400">Operação atual</span>
+                                    <span class="font-semibold text-gray-900 dark:text-white">5 obras simultâneas</span>
                                 </div>
                                 <div class="flex justify-between text-xs sm:text-sm">
-                                    <span class="text-gray-500">Ticket médio</span>
-                                    <span class="font-semibold">R$ 420.000</span>
+                                    <span class="text-gray-600 dark:text-gray-400">Ticket médio</span>
+                                    <span class="font-semibold text-gray-900 dark:text-white">R$ 420.000</span>
                                 </div>
                                 <div class="flex justify-between text-xs sm:text-sm">
-                                    <span class="text-gray-500">Desafio identificado</span>
+                                    <span class="text-gray-600 dark:text-gray-400">Desafio identificado</span>
                                     <span class="font-semibold text-red-600">Gargalo operacional</span>
                                 </div>
                                 <div class="flex justify-between text-xs sm:text-sm">
-                                    <span class="text-gray-500">Meta</span>
+                                    <span class="text-gray-600 dark:text-gray-400">Meta</span>
                                     <span class="font-semibold text-emerald-600">Escala sem caos</span>
                                 </div>
                             </div>
@@ -352,12 +354,12 @@
             </div>
         </section>
 
-        <!-- Problemas - COPY COMPLETA -->
+        <!-- Problemas -->
         <section class="py-16 sm:py-24 bg-sand-50 dark:bg-gray-900 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-responsive-h2 font-bold text-center mb-12 sm:mb-16 px-2">
+                <h2 class="text-responsive-h2 font-bold text-center mb-12 sm:mb-16 px-2 text-gray-900 dark:text-white">
                     O Que Está Quebrando na Sua Operação<br>
-                    <span class="font-serif italic text-sand-600 font-normal">(E você já sabe disso)</span>
+                    <span class="font-serif italic text-sand-700 dark:text-sand-400 font-normal">(E você já sabe disso)</span>
                 </h2>
                 
                 <div class="grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
@@ -365,8 +367,8 @@
                         <div class="w-12 h-12 sm:w-14 sm:h-14 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center mb-4 sm:mb-6">
                             <i data-lucide="alert-triangle" class="w-6 h-6 sm:w-7 sm:h-7 text-red-600"></i>
                         </div>
-                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">O Imposto da Ineficiência</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-gray-900 dark:text-white">O Imposto da Ineficiência</h3>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
                             Você está gastando <strong class="text-gray-900 dark:text-white">R$ 20.000/mês</strong> do seu tempo (ou do seu sócio) 
                             em WhatsApp, planilhas e "onde está o material?". Isso é R$ 240k/ano em custo de oportunidade. 
                             Com o sistema, isso cai para R$ 2k/mês de supervisão.
@@ -377,8 +379,8 @@
                         <div class="w-12 h-12 sm:w-14 sm:h-14 bg-amber-100 dark:bg-amber-900/30 rounded-xl flex items-center justify-center mb-4 sm:mb-6">
                             <i data-lucide="trending-down" class="w-6 h-6 sm:w-7 sm:h-7 text-amber-600"></i>
                         </div>
-                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">O Risco da Escala</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-gray-900 dark:text-white">O Risco da Escala</h3>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
                             Você quer crescer para 10 obras, mas sabe que do jeito atual, 
                             <strong class="text-gray-900 dark:text-white">vai virar bagunça</strong>. Contratar mais 3 gerentes não resolve — 
                             só aumenta a folha. Você precisa de <span class="font-semibold">leverage tecnológico</span>, 
@@ -390,8 +392,8 @@
                         <div class="w-12 h-12 sm:w-14 sm:h-14 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4 sm:mb-6">
                             <i data-lucide="crown" class="w-6 h-6 sm:w-7 sm:h-7 text-purple-600"></i>
                         </div>
-                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">A Experiência do Cliente</h3>
-                        <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed">
+                        <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3 text-gray-900 dark:text-white">A Experiência do Cliente</h3>
+                        <p class="text-gray-700 dark:text-gray-300 text-sm sm:text-base leading-relaxed">
                             Seus clientes pagam R$ 400k+ e recebem updates por WhatsApp. 
                             O concorrente que te roubou aquele projeto de R$ 890k em Ilhabela? 
                             Ele mostrou um <strong class="text-gray-900 dark:text-white">portal profissional</strong>. Você precisa parecer tão premium na entrega 
@@ -402,18 +404,17 @@
             </div>
         </section>
 
-        <!-- Quem Somos - COPY COMPLETA -->
+        <!-- Quem Somos -->
         <section class="py-16 sm:py-24 bg-white dark:bg-gray-950 border-t border-sand-200 dark:border-sand-900 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
                 <div class="text-center mb-12 sm:mb-16 px-2">
-                    <h2 class="text-responsive-h2 font-bold mb-4">Quem está por trás disso</h2>
-                    <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-serif italic text-base sm:text-lg lg:text-xl">
+                    <h2 class="text-responsive-h2 font-bold mb-4 text-gray-900 dark:text-white">Quem está por trás disso</h2>
+                    <p class="text-gray-700 dark:text-gray-300 max-w-2xl mx-auto font-serif italic text-base sm:text-lg lg:text-xl">
                         "Não somos uma software house. Somos arquitetos de produtos digitais 
                         que aplicam inteligência artificial para resolver problemas reais."
                     </p>
                 </div>
                 
-                <!-- Origem APXLBS -->
                 <div class="max-w-4xl mx-auto mb-16 sm:mb-20">
                     <div class="text-center mb-6 sm:mb-8">
                         <span class="inline-block px-4 py-2 bg-sand-100 dark:bg-sand-900/30 rounded-lg text-sand-800 dark:text-sand-300 text-xs sm:text-sm font-semibold uppercase tracking-wider">
@@ -422,12 +423,12 @@
                     </div>
                     
                     <div class="glass-card p-6 sm:p-8 lg:p-12 rounded-2xl sm:rounded-3xl border border-sand-200 dark:border-sand-800">
-                        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center">
+                        <h3 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-center text-gray-900 dark:text-white">
                             Construímos produtos com IA.<br>
-                            <span class="font-serif italic text-sand-600 font-normal">E ajudamos você a construir os seus.</span>
+                            <span class="font-serif italic text-sand-700 dark:text-sand-400 font-normal">E ajudamos você a construir os seus.</span>
                         </h3>
                         
-                        <div class="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed text-center max-w-3xl mx-auto text-sm sm:text-base">
+                        <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed text-center max-w-3xl mx-auto text-sm sm:text-base">
                             <p>
                                 A <strong class="text-gray-900 dark:text-white">APXLBS</strong> nasceu na era do <em>vibe coding</em> — um movimento onde a tecnologia 
                                 deixa de ser barreira e vira acelerador. Não acreditamos em software genérico que 
@@ -449,7 +450,6 @@
                     </div>
                 </div>
                 
-                <!-- Bio Rodrigo -->
                 <div class="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
                     <div class="lg:col-span-2">
                         <div class="relative max-w-xs sm:max-w-sm mx-auto">
@@ -467,10 +467,10 @@
                             O CARA QUE OS GURUS CHAMAM
                         </div>
                         
-                        <h3 class="text-2xl sm:text-3xl font-bold mb-2">Rodrigo Teixeira</h3>
-                        <p class="text-sand-600 font-medium mb-6 text-base sm:text-lg">Fundador & Arquiteto de Produtos • APXLBS</p>
+                        <h3 class="text-2xl sm:text-3xl font-bold mb-2 text-gray-900 dark:text-white">Rodrigo Teixeira</h3>
+                        <p class="text-sand-700 dark:text-sand-400 font-medium mb-6 text-base sm:text-lg">Fundador & Arquiteto de Produtos • APXLBS</p>
                         
-                        <div class="space-y-4 text-gray-600 dark:text-gray-400 leading-relaxed mb-6 text-sm sm:text-base">
+                        <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-sm sm:text-base">
                             <p>
                                 Sou o cara que os <strong class="text-gray-900 dark:text-white">gurus chamam quando querem faturar mais</strong> e não sabem como. 
                                 Durante 15 anos, ajudei dezenas de empresas e empreendedores a saírem do zero e 
@@ -481,11 +481,11 @@
                                 Combinei expertise técnica profunda (desde infraestrutura até UX) 
                                 com visão estratégica de negócios. Não sou apenas um "desenvolvedor"; 
                                 sou um <strong class="text-gray-900 dark:text-white">operador que codifica</strong>. E mais importante: sou especialista em 
-                                <span class="text-sand-600 font-semibold">vibe coding</span> — usar IA e automação 
+                                <span class="text-sand-700 dark:text-sand-400 font-semibold">vibe coding</span> — usar IA e automação 
                                 para construir produtos em semanas, não anos.
                             </p>
                             
-                            <div class="bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 rounded-xl border-l-4 border-sand-500 my-6">
+                            <div class="bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 rounded-xl border-l-4 border-sand-600 my-6">
                                 <p class="font-serif italic text-base sm:text-lg text-gray-800 dark:text-gray-200">
                                     "Quando vi a operação da Piscinas de Areia, não vi um 'cliente de software'. 
                                     Vi um artesão premium tentando escalar com ferramentas de pedreiro. 
@@ -501,7 +501,7 @@
                             <span class="px-3 py-1.5 bg-sand-100 dark:bg-sand-900/30 text-sand-800 dark:text-sand-300 rounded-full text-xs sm:text-sm">SaaS Architecture</span>
                         </div>
                         
-                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                             <div class="flex items-center gap-2">
                                 <i data-lucide="globe" class="w-4 h-4"></i>
                                 <span>apxlbs.com</span>
@@ -514,10 +514,9 @@
                     </div>
                 </div>
                 
-                <!-- Bridge -->
                 <div class="max-w-3xl mx-auto text-center mt-16 sm:mt-20 pt-8 sm:pt-12 border-t border-gray-200 dark:border-gray-800 px-4">
-                    <h4 class="text-lg sm:text-xl font-bold mb-4">Por que isso importa para você, Gustavo?</h4>
-                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed text-sm sm:text-base">
+                    <h4 class="text-lg sm:text-xl font-bold mb-4 text-gray-900 dark:text-white">Por que isso importa para você, Gustavo?</h4>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-sm sm:text-base">
                         Assim como você não vende "uma caixa d'água enterrada" — você vende um estilo de vida, 
                         um santuário particular, uma obra de arte que acontece de ser molhada — 
                         eu não estou vendendo "código". Estou aplicando uma <strong class="text-gray-900 dark:text-white">metodologia de precisão cirúrgica</strong> 
@@ -528,121 +527,115 @@
             </div>
         </section>
 
-        <!-- Solução - 6 Módulos COPY COMPLETA -->
+        <!-- Solução -->
         <section id="proposta" class="py-16 sm:py-24 bg-gray-900 text-white relative overflow-hidden px-4 sm:px-6 lg:px-8">
             <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjEyLCAxNjMsIDExNSwgMC4xKSIvPjwvc3ZnPg==')] opacity-20 pointer-events-none"></div>
             
             <div class="max-w-6xl mx-auto relative z-10">
                 <div class="text-center mb-12 sm:mb-16 px-2">
-                    <span class="inline-block px-4 py-2 bg-sand-500/20 border border-sand-500/30 rounded-full text-sand-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-4">
+                    <span class="inline-block px-4 py-2 bg-sand-500/20 border border-sand-500/30 rounded-full text-sand-300 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-4">
                         A Solução
                     </span>
                     <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
                         Obra 360° Elite
                     </h2>
-                    <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto">
+                    <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
                         O sistema operacional completo para construção luxury. 
                         Não é software pronto. É arquitetura sob medida.
                     </p>
                 </div>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                    <!-- Módulo 1 -->
                     <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
                             <i data-lucide="layout-dashboard" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Command Center</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                        <p class="text-gray-300 text-sm leading-relaxed mb-3 sm:mb-4">
                             Dashboard executivo em tempo real. Visualize todas as 5 obras simultâneas, 
                             métricas de produtividade, gargalos de material e status de pagamento num único lugar.
                         </p>
-                        <ul class="text-xs text-gray-500 space-y-2">
+                        <ul class="text-xs text-gray-400 space-y-2">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Timeline visual por obra</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Alertas de atraso automáticos</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Curva S de produtividade</li>
                         </ul>
                     </article>
 
-                    <!-- Módulo 2 -->
                     <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
                             <i data-lucide="users" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Cliente VIP Portal</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                        <p class="text-gray-300 text-sm leading-relaxed mb-3 sm:mb-4">
                             Portal white-label para seus clientes de R$400k+. Fotos diárias automáticas, 
                             timeline de entregas, aprovação de mudanças e pagamentos integrados.
                         </p>
-                        <ul class="text-xs text-gray-500 space-y-2">
+                        <ul class="text-xs text-gray-400 space-y-2">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> App white-label (iOS/Android)</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Feed de fotos automático</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Assinatura digital de aditivos</li>
                         </ul>
                     </article>
 
-                    <!-- Módulo 3 -->
                     <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
                             <i data-lucide="truck" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Supply Chain Inteligente</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                        <p class="text-gray-300 text-sm leading-relaxed mb-3 sm:mb-4">
                             Gestão preditiva de materiais críticos (resina, areia especial, equipamentos). 
                             Integração com fornecedores e alertas de compra automáticos.
                         </p>
-                        <ul class="text-xs text-gray-500 space-y-2">
+                        <ul class="text-xs text-gray-400 space-y-2">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Estoque em tempo real</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Pedidos automáticos</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Rastreamento de entregas</li>
                         </ul>
                     </article>
 
-                    <!-- Módulo 4 -->
                     <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
                             <i data-lucide="calculator" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Financeiro & DRE</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                        <p class="text-gray-300 text-sm leading-relaxed mb-3 sm:mb-4">
                             Custeio real por obra. Sabemos que cada piscina é única — o sistema calcula 
                             margem real considerando materiais específicos, mão de obra alocada e imprevistos.
                         </p>
-                        <ul class="text-xs text-gray-500 space-y-2">
+                        <ul class="text-xs text-gray-400 space-y-2">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Custeio ABC por projeto</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Provisão técnica automática</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Fluxo de caixa consolidado</li>
                         </ul>
                     </article>
 
-                    <!-- Módulo 5 -->
                     <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
                             <i data-lucide="clipboard-check" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Checklists & QA</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                        <p class="text-gray-300 text-sm leading-relaxed mb-3 sm:mb-4">
                             Protocolos digitais de qualidade. Do contrapiso à impermeabilização — 
                             cada etapa só libera a próxima quando checkpoints específicos são validados.
                         </p>
-                        <ul class="text-xs text-gray-500 space-y-2">
+                        <ul class="text-xs text-gray-400 space-y-2">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Checklists digitais por fase</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Fotos obrigatórias com geotag</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Assinatura do mestre de obras</li>
                         </ul>
                     </article>
 
-                    <!-- Módulo 6 -->
                     <article class="bg-gray-800/50 backdrop-blur border border-gray-700 p-6 sm:p-8 rounded-2xl sm:rounded-3xl hover:border-sand-500/50 transition-all group">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-sand-500/10 rounded-xl flex items-center justify-center mb-4 sm:mb-6 group-hover:bg-sand-500/20 transition-colors">
                             <i data-lucide="bot" class="w-5 h-5 sm:w-6 sm:h-6 text-sand-400"></i>
                         </div>
                         <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">IA & Automações</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-3 sm:mb-4">
+                        <p class="text-gray-300 text-sm leading-relaxed mb-3 sm:mb-4">
                             Agentes de IA que aprendem sua operação. Relatórios automáticos, previsão de prazos 
                             baseada em dados históricos e identificação de padrões de problema.
                         </p>
-                        <ul class="text-xs text-gray-500 space-y-2">
+                        <ul class="text-xs text-gray-400 space-y-2">
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Previsão de prazos com ML</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> Relatórios automáticos semanais</li>
                             <li class="flex items-center gap-2"><i data-lucide="check" class="w-3 h-3 text-sand-500"></i> WhatsApp Business API</li>
@@ -652,12 +645,12 @@
             </div>
         </section>
 
-        <!-- Antes vs Depois COPY COMPLETA -->
+        <!-- Antes vs Depois -->
         <section class="py-16 sm:py-24 bg-sand-50 dark:bg-gray-950 px-4 sm:px-6 lg:px-8">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-responsive-h2 font-bold text-center mb-12 sm:mb-16 px-2">
+                <h2 class="text-responsive-h2 font-bold text-center mb-12 sm:mb-16 px-2 text-gray-900 dark:text-white">
                     A Transformação<br>
-                    <span class="font-serif italic text-sand-600 font-normal">Do caos ao controle total</span>
+                    <span class="font-serif italic text-sand-700 dark:text-sand-400 font-normal">Do caos ao controle total</span>
                 </h2>
 
                 <div class="grid md:grid-cols-2 gap-4 sm:gap-8 max-w-4xl mx-auto">
@@ -698,7 +691,7 @@
             </div>
         </section>
 
-        <!-- Investimento COPY COMPLETA -->
+        <!-- Investimento -->
         <section id="investimento" class="py-16 sm:py-24 bg-[#0a0a0a] text-white px-4 sm:px-6 lg:px-8">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-10 sm:mb-16 px-2">
@@ -710,7 +703,7 @@
                         <span class="text-sand-400 font-semibold text-xs sm:text-sm tracking-wider">Investimento</span>
                     </div>
                     
-                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight">
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 tracking-tight text-white">
                         Escolha Seu Nível de Transformação
                     </h2>
                     <p class="text-gray-400 text-base sm:text-lg">
@@ -722,7 +715,7 @@
                     <!-- Controle -->
                     <article class="pricing-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 h-full flex flex-col">
                         <div class="mb-6">
-                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide">CONTROLE</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide text-white">CONTROLE</h3>
                             <p class="text-gray-400 text-xs sm:text-sm">Para quem quer começar a ter visibilidade</p>
                         </div>
 
@@ -730,7 +723,7 @@
                             <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider mb-2">Investimento Único</p>
                             <div class="flex items-baseline gap-1">
                                 <span class="text-gray-400 text-base sm:text-lg">R$</span>
-                                <span class="text-4xl sm:text-5xl font-bold tracking-tight">28.000</span>
+                                <span class="text-4xl sm:text-5xl font-bold tracking-tight text-white">28.000</span>
                             </div>
                             <p class="text-gray-500 text-xs sm:text-sm mt-2">+ R$ 3.500/mês implementação</p>
                         </div>
@@ -741,10 +734,10 @@
                         </div>
 
                         <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 text-xs sm:text-sm">
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Painel de gestão de obras</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>App mobile check-in/out</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Histórico centralizado</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Upload de fotos geolocalizadas</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Painel de gestão de obras</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">App mobile check-in/out</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Histórico centralizado</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Upload de fotos geolocalizadas</span></li>
                             <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Requisições automáticas</span></li>
                             <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Dashboard BI avançado</span></li>
                             <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Portal do cliente</span></li>
@@ -756,14 +749,14 @@
                         </button>
                     </article>
 
-                    <!-- Performance (Destaque) -->
+                    <!-- Performance -->
                     <article class="pricing-card-featured rounded-2xl sm:rounded-3xl p-6 sm:p-8 h-full flex flex-col relative lg:-mt-4">
                         <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-black px-4 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-lg whitespace-nowrap">
                             Recomendado
                         </div>
 
                         <div class="mb-6 pt-2">
-                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide">ALTA PERFORMANCE</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide text-white">ALTA PERFORMANCE</h3>
                             <p class="text-gray-400 text-xs sm:text-sm">O mais escolhido. Melhor custo-benefício.</p>
                         </div>
 
@@ -771,7 +764,7 @@
                             <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider mb-2">Investimento Único</p>
                             <div class="flex items-baseline gap-1">
                                 <span class="text-gray-400 text-base sm:text-lg">R$</span>
-                                <span class="text-4xl sm:text-5xl font-bold tracking-tight">48.000</span>
+                                <span class="text-4xl sm:text-5xl font-bold tracking-tight text-white">48.000</span>
                             </div>
                             <p class="text-gray-500 text-xs sm:text-sm mt-2">+ R$ 5.500/mês implementação</p>
                         </div>
@@ -782,11 +775,11 @@
                         </div>
 
                         <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 text-xs sm:text-sm">
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Tudo do plano Controle</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Requisições automatizadas</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Dashboard BI completo</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>WhatsApp integrado</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Relatórios automáticos</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Tudo do plano Controle</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Requisições automatizadas</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Dashboard BI completo</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">WhatsApp integrado</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Relatórios automáticos</span></li>
                             <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Portal do cliente</span></li>
                             <li class="flex items-center gap-2 sm:gap-3 cross-gray"><i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i><span>Geofencing avançado</span></li>
                         </ul>
@@ -800,7 +793,7 @@
                     <!-- Domínio Total -->
                     <article class="pricing-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 h-full flex flex-col">
                         <div class="mb-6">
-                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide">DOMÍNIO TOTAL</h3>
+                            <h3 class="text-xl sm:text-2xl font-bold mb-2 tracking-wide text-white">DOMÍNIO TOTAL</h3>
                             <p class="text-gray-400 text-xs sm:text-sm">Controle absoluto de toda operação</p>
                         </div>
 
@@ -808,7 +801,7 @@
                             <p class="text-[10px] sm:text-xs text-gray-500 uppercase tracking-wider mb-2">Investimento Único</p>
                             <div class="flex items-baseline gap-1">
                                 <span class="text-gray-400 text-base sm:text-lg">R$</span>
-                                <span class="text-4xl sm:text-5xl font-bold tracking-tight">75.000</span>
+                                <span class="text-4xl sm:text-5xl font-bold tracking-tight text-white">75.000</span>
                             </div>
                             <p class="text-gray-500 text-xs sm:text-sm mt-2">+ R$ 8.500/mês implementação</p>
                         </div>
@@ -819,13 +812,13 @@
                         </div>
 
                         <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 flex-1 text-xs sm:text-sm">
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Tudo do plano Performance</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Portal exclusivo do cliente</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Geofencing avançado</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Controle financeiro completo</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>IA para previsão de custos</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Integrações ilimitadas</span></li>
-                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span>Suporte prioritário vitalício</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Tudo do plano Performance</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Portal exclusivo do cliente</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Geofencing avançado</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Controle financeiro completo</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">IA para previsão de custos</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Integrações ilimitadas</span></li>
+                            <li class="flex items-center gap-2 sm:gap-3"><i data-lucide="check" class="w-4 h-4 sm:w-5 sm:h-5 check-green flex-shrink-0"></i><span class="text-gray-200">Suporte prioritário vitalício</span></li>
                         </ul>
 
                         <button onclick="window.open('https://wa.me/5519999118467?text=Oi%20Rodrigo,%20quero%20o%20plano%20DOMINIO%20TOTAL', '_blank')" 
@@ -836,21 +829,21 @@
                 </div>
 
                 <div class="mt-8 sm:mt-12 text-center max-w-2xl mx-auto px-4">
-                    <p class="text-xs sm:text-sm text-gray-500 mb-3">
+                    <p class="text-xs sm:text-sm text-gray-400 mb-3">
                         <i data-lucide="shield-check" class="w-4 h-4 inline mr-1"></i>
                         Garantia de 30 dias: se não sentir diferença operacional, devolvemos 100%.
                     </p>
-                    <p class="text-[10px] sm:text-xs text-gray-600">
+                    <p class="text-[10px] sm:text-xs text-gray-500">
                         Setup inicial incluso. Migração de dados, configuração e treinamento.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Final COPY COMPLETA -->
+        <!-- CTA Final -->
         <section class="py-16 sm:py-24 bg-gradient-to-br from-gray-900 to-gray-800 text-white text-center px-4 sm:px-6">
             <div class="max-w-3xl mx-auto">
-                <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 font-serif italic px-2">
+                <h2 class="text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 font-serif italic px-2 text-white">
                     "Gustavo, seu concorrente vai ter isso. 
                     <br>A pergunta é: quem chega primeiro?"
                 </h2>
@@ -912,8 +905,8 @@
                     </div>
                     <div class="text-center md:text-right">
                         <h4 class="text-white font-bold mb-2 text-sm">Proposta</h4>
-                        <p class="text-xs sm:text-sm">Válida até: <span id="footerValidity" class="text-sand-500"></span></p>
-                        <p class="text-[10px] mt-1 text-gray-600">Documento confidencial. Uso exclusivo de Gustavo Ribeiro.</p>
+                        <p class="text-xs sm:text-sm">Válida até: <span id="footerValidity" class="text-sand-400"></span></p>
+                        <p class="text-[10px] mt-1 text-gray-500">Documento confidencial. Uso exclusivo de Gustavo Ribeiro.</p>
                     </div>
                 </div>
                 <div class="border-t border-gray-800 pt-8 mt-8 text-center text-xs">
