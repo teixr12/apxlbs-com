@@ -473,6 +473,36 @@
             opacity: 0.5;
             z-index: -1;
         }
+        
+        /* Language button styles */
+        .lang-btn {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+            background: transparent;
+            border: 1px solid transparent;
+        }
+        
+        .lang-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .lang-btn.active {
+            color: #e84c9a;
+            background: rgba(232, 76, 154, 0.1);
+            border-color: rgba(232, 76, 154, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .lang-btn {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+            }
+        }
     </style>
 <base target="_blank">
 </head>
@@ -505,6 +535,7 @@
                     <div class="flex items-center space-x-1">
                         <button onclick="setLanguage('pt')" class="lang-btn active text-xs px-2 py-1" id="btn-pt-mobile">PT</button>
                         <button onclick="setLanguage('en')" class="lang-btn text-xs px-2 py-1" id="btn-en-mobile">EN</button>
+                        <button onclick="setLanguage('es')" class="lang-btn text-xs px-2 py-1" id="btn-es-mobile">ES</button>
                     </div>
                     <button id="mobile-menu-btn" class="text-gray-400 hover:text-white p-2 border-subtle rounded-lg">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -727,7 +758,7 @@
                     <h3 class="text-xl font-bold text-white mb-3" data-i18n="card1_title">Expertise Comprovada</h3>
                     <p class="text-gray-400 leading-relaxed text-sm" data-i18n="card1_desc">Mais de 15 anos desenvolvendo estratégias personalizadas de gestão de ativos para indústrias brasileiras e multinacionais.</p>
                     <div class="mt-6 flex items-center gap-2 text-brand-accent text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span>Saiba mais</span>
+                        <span data-i18n="learn_more">Saiba mais</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-7 7m7-7H3"/></svg>
                     </div>
                 </div>
@@ -1318,6 +1349,7 @@
                 card3_title: "Equipe Certificada", card3_desc: "Consultores com certificações ISO 55001, ISO/IEC 27001, ISO 9001 e 14001.",
                 card4_title: "Soluções Sob Medida", card4_desc: "Roteiros de melhoria baseados em auditorias de maturidade (AMIP).",
                 card5_title: "Treinamento Contínuo", card5_desc: "Programas de capacitação híbrida para formar 'pessoas inteligentes'.",
+                learn_more: "Saiba mais",
                 marquee_title: "Integrações Nativas",
                 bento_title: "Resultados que Transformam", bento_subtitle: "Descubra como a Aktivus impulsiona a excelência operacional.",
                 bento_live: "Em tempo real", bento_twin_title: "Digital Twin Integrado", bento_twin_desc: "Gêmeos digitais conectados a sensores IoT fornecem visibilidade completa.",
@@ -1338,7 +1370,7 @@
                 services_tag: "Portfólio", services_title: "Serviços", services_subtitle: "Cada organização é única. Nossos serviços são modulados de acordo com seu nível de maturidade.",
                 serv1_title: "Consultoria e Projetos", serv1_subtitle1: "Análises de Capacidade", serv1_desc1: "Identifique lacunas e defina um roadmap.", serv1_subtitle2: "Implantação de Políticas", serv1_desc2: "Alinhadas às normas ISO.", serv1_subtitle3: "Auditorias", serv1_desc3: "Engenheiros seniores revisam processos.",
                 serv2_title: "Centro de Cuidado dos Ativos (ACC)", serv2_subtitle1: "Projetos de Melhoria", serv2_desc1: "Pontuais para otimizar processos.", serv2_subtitle2: "Aumento de Equipe", serv2_desc2: "Apoio de especialistas.", serv2_subtitle3: "Terceirização", serv2_desc3: "Planos de manutenção sob gestão da Aktivus.",
-                serv3_title: "Consultoria TPM", serv3_desc: "Implementação de Total Productive Maintenance para alcançar Zero Falhas.",
+                serv3_title: "Consultoria TPM", serv3_desc: "Implementação de Total Productive Maintenance para alcançar <span class=\"text-brand-accent font-semibold\">Zero Falhas, Zero Defeitos e Zero Acidentes</span>.",
                 serv4_title: "Normas ISO", iso1: "Gestão de Ativos", iso2: "Segurança", iso3: "Qualidade", iso4: "Meio Ambiente", serv4_desc: "Serviços incluem implementação completa.",
                 services_cta: "Falar com Especialista",
                 contact_title: "Pronto para otimizar seus ativos?", contact_subtitle: "Fale agora com nossa equipe de especialistas.",
@@ -1358,6 +1390,7 @@
                 card3_title: "Certified Team", card3_desc: "Consultants with ISO 55001, ISO/IEC 27001, ISO 9001 and 14001.",
                 card4_title: "Tailored Solutions", card4_desc: "Improvement roadmaps based on maturity assessments (AMIP).",
                 card5_title: "Continuous Training", card5_desc: "Hybrid training programs to form 'smart people'.",
+                learn_more: "Learn more",
                 marquee_title: "Native Integrations",
                 bento_title: "Transformative Results", bento_subtitle: "Discover how Aktivus drives operational excellence.",
                 bento_live: "Real-time", bento_twin_title: "Integrated Digital Twin", bento_twin_desc: "Digital twins connected to IoT sensors provide complete visibility.",
@@ -1378,7 +1411,7 @@
                 services_tag: "Portfolio", services_title: "Services", services_subtitle: "Every organization is unique. Our services are modulated according to your maturity level.",
                 serv1_title: "Consulting and Projects", serv1_subtitle1: "Capability Analysis", serv1_desc1: "Identify gaps and define a roadmap.", serv1_subtitle2: "Policy Implementation", serv1_desc2: "Aligned with ISO standards.", serv1_subtitle3: "Audits", serv1_desc3: "Senior engineers review processes.",
                 serv2_title: "Asset Care Center (ACC)", serv2_subtitle1: "Improvement Projects", serv2_desc1: "Specific to optimize processes.", serv2_subtitle2: "Staff Augmentation", serv2_desc2: "Specialist support.", serv2_subtitle3: "Outsourcing", serv2_desc3: "Maintenance plans managed by Aktivus.",
-                serv3_title: "TPM Consulting", serv3_desc: "Implementation of Total Productive Maintenance to achieve Zero Failures.",
+                serv3_title: "TPM Consulting", serv3_desc: "Implementation of Total Productive Maintenance to achieve <span class=\"text-brand-accent font-semibold\">Zero Failures, Zero Defects and Zero Accidents</span>.",
                 serv4_title: "ISO Standards", iso1: "Asset Management", iso2: "Security", iso3: "Quality", iso4: "Environment", serv4_desc: "Services include complete implementation.",
                 services_cta: "Talk to Specialist",
                 contact_title: "Ready to optimize your assets?", contact_subtitle: "Talk to our team of experts. We will respond within one business day.",
@@ -1386,33 +1419,92 @@
                 form_name: "Name", form_phone: "Phone", form_email: "Email", form_subject: "Subject",
                 form_select: "Select a subject", form_opt1: "Consulting and Projects", form_opt2: "Asset Care Center", form_opt3: "TPM Consulting", form_opt4: "ISO Standards", form_opt5: "Other subject",
                 form_message: "Message", form_submit: "Send Message"
+            },
+            es: {
+                nav_why: "Por qué Aktivus", nav_benefits: "Beneficios", nav_ga5: "Gestión 5.0", nav_services: "Servicios", nav_contact: "Contacto",
+                hero_desc: "En Aktivus, combinamos tecnología de punta, gemelos digitales y know-how industrial para elevar la gestión de activos a un nuevo nivel.",
+                cta_main: "Agendar Consultoría", cta_secondary: "Conozca GA 5.0",
+                stat_years: "Años", stat_cert: "Certificado", stat_gen: "Generación",
+                why_tag: "Diferenciales", why_title: "¿Por qué elegir Aktivus?", why_subtitle: "Experiencia comprobada, tecnología de clase mundial y equipo certificado.",
+                card1_title: "Experiencia Comprobada", card1_desc: "Más de 15 años desarrollando estrategias personalizadas de gestión de activos.",
+                card2_title: "Tecnología de Clase Mundial", card2_desc: "Implementación de sistemas EAM robustos y software propietario.",
+                card3_title: "Equipo Certificado", card3_desc: "Consultores con certificaciones ISO 55001, ISO/IEC 27001, ISO 9001 y 14001.",
+                card4_title: "Soluciones a Medida", card4_desc: "Hojas de ruta de mejora basadas en evaluaciones de madurez (AMIP).",
+                card5_title: "Entrenamiento Continuo", card5_desc: "Programas de capacitación híbrida para formar 'personas inteligentes'.",
+                learn_more: "Saber más",
+                marquee_title: "Integraciones Nativas",
+                bento_title: "Resultados que Transforman", bento_subtitle: "Descubra cómo Aktivus impulsa la excelencia operativa.",
+                bento_live: "Tiempo real", bento_twin_title: "Gemelo Digital Integrado", bento_twin_desc: "Gemelos digitales conectados a sensores IoT proporcionan visibilidad completa.",
+                bento_uptime: "Disponibilidad", bento_pred: "Precisión Preditiva",
+                bento_roi_desc: "Reducción promedio en costos operativos en el primer año",
+                bento_uptime_desc: "Aumento en la disponibilidad de equipos críticos",
+                bento_iso_title: "Cumplimiento Total", bento_iso_desc: "Auditorías e implementaciones certificadas de normas ISO.",
+                bento_pm_title: "Mantenimiento Preditivo", bento_pm_desc: "Algoritmos de ML analizan patrones para prevenir fallas.",
+                bento_mobile_title: "Gestión Móvil", bento_mobile_desc: "Acceda a órdenes de trabajo desde cualquier lugar.",
+                benefits_tag: "Métricas",
+                ga5_tag: "Industria 4.0 ya llegó", ga5_title: "Gestión de Activos 5.0",
+                ga5_desc: "En un mundo hiperconectado, donde sensores e IoT generan yottabytes de datos...",
+                ga5_item1: "Anticipar fallas y optimizar planes de mantenimiento",
+                ga5_item2: "Tomar decisiones basadas en datos en tiempo real",
+                ga5_item3: "Aumentar el tiempo de actividad y la seguridad operacional",
+                ga5_stat1: "Reducción de paradas", ga5_stat2: "Visibilidad total", ga5_stat3: "Costo/Riesgo",
+                ga5_cta: "Descubra GA 5.0",
+                services_tag: "Portafolio", services_title: "Servicios", services_subtitle: "Cada organización es única. Nuestros servicios se modulan según su nivel de madurez.",
+                serv1_title: "Consultoría y Proyectos", serv1_subtitle1: "Análisis de Capacidad", serv1_desc1: "Identifique brechas y defina una hoja de ruta.", serv1_subtitle2: "Implementación de Políticas", serv1_desc2: "Alineadas con normas ISO.", serv1_subtitle3: "Auditorías", serv1_desc3: "Ingenieros senior revisan procesos.",
+                serv2_title: "Centro de Cuidado de Activos (ACC)", serv2_subtitle1: "Proyectos de Mejora", serv2_desc1: "Específicos para optimizar procesos.", serv2_subtitle2: "Aumento de Personal", serv2_desc2: "Apoyo de especialistas.", serv2_subtitle3: "Tercerización", serv2_desc3: "Planes de mantenimiento gestionados por Aktivus.",
+                serv3_title: "Consultoría TPM", serv3_desc: "Implementación de Total Productive Maintenance para lograr <span class=\"text-brand-accent font-semibold\">Cero Fallas, Cero Defectos y Cero Accidentes</span>.",
+                serv4_title: "Normas ISO", iso1: "Gestión de Activos", iso2: "Seguridad", iso3: "Calidad", iso4: "Medio Ambiente", serv4_desc: "Servicios incluyen implementación completa.",
+                services_cta: "Hablar con Especialista",
+                contact_title: "¿Listo para optimizar sus activos?", contact_subtitle: "Hable ahora con nuestro equipo de especialistas. Responderemos en un día hábil.",
+                address_label: "Dirección",
+                form_name: "Nombre", form_phone: "Teléfono", form_email: "Correo", form_subject: "Asunto",
+                form_select: "Seleccione un asunto", form_opt1: "Consultoría y Proyectos", form_opt2: "Centro de Cuidado de Activos", form_opt3: "Consultoría TPM", form_opt4: "Normas ISO", form_opt5: "Otro asunto",
+                form_message: "Mensaje", form_submit: "Enviar Mensaje"
             }
         };
 
+        // Get stored language or default to Portuguese
         let currentLang = localStorage.getItem('aktivus-lang') || 'pt';
         
         function setLanguage(lang) {
+            // Validate language exists, fallback to Portuguese
+            if (!translations[lang]) {
+                lang = 'pt';
+            }
+            
             currentLang = lang;
             localStorage.setItem('aktivus-lang', lang);
             
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById(`btn-${lang}`)?.classList.add('active');
-            document.getElementById(`btn-${lang}-mobile`)?.classList.add('active');
+            // Update all lang buttons (both desktop and mobile)
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
             
+            // Add active class to selected buttons
+            const selectedBtn = document.getElementById(`btn-${lang}`);
+            const selectedBtnMobile = document.getElementById(`btn-${lang}-mobile`);
+            if (selectedBtn) selectedBtn.classList.add('active');
+            if (selectedBtnMobile) selectedBtnMobile.classList.add('active');
+            
+            // Update all translatable elements
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
+                if (translations[lang] && translations[lang][key]) {
+                    // Use innerHTML instead of textContent to preserve HTML tags in translations
+                    element.innerHTML = translations[lang][key];
                 }
             });
             
-            document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es-ES' : 'en-US';
+            // Update HTML lang attribute
+            const langMap = { 'pt': 'pt-BR', 'en': 'en-US', 'es': 'es-ES' };
+            document.documentElement.lang = langMap[lang] || 'pt-BR';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize language
             setLanguage(currentLang);
             
-            // Mobile menu
+            // Mobile menu toggle
             const btn = document.getElementById('mobile-menu-btn');
             const menu = document.getElementById('mobile-menu');
             btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
@@ -1427,7 +1519,7 @@
                 }
             });
             
-            // Reveal animation
+            // Reveal animation on scroll
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) entry.target.classList.add('active');
@@ -1436,7 +1528,7 @@
             
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
             
-            // Form submit
+            // Form submit handler
             document.getElementById('contactForm')?.addEventListener('submit', function(e) {
                 e.preventDefault();
                 const btn = this.querySelector('button[type="submit"]');
