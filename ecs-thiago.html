@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escritório Contábil Segurança | Contabilidade em Campinas desde 1977</title>
+    <meta name="description" content="Contabilidade moderna para empresas que querem crescer com segurança fiscal. Mais de 43 anos de experiência em Campinas e região.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shimmer': 'shimmer 3s linear infinite',
+                        'glow-pulse': 'glowPulse 2s ease-in-out infinite alternate',
+                        'scan': 'scan 3s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-1000px 0' },
+                            '100%': { backgroundPosition: '1000px 0' },
+                        },
+                        glowPulse: {
+                            '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+                            '100%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' },
+                        },
+                        scan: {
+                            '0%': { top: '-100%' },
+                            '100%': { top: '100%' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -20px rgba(59, 130, 246, 0.3);
+        }
+
+        .mesh-gradient {
+            background-color: #000000;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(34, 211, 238, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(34, 211, 238, 0.05) 0px, transparent 50%);
+        }
+
+        .glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .animate-in {
+            animation: animateIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes animateIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        .mobile-menu-enter {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Chart overlay effects */
+        .chart-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                rgba(59, 130, 246, 0.1) 50%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 3s linear infinite;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .chart-glow {
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(45deg, #3b82f6, #22d3ee, #3b82f6);
+            background-size: 200% 200%;
+            border-radius: 1rem;
+            z-index: -1;
+            animation: gradientShift 3s ease infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .scan-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.8), transparent);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+            animation: scan 3s linear infinite;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .floating-stat {
+            position: absolute;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            backdrop-filter: blur(10px);
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #60a5fa;
+            animation: floatStat 4s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 20;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .floating-stat {
+                display: none;
+            }
+        }
+
+        @keyframes floatStat {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-10px) translateX(5px); }
+            50% { transform: translateY(0) translateX(10px); }
+            75% { transform: translateY(10px) translateX(5px); }
+        }
+
+        /* Logo fallback styling */
+        .logo-fallback {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #60a5fa;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased mesh-gradient min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass border-b-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <a href="#" class="flex items-center gap-2 sm:gap-3">
+                    <img src="https://images.groovetech.io/Bf7diM6kA7fLAFLR11IQ--1WCMTnItDX8F7Xe6TeHnQ/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzcwMDU4Mzg3X2Vjc2xvZ290aGlhZ28ucG5n.webp" 
+                         alt="Escritório Contábil Segurança" 
+                         class="h-8 sm:h-10 w-auto object-contain brightness-110"
+                         onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <span class="text-white font-bold text-xl hidden" id="logoFallback">ECS</span>
+                </a>
+                
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                    <a href="#autoridade" class="hover:text-white transition-colors">Sobre</a>
+                    <a href="#servicos" class="hover:text-white transition-colors">Serviços</a>
+                    <a href="#localizacao" class="hover:text-white transition-colors">Contato</a>
+                </div>
+
+                <a href="https://wa.me/551932422482" target="_blank" 
+                   class="hidden md:flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition-all text-xs sm:text-sm font-medium shadow-lg shadow-blue-600/20">
+                    <i data-lucide="message-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+                    <span class="hidden sm:inline">Falar agora</span>
+                    <span class="sm:hidden">WhatsApp</span>
+                </a>
+
+                <button id="mobileMenuBtn" class="md:hidden text-white p-2" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div id="mobileMenu" class="hidden md:hidden pb-4 mobile-menu-enter">
+                <div class="flex flex-col gap-3 pt-4 border-t border-white/10">
+                    <a href="#autoridade" class="text-gray-400 hover:text-white transition-colors py-2" onclick="toggleMobileMenu()">Sobre</a>
+                    <a href="#servicos" class="text-gray-400 hover:text-white transition-colors py-2" onclick="toggleMobileMenu()">Serviços</a>
+                    <a href="#localizacao" class="text-gray-400 hover:text-white transition-colors py-2" onclick="toggleMobileMenu()">Contato</a>
+                    <a href="https://wa.me/551932422482" target="_blank" 
+                       class="flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-blue-600 text-white text-sm font-medium mt-2">
+                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                        Falar no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="relative pt-24 sm:pt-32 pb-12 sm:pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0">
+            <div class="glow top-0 left-1/4 animate-pulse-slow"></div>
+            <div class="glow bottom-0 right-1/4 animate-pulse-slow" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full glass text-blue-300 text-xs sm:text-sm mb-6 sm:mb-8 animate-in">
+                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                        Desde 1977 em Campinas
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-6 sm:mb-8 animate-in stagger-1 leading-[1.1]">
+                        Contabilidade moderna para empresas que querem <span class="gradient-text">crescer com segurança fiscal</span>
+                    </h1>
+
+                    <p class="text-base sm:text-xl text-gray-400 mb-8 sm:mb-10 leading-relaxed animate-in stagger-2 max-w-2xl mx-auto lg:mx-0 px-4 sm:px-0">
+                        Mais de <strong class="text-white">43 anos de experiência</strong> ajudando empresas de Campinas e região a manterem suas obrigações em dia, reduzir riscos e ganhar tranquilidade para crescer.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start animate-in stagger-3 px-4 sm:px-0">
+                        <a href="https://wa.me/551932422482" target="_blank" 
+                           class="group px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium transition-all flex items-center justify-center gap-2 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25 text-sm sm:text-base">
+                            <i data-lucide="message-circle" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                            Falar com um contador agora
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform hidden sm:inline"></i>
+                        </a>
+                        <a href="#servicos" 
+                           class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full glass hover:bg-white/5 text-white font-medium transition-all flex items-center justify-center gap-2 border border-white/10 text-sm sm:text-base">
+                            Solicitar atendimento
+                        </a>
+                    </div>
+
+                    <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10 grid grid-cols-3 gap-4 sm:gap-8 animate-in stagger-4">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold gradient-text counter" data-target="43">0</div>
+                            <div class="text-[10px] sm:text-xs text-gray-500 mt-1">Anos de mercado</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold gradient-text">100%</div>
+                            <div class="text-[10px] sm:text-xs text-gray-500 mt-1">Informatizado</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-bold gradient-text">1977</div>
+                            <div class="text-[10px] sm:text-xs text-gray-500 mt-1">Fundação</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 sm:gap-4 animate-in stagger-2 mt-8 lg:mt-0">
+                    <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative overflow-hidden group h-48 sm:h-64 flex flex-col justify-between">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="w-8 h-8 sm:w-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400">
+                            <i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-4xl font-bold mb-1 counter" data-target="55">0</div>
+                            <div class="text-xs sm:text-sm text-gray-400">% Redução no tempo de processos</div>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative overflow-hidden group h-48 sm:h-64 flex flex-col justify-center items-center text-center">
+                        <div class="w-10 h-10 sm:w-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 mb-2 sm:mb-4">
+                            <i data-lucide="trending-up" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                        </div>
+                        <div class="text-2xl sm:text-3xl font-bold mb-1">+<span class="counter" data-target="147">0</span>%</div>
+                        <div class="text-[10px] sm:text-xs text-gray-400">Crescimento médio</div>
+                    </div>
+
+                    <div class="glass-card rounded-2xl sm:rounded-3xl p-4 sm:p-6 col-span-2 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+                        <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-semibold mb-1 sm:mb-2">Tradição + Tecnologia</h3>
+                                <p class="text-xs sm:text-sm text-gray-400 max-w-md">
+                                    Unimos 43 anos de experiência com as mais modernas ferramentas digitais.
+                                </p>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="w-8 h-8 sm:w-10 rounded-full bg-white/5 flex items-center justify-center">
+                                    <i data-lucide="shield" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400"></i>
+                                </div>
+                                <div class="w-8 h-8 sm:w-10 rounded-full bg-white/5 flex items-center justify-center">
+                                    <i data-lucide="cpu" class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENTO GRID - GITHUB STYLE -->
+    <section class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+            
+            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[250px] sm:min-h-[320px] group cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-30"></div>
+                <div class="relative z-10">
+                    <h3 class="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white leading-tight mb-4">
+                        Mais de 43 anos ajudando empresas a crescerem com segurança fiscal e tranquilidade
+                    </h3>
+                </div>
+                <div class="relative z-10 flex items-center gap-2 text-white/90 text-xs sm:text-sm font-medium group-hover:gap-3 transition-all">
+                    Conheça nossa história 
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-900/80 border border-white/10 p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[250px] sm:min-h-[320px]">
+                <div class="relative z-10">
+                    <div class="w-10 h-10 sm:w-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center mb-4 sm:mb-6 shadow-lg shadow-blue-500/30">
+                        <i data-lucide="zap" class="w-5 h-5 sm:w-6 sm:h-6 text-white fill-white"></i>
+                    </div>
+                    <div class="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-2 counter" data-target="55">0</div>
+                    <div class="text-gray-400 text-base sm:text-lg">% Redução no tempo de processos contábeis</div>
+                </div>
+                <div class="absolute top-0 right-0 w-24 sm:w-32 h-24 sm:h-32 bg-blue-500/10 rounded-full blur-3xl"></div>
+            </div>
+
+            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-slate-900/80 border border-white/10 p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[200px] sm:min-h-[280px]">
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                        <div class="w-8 h-8 sm:w-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-500/20">
+                            <i data-lucide="shield-check" class="w-4 h-4 sm:w-5 sm:h-5 text-white"></i>
+                        </div>
+                        <div class="flex gap-2 sm:gap-3 opacity-50">
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded bg-white/20 flex items-center justify-center">
+                                <i data-lucide="building-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white"></i>
+                            </div>
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded bg-white/20 flex items-center justify-center">
+                                <i data-lucide="landmark" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white"></i>
+                            </div>
+                            <div class="w-7 h-7 sm:w-8 sm:h-8 rounded bg-white/20 flex items-center justify-center">
+                                <i data-lucide="award" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white leading-tight">
+                        Reconhecidos pelas Entidades Contábeis de Campinas com ética e excelência
+                    </h3>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-700 via-indigo-700 to-cyan-600 p-6 sm:p-8 lg:p-10 flex flex-col justify-between min-h-[200px] sm:min-h-[280px] group cursor-pointer hover:scale-[1.02] transition-transform duration-300">
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%23ffffff%22%20fill-opacity%3D%220.1%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-30"></div>
+                
+                <div class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 opacity-20">
+                    <svg width="80" height="80" sm:width="120" sm:height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="text-white">
+                        <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <h3 class="text-lg sm:text-2xl lg:text-3xl font-bold text-white leading-tight mb-4">
+                        Comprometidos com sua privacidade, segurança e confiança
+                    </h3>
+                </div>
+                
+                <div class="relative z-10 flex items-center gap-2 text-white/90 text-xs sm:text-sm font-medium group-hover:gap-3 transition-all">
+                    Conheça nossos certificados
+                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BLOCO DE AUTORIDADE -->
+    <section id="autoridade" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-16 border border-white/5">
+            <div class="max-w-4xl mx-auto text-center mb-8 sm:mb-12">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
+                    Tradição, confiança e evolução constante
+                </h2>
+                <div class="w-16 sm:w-20 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto mb-6 sm:mb-8 rounded-full"></div>
+                <p class="text-base sm:text-lg text-gray-400 leading-relaxed px-4 sm:px-0">
+                    Desde <strong class="text-white">1977</strong>, o Escritório Contábil Segurança atua oferecendo serviços contábeis, fiscais e trabalhistas com ética, responsabilidade e alto padrão técnico.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                <div class="glass-card rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center group hover:border-blue-500/30 transition-colors">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-400 mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="award" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2 text-base sm:text-lg">Atuação Regional</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Consolidada em Campinas e região há mais de quatro décadas</p>
+                </div>
+
+                <div class="glass-card rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center group hover:border-blue-500/30 transition-colors">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-cyan-500/10 flex items-center justify-center text-cyan-400 mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="cpu" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2 text-base sm:text-lg">Tecnologia</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Estrutura totalmente informatizada e processos digitais</p>
+                </div>
+
+                <div class="glass-card rounded-xl sm:rounded-2xl p-6 sm:p-8 text-center group hover:border-blue-500/30 transition-colors sm:col-span-2 md:col-span-1">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 mx-auto mb-3 sm:mb-4 group-hover:scale-110 transition-transform">
+                        <i data-lucide="users" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                    </div>
+                    <h3 class="font-semibold text-white mb-2 text-base sm:text-lg">Equipe Especializada</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Profissionais capacitados por área e atualizados na legislação</p>
+                </div>
+            </div>
+
+            <div class="mt-6 sm:mt-8 flex flex-wrap justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-gray-500 px-4 sm:px-0">
+                <span class="flex items-center gap-2 glass px-3 sm:px-4 py-2 rounded-full">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400"></i>
+                    Reconhecimento pelas Entidades Contábeis
+                </span>
+                <span class="flex items-center gap-2 glass px-3 sm:px-4 py-2 rounded-full">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400"></i>
+                    CRC Ativo
+                </span>
+                <span class="flex items-center gap-2 glass px-3 sm:px-4 py-2 rounded-full">
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400"></i>
+                    Ética Profissional
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARA QUEM É -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-8 sm:gap-16 items-center">
+            <div class="text-center lg:text-left px-4 sm:px-0">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
+                    Este serviço é ideal para você que:
+                </h2>
+                <p class="text-gray-400 text-base sm:text-lg mb-6 sm:mb-10">
+                    Se você quer foco no crescimento do seu negócio — nós cuidamos da parte contábil.
+                </p>
+                
+                <a href="https://wa.me/551932422482" target="_blank" 
+                   class="inline-flex items-center gap-2 px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium transition-all hover:scale-105 shadow-lg shadow-blue-600/20 text-sm sm:text-base">
+                    Quero falar com um especialista
+                    <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                </a>
+            </div>
+
+            <div class="space-y-3 sm:space-y-4 px-4 sm:px-0">
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 flex items-start gap-3 sm:gap-4 group hover:border-blue-500/30">
+                    <div class="w-8 h-8 sm:w-10 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-colors mt-0.5">
+                        <i data-lucide="rocket" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-0.5 sm:mb-1 text-sm sm:text-base">Está abrindo sua empresa</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm">Quer evitar erros fiscais desde o início</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 flex items-start gap-3 sm:gap-4 group hover:border-blue-500/30">
+                    <div class="w-8 h-8 sm:w-10 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0 text-cyan-400 group-hover:bg-cyan-500 group-hover:text-white transition-colors mt-0.5">
+                        <i data-lucide="file-check" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-0.5 sm:mb-1 text-sm sm:text-base">Precisa regularizar</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm">CNPJ ou CPF com situação pendente</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 flex items-start gap-3 sm:gap-4 group hover:border-blue-500/30">
+                    <div class="w-8 h-8 sm:w-10 rounded-full bg-indigo-500/20 flex items-center justify-center flex-shrink-0 text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-colors mt-0.5">
+                        <i data-lucide="calculator" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-0.5 sm:mb-1 text-sm sm:text-base">Quer organizar a contabilidade</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm">E folha de pagamento sem complicação</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 flex items-start gap-3 sm:gap-4 group hover:border-blue-500/30">
+                    <div class="w-8 h-8 sm:w-10 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 text-green-400 group-hover:bg-green-500 group-hover:text-white transition-colors mt-0.5">
+                        <i data-lucide="trending-down" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-0.5 sm:mb-1 text-sm sm:text-base">Busca pagar menos impostos</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm">Dentro da lei, com planejamento fiscal</p>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 flex items-start gap-3 sm:gap-4 group hover:border-blue-500/30">
+                    <div class="w-8 h-8 sm:w-10 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0 text-purple-400 group-hover:bg-purple-500 group-hover:text-white transition-colors mt-0.5">
+                        <i data-lucide="coffee" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-white mb-0.5 sm:mb-1 text-sm sm:text-base">Quer parar de se preocupar</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm">Com burocracia e focar no negócio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVIÇOS -->
+    <section id="servicos" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-16 px-4 sm:px-0">
+            <span class="text-blue-400 font-semibold text-xs sm:text-sm uppercase tracking-wider">Nossos Serviços</span>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-3 sm:mb-4">
+                Soluções completas para sua empresa
+            </h2>
+            <p class="text-gray-400 text-sm sm:text-base">Atendimento personalizado e especializado em todas as áreas contábeis</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 px-4 sm:px-0">
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group">
+                <div class="w-12 h-12 sm:w-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="book-open" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Contabilidade Completa</h3>
+                <ul class="space-y-2 sm:space-y-3 text-gray-400 mb-4 sm:mb-6">
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Escrituração contábil completa</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Escrituração fiscal</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Emissão e controle de impostos</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Obrigações acessórias</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group">
+                <div class="w-12 h-12 sm:w-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="users" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Departamento Pessoal</h3>
+                <ul class="space-y-2 sm:space-y-3 text-gray-400 mb-4 sm:mb-6">
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Folha de pagamento</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Registro de funcionários</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Admissão e demissão</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-cyan-400 flex-shrink-0 mt-0.5"></i>
+                        <span>eSocial e encargos</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 group sm:col-span-2 lg:col-span-1">
+                <div class="w-12 h-12 sm:w-14 rounded-xl sm:rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white mb-4 sm:mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="building-2" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Abertura e Regularização</h3>
+                <ul class="space-y-2 sm:space-y-3 text-gray-400 mb-4 sm:mb-6">
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Abertura de CNPJ</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Alterações contratuais</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Encerramento de empresas</span>
+                    </li>
+                    <li class="flex items-start gap-2 text-xs sm:text-sm">
+                        <i data-lucide="check" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-400 flex-shrink-0 mt-0.5"></i>
+                        <span>Regularização fiscal e cadastral</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="text-center mt-8 sm:mt-12">
+            <button onclick="toggleModal()" class="inline-flex items-center gap-2 text-blue-400 font-semibold hover:text-blue-300 transition-colors text-sm sm:text-base">
+                Ver todos os serviços
+                <i data-lucide="arrow-right" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- GRÁFICOS COM ANIMAÇÃO OVERLAY DINÂMICA - CORRIGIDO -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-12 border border-white/5 relative overflow-hidden chart-container">
+            <!-- Efeito de borda brilhante animada -->
+            <div class="chart-glow absolute -inset-[1px] rounded-2xl sm:rounded-3xl"></div>
+            
+            <!-- Overlay shimmer dinâmico -->
+            <div class="chart-overlay absolute inset-0 rounded-2xl sm:rounded-3xl"></div>
+            
+            <!-- Scan line animada -->
+            <div class="scan-line z-10"></div>
+            
+            <!-- Stats flutuantes animados - reposicionados para não sobrepor -->
+            <div class="floating-stat hidden md:block top-4 right-8" style="animation-delay: 0s;">
+                <span class="text-green-400">+23%</span> economia
+            </div>
+            <div class="floating-stat hidden md:block top-16 right-24" style="animation-delay: 1s;">
+                <span class="text-blue-400">100%</span> compliance
+            </div>
+            <div class="floating-stat hidden md:block bottom-24 left-1/3" style="animation-delay: 2s;">
+                <span class="text-cyan-400">24h</span> relatórios
+            </div>
+            
+            <div class="relative z-20 grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+                <div class="text-center lg:text-left px-4 sm:px-0">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs sm:text-sm mb-4">
+                        <i data-lucide="activity" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                        Analytics em tempo real
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">Crescimento sustentável com <span class="gradient-text">inteligência fiscal</span></h2>
+                    <p class="text-gray-400 text-base sm:text-lg mb-6 sm:mb-8">
+                        Nossos clientes economizam em média 23% em impostos através de planejamento tributário 
+                        estratégico e legal.
+                    </p>
+                    
+                    <div class="space-y-4 sm:space-y-6">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="w-10 h-10 sm:w-12 rounded-xl sm:rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
+                                <i data-lucide="trending-down" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-semibold text-white text-sm sm:text-base">Redução de impostos</h4>
+                                <p class="text-xs sm:text-sm text-gray-500">Dentro da lei, maximizando lucros</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <div class="w-10 h-10 sm:w-12 rounded-xl sm:rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                                <i data-lucide="clock" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                            </div>
+                            <div class="text-left">
+                                <h4 class="font-semibold text-white text-sm sm:text-base">Tempo real</h4>
+                                <p class="text-xs sm:text-sm text-gray-500">Relatórios e dashboards atualizados</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative h-64 sm:h-80 px-4 sm:px-0">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIFERENCIAL -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-8 sm:gap-16 items-center">
+            <div class="px-4 sm:px-0 text-center lg:text-left">
+                <span class="text-blue-400 font-semibold text-xs sm:text-sm uppercase tracking-wider">Por que nos escolher</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-4 sm:mb-6">
+                    Por que escolher o Escritório Contábil Segurança?
+                </h2>
+                
+                <div class="prose text-gray-400 mb-6 sm:mb-8">
+                    <p class="text-base sm:text-lg leading-relaxed mb-4">
+                        Porque você não precisa apenas de um contador. Você precisa de <strong class="text-white">parceiros estratégicos para o seu negócio.</strong>
+                    </p>
+                </div>
+
+                <div class="space-y-3 sm:space-y-4 text-left">
+                    <div class="flex items-start gap-3 sm:gap-4">
+                        <div class="w-5 h-5 sm:w-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                            <i data-lucide="check" class="w-3 h-3 sm:w-4 sm:h-4 text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm sm:text-base">Atendimento humano e personalizado</h4>
+                            <p class="text-xs sm:text-sm text-gray-500">Você fala com gente, não com robôs</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 sm:gap-4">
+                        <div class="w-5 h-5 sm:w-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                            <i data-lucide="check" class="w-3 h-3 sm:w-4 sm:h-4 text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm sm:text-base">Atualização constante da legislação</h4>
+                            <p class="text-xs sm:text-sm text-gray-500">Sempre atualizados com as mudanças fiscais</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 sm:gap-4">
+                        <div class="w-5 h-5 sm:w-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                            <i data-lucide="check" class="w-3 h-3 sm:w-4 sm:h-4 text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm sm:text-base">Processos digitais e organizados</h4>
+                            <p class="text-xs sm:text-sm text-gray-500">Tecnologia a serviço da eficiência</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 sm:gap-4">
+                        <div class="w-5 h-5 sm:w-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                            <i data-lucide="check" class="w-3 h-3 sm:w-4 sm:h-4 text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm sm:text-base">Experiência prática comprovada</h4>
+                            <p class="text-xs sm:text-sm text-gray-500">43 anos de história e resultados</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 sm:gap-4">
+                        <div class="w-5 h-5 sm:w-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-1">
+                            <i data-lucide="check" class="w-3 h-3 sm:w-4 sm:h-4 text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white text-sm sm:text-base">Compromisso com ética e responsabilidade</h4>
+                            <p class="text-xs sm:text-sm text-gray-500">Transparência em todas as relações</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 sm:mt-8 p-4 sm:p-6 glass rounded-xl sm:rounded-2xl border-l-4 border-blue-500 text-left">
+                    <p class="text-white font-semibold text-base sm:text-lg">
+                        "Mais tranquilidade. Menos riscos. Mais controle."
+                    </p>
+                </div>
+            </div>
+
+            <div class="relative px-4 sm:px-0">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-500/20 rounded-2xl sm:rounded-3xl transform rotate-3 blur-xl"></div>
+                <div class="relative glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 border border-white/10">
+                    <div class="grid grid-cols-2 gap-4 sm:gap-8 text-center">
+                        <div class="p-2 sm:p-4">
+                            <div class="text-3xl sm:text-4xl font-bold gradient-text mb-2 counter" data-target="43">0</div>
+                            <div class="text-xs sm:text-sm text-gray-400">Anos de experiência</div>
+                        </div>
+                        <div class="p-2 sm:p-4">
+                            <div class="text-3xl sm:text-4xl font-bold gradient-text mb-2">100%</div>
+                            <div class="text-xs sm:text-sm text-gray-400">Digital</div>
+                        </div>
+                        <div class="p-2 sm:p-4">
+                            <div class="text-3xl sm:text-4xl font-bold gradient-text mb-2">1977</div>
+                            <div class="text-xs sm:text-sm text-gray-400">Início das atividades</div>
+                        </div>
+                        <div class="p-2 sm:p-4">
+                            <div class="text-3xl sm:text-4xl font-bold gradient-text mb-2">SP</div>
+                            <div class="text-xs sm:text-sm text-gray-400">Campinas e Região</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-white/10">
+                        <blockquote class="text-gray-400 italic text-center text-xs sm:text-sm">
+                            "Unindo tradição + inovação para entregar resultados consistentes"
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HISTÓRIA -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-16 border border-white/5 text-center">
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
+                Mais de quatro décadas construindo confiança
+            </h2>
+            
+            <div class="w-16 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-cyan-400 mx-auto mb-6 sm:mb-8 rounded-full"></div>
+            
+            <p class="text-base sm:text-lg text-gray-400 leading-relaxed mb-8 sm:mb-12 max-w-3xl mx-auto px-4 sm:px-0">
+                Idealizado por profissionais experientes da área contábil e hoje administrado por uma nova geração preparada tecnicamente e tecnologicamente, o <strong class="text-white">Escritório Contábil Segurança</strong> une <span class="text-blue-400 font-semibold">tradição + inovação</span> para entregar resultados consistentes aos seus clientes.
+            </p>
+
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto px-4 sm:px-0">
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                    <i data-lucide="history" class="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mx-auto mb-2 sm:mb-3"></i>
+                    <h3 class="font-semibold text-white mb-1 sm:mb-2 text-sm sm:text-base">Tradição</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Fundado em 1977, mantendo valores e ética de trabalho</p>
+                </div>
+                
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6">
+                    <i data-lucide="refresh-cw" class="w-6 h-6 sm:w-8 sm:h-8 text-cyan-400 mx-auto mb-2 sm:mb-3"></i>
+                    <h3 class="font-semibold text-white mb-1 sm:mb-2 text-sm sm:text-base">Renovação</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Nova geração trazendo tecnologia e métodos modernos</p>
+                </div>
+                
+                <div class="glass-card rounded-xl sm:rounded-2xl p-4 sm:p-6 sm:col-span-2 md:col-span-1">
+                    <i data-lucide="target" class="w-6 h-6 sm:w-8 sm:h-8 text-indigo-400 mx-auto mb-2 sm:mb-3"></i>
+                    <h3 class="font-semibold text-white mb-1 sm:mb-2 text-sm sm:text-base">Resultados</h3>
+                    <p class="text-xs sm:text-sm text-gray-400">Foco em entregar valor real e segurança fiscal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO -->
+    <section id="localizacao" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+            <div class="px-4 sm:px-0 text-center lg:text-left">
+                <span class="text-blue-400 font-semibold text-xs sm:text-sm uppercase tracking-wider">Localização</span>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mt-2 mb-6 sm:mb-8">
+                    Estamos em Campinas – SP
+                </h2>
+                
+                <div class="space-y-4 sm:space-y-6">
+                    <div class="flex items-start gap-3 sm:gap-4 justify-center lg:justify-start">
+                        <div class="w-10 h-10 sm:w-12 rounded-xl sm:rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
+                            <i data-lucide="map-pin" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-semibold text-white mb-1 text-sm sm:text-base">Endereço</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm">Rua Dr Rocha Novais, 825 — Jardim Eulina<br>Campinas - SP</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 sm:gap-4 justify-center lg:justify-start">
+                        <div class="w-10 h-10 sm:w-12 rounded-xl sm:rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400 flex-shrink-0">
+                            <i data-lucide="clock" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-semibold text-white mb-1 text-sm sm:text-base">Horário de Atendimento</h3>
+                            <p class="text-gray-400 text-xs sm:text-sm">Segunda a Sexta<br>08:00 às 12:00 / 13:00 às 17:00</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-3 sm:gap-4 justify-center lg:justify-start">
+                        <div class="w-10 h-10 sm:w-12 rounded-xl sm:rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400 flex-shrink-0">
+                            <i data-lucide="phone" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-semibold text-white mb-1 text-sm sm:text-base">Telefone</h3>
+                            <p class="text-gray-400 text-base sm:text-lg font-semibold">(19) 3242-2482</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                    <a href="https://maps.google.com/?q=Rua+Dr+Rocha+Novais,825+Campinas+SP" target="_blank" 
+                       class="inline-flex items-center justify-center gap-2 glass hover:bg-white/5 text-white px-5 sm:px-6 py-3 rounded-full transition-all border border-white/10 text-sm">
+                        <i data-lucide="map" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                        Abrir no Google Maps
+                    </a>
+                    <a href="https://wa.me/551932422482" target="_blank" 
+                       class="inline-flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white px-5 sm:px-6 py-3 rounded-full transition-all text-sm">
+                        <i data-lucide="message-circle" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                        Falar no WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <div class="h-64 sm:h-96 glass rounded-2xl sm:rounded-3xl overflow-hidden relative border border-white/10 mx-4 sm:mx-0">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3675.2!2d-47.05!3d-22.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDU0JzAwLjAiUyA0N8KwMDMnMDAuMCJX!5e0!3m2!1spt-BR!2sbr!4v1" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0; filter: grayscale(100%) contrast(1.2) opacity(0.6);" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <div class="absolute bottom-4 left-4 glass px-3 py-2 sm:px-4 sm:py-3 rounded-lg sm:rounded-xl border border-white/10">
+                    <p class="font-semibold text-white text-xs sm:text-sm">Escritório Contábil Segurança</p>
+                    <p class="text-[10px] sm:text-xs text-gray-400">Rua Dr Rocha Novais, 825</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-12 sm:mb-20">
+        <div class="glass rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-16 text-center relative overflow-hidden border border-white/10">
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-cyan-500/10"></div>
+            <div class="absolute top-0 right-0 w-48 h-48 sm:w-96 sm:h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
+            
+            <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-0">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+                    Pronto para organizar sua contabilidade de forma simples e segura?
+                </h2>
+                <p class="text-gray-400 text-base sm:text-lg mb-8 sm:mb-10">
+                    Fale agora com nossa equipe e descubra como podemos ajudar sua empresa a crescer com tranquilidade fiscal.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+                    <a href="https://wa.me/551932422482" target="_blank" 
+                       class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium transition-all flex items-center justify-center gap-2 hover:scale-105 shadow-lg shadow-blue-600/20 text-sm sm:text-base">
+                        <i data-lucide="message-circle" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                        Falar com um contador agora
+                    </a>
+                    <a href="tel:1932422482" 
+                       class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full glass hover:bg-white/5 text-white font-medium transition-all flex items-center justify-center gap-2 border border-white/10 text-sm sm:text-base">
+                        <i data-lucide="phone" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                        Ligar agora
+                    </a>
+                </div>
+
+                <div class="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10 flex flex-wrap justify-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-500">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="shield-check" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400"></i>
+                        Atendimento Personalizado
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="clock" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400"></i>
+                        Resposta em 24h
+                    </span>
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="lock" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400"></i>
+                        Dados 100% Seguros
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - CORRIGIDO -->
+    <footer class="border-t border-white/5 py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-6 sm:mb-8">
+                <div class="text-center md:text-left">
+                    <a href="#" class="flex items-center gap-2 sm:gap-3 justify-center md:justify-start mb-2">
+                        <img src="https://images.groovetech.io/Bf7diM6kA7fLAFLR11IQ--1WCMTnItDX8F7Xe6TeHnQ/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzcwMDU4Mzg3X2Vjc2xvZ290aGlhZ28ucG5n.webp" 
+                             alt="Escritório Contábil Segurança" 
+                             class="h-8 sm:h-10 w-auto object-contain brightness-110"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <span class="text-white font-bold text-2xl hidden" id="logoFallbackFooter">ECS</span>
+                    </a>
+                    <p class="text-xs sm:text-sm text-gray-500">Desde 1977 • Campinas/SP</p>
+                </div>
+
+                <!-- APXLBS Logo com fallback -->
+                <a href="https://apxlbs.com" target="_blank" class="opacity-70 hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                    <img src="https://images.groovetech.io/zLwliusigqNxj8mZZkkiPiY56BB1ZcWvsQdiwPg1haw/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzY5NDM3NTk4X3Bvd2VyZWRieWFweGxic3doaWh0ZS5wbmc.webp" 
+                         alt="Powered by APXLBS" 
+                         class="h-5 sm:h-6 w-auto object-contain"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<span class=\'text-xs text-blue-400 font-medium\'>Powered by APXLBS</span>';">
+                </a>
+            </div>
+
+            <div class="border-t border-white/5 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs sm:text-sm text-gray-600">
+                <p>© 2024 Escritório Contábil Segurança — Todos os direitos reservados</p>
+                <div class="flex gap-4 sm:gap-6">
+                    <a href="#servicos" class="hover:text-white transition-colors">Serviços</a>
+                    <a href="#localizacao" class="hover:text-white transition-colors">Contato</a>
+                    <a href="https://wa.me/551932422482" target="_blank" class="hover:text-white transition-colors">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="servicesModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="glass rounded-2xl sm:rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative border border-white/10 mx-4">
+            <button onclick="toggleModal()" class="absolute top-4 right-4 w-8 h-8 sm:w-10 sm:h-10 glass rounded-full flex items-center justify-center hover:bg-white/10 transition-colors">
+                <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+            </button>
+            
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 sm:mb-6">Todos os Nossos Serviços</h3>
+            
+            <div class="space-y-4 sm:space-y-6 text-gray-300 text-sm sm:text-base">
+                <div>
+                    <h4 class="font-semibold text-white flex items-center gap-2 mb-2">
+                        <i data-lucide="book-open" class="w-4 h-4 sm:w-5 sm:h-5 text-blue-400"></i>
+                        Contabilidade
+                    </h4>
+                    <ul class="text-xs sm:text-sm space-y-1 pl-6 sm:pl-7">
+                        <li>• Escrituração Contábil (Livro Diário, Razão, Balancetes)</li>
+                        <li>• Escrituração Fiscal (Apuração de Impostos)</li>
+                        <li>• SPED Contábil e Fiscal</li>
+                        <li>• ECD e ECF</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-white flex items-center gap-2 mb-2">
+                        <i data-lucide="users" class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400"></i>
+                        Departamento Pessoal
+                    </h4>
+                    <ul class="text-xs sm:text-sm space-y-1 pl-6 sm:pl-7">
+                        <li>• Admissão e Demissão de Funcionários</li>
+                        <li>• Folha de Pagamento e Encargos Sociais</li>
+                        <li>• eSocial (S-1.0 e períódicos)</li>
+                        <li>• RAIS, DIRF, GFIP</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-white flex items-center gap-2 mb-2">
+                        <i data-lucide="briefcase" class="w-4 h-4 sm:w-5 sm:h-5 text-indigo-400"></i>
+                        Abertura e Regularização
+                    </h4>
+                    <ul class="text-xs sm:text-sm space-y-1 pl-6 sm:pl-7">
+                        <li>• Abertura de Empresas (MEI, ME, EPP)</li>
+                        <li>• Alteração Contratual</li>
+                        <li>• Baixa e Encerramento de Empresas</li>
+                        <li>• Regularização Fiscal e Tributária</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-white/10">
+                <a href="https://wa.me/551932422482" target="_blank" 
+                   class="block w-full py-2.5 sm:py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-center transition-colors text-sm sm:text-base">
+                    Solicitar orçamento personalizado
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function toggleModal() {
+            const modal = document.getElementById('servicesModal');
+            modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Counter Animation
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(start);
+                }
+            }, 16);
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
+        // Chart.js Configuration
+        const ctx = document.getElementById('growthChart');
+        if (ctx) {
+            const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(59, 130, 246, 0.5)');
+            gradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+                    datasets: [{
+                        label: 'Economia Fiscal (%)',
+                        data: [12, 19, 23, 25, 30, 35],
+                        borderColor: '#3b82f6',
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#22d3ee',
+                        pointBorderColor: '#3b82f6',
+                        pointBorderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { 
+                                color: 'rgba(255, 255, 255, 0.5)',
+                                font: { size: 12 }
+                            }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { 
+                                color: 'rgba(255, 255, 255, 0.5)',
+                                font: { size: 12 }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.glass-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        document.getElementById('servicesModal').addEventListener('click', function(e) {
+            if (e.target === this) toggleModal();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
