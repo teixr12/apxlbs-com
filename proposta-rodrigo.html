@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Proposta | LARAU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        .chevron { transition: transform 0.3s ease; }
+        details[open] .chevron { transform: rotate(180deg); }
+        .input-edit { 
+            width: 80px; padding: 4px 8px; border: 1px solid #d1d5db; 
+            border-radius: 6px; text-align: right; font-size: 0.875rem; background: white;
+        }
+        .input-edit:focus { outline: none; border-color: #000; box-shadow: 0 0 0 2px rgba(0,0,0,0.1); }
+        .input-qtd { text-align: center; width: 60px; }
+        .row-hover:hover { background-color: #f9fafb; }
+        .animate-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .fluxo-input { width: 70px; text-align: center; padding: 4px; border: 1px solid #d1d5db; border-radius: 4px; font-size: 0.875rem; }
+        .fluxo-input:focus { outline: none; border-color: #000; }
+        
+        /* Garantir que imagens não estourem em mobile */
+        img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+    <!-- Hero Section - Apenas Logo -->
+    <section class="min-h-screen flex flex-col justify-center px-4 sm:px-6 md:px-12 lg:px-24 py-16 md:py-20">
+        <div class="max-w-5xl mx-auto w-full">
+            <div class="mb-12 md:mb-16">
+                <img src="https://images.groovetech.io/hBaYyMj_BE5ORcKIxbz61dEOMlYf43AtTzdE2bJ0dx0/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzMzMjIzNzMyX0xhcmF1TG9nb0JsYWNrLnBuZw.webp" 
+                     alt="LARAU" class="h-8 md:h-10 w-auto object-contain">
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tight leading-none mb-6">
+                Sua casa.<br><span class="text-neutral-400">Do projeto à chave.</span>
+            </h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-neutral-500 font-light max-w-2xl mb-8 md:mb-12">
+                Construção 100% turnkey. Você paga, nós resolvemos tudo.
+            </p>
+
+            <div class="flex flex-wrap gap-2 md:gap-3">
+                <span class="px-3 py-1.5 md:px-4 md:py-2 bg-neutral-100 rounded-full text-xs md:text-sm font-medium">Gaivotas, SC</span>
+                <span class="px-3 py-1.5 md:px-4 md:py-2 bg-neutral-100 rounded-full text-xs md:text-sm font-medium" id="pill_area">150m²</span>
+                <span class="px-3 py-1.5 md:px-4 md:py-2 bg-neutral-100 rounded-full text-xs md:text-sm font-medium" id="pill_tipo">Térrea</span>
+                <span class="px-3 py-1.5 md:px-4 md:py-2 bg-amber-100 text-amber-800 border border-amber-200 rounded-full text-xs md:text-sm font-medium font-semibold" id="pill_muros">Muros R$200/m²</span>
+                <span class="px-3 py-1.5 md:px-4 md:py-2 bg-black text-white rounded-full text-xs md:text-sm font-medium" id="pill_prazo">14 meses</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Config Section com Fluxo de Pagamento -->
+    <section class="px-4 sm:px-6 md:px-12 lg:px-24 py-4 md:py-6 bg-neutral-50 border-y border-neutral-200 sticky top-0 z-50 shadow-sm overflow-x-auto">
+        <div class="max-w-5xl mx-auto min-w-max md:min-w-0">
+            <div class="flex flex-wrap items-center gap-4 md:gap-6 mb-4 pb-4 border-b border-neutral-200">
+                <span class="text-xs md:text-sm font-medium text-neutral-500 uppercase tracking-wide whitespace-nowrap">Configurar:</span>
+                
+                <div class="flex items-center gap-2">
+                    <label class="text-xs md:text-sm text-neutral-600 whitespace-nowrap">Área</label>
+                    <input type="number" id="area" value="150" min="80" max="400" 
+                           class="w-16 md:w-20 px-2 md:px-3 py-1.5 md:py-2 bg-white border border-neutral-200 rounded-lg text-center font-medium focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-sm"
+                           onchange="calcularTudo()">
+                    <span class="text-xs md:text-sm text-neutral-400">m²</span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <label class="text-xs md:text-sm text-neutral-600 whitespace-nowrap">Tipo</label>
+                    <select id="tipologia" onchange="calcularTudo()" 
+                            class="px-2 md:px-3 py-1.5 md:py-2 bg-white border border-neutral-200 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-xs md:text-sm">
+                        <option value="terrea">Térrea</option>
+                        <option value="sobrado">Sobrado</option>
+                    </select>
+                </div>
+
+                <div class="flex items-center gap-3 md:gap-4 ml-auto">
+                    <label class="flex items-center gap-2 cursor-pointer whitespace-nowrap">
+                        <input type="checkbox" id="piscina" checked onchange="calcularTudo()" class="w-4 h-4 rounded text-black focus:ring-black">
+                        <span class="text-xs md:text-sm">Piscina R$45k</span>
+                    </label>
+                    <label class="flex items-center gap-2 cursor-pointer whitespace-nowrap">
+                        <input type="checkbox" id="deck" checked onchange="calcularTudo()" class="w-4 h-4 rounded text-black focus:ring-black">
+                        <span class="text-xs md:text-sm">Deck R$15k</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-3 md:gap-4">
+                <span class="text-xs md:text-sm font-medium text-neutral-500 uppercase tracking-wide whitespace-nowrap">Pagamento:</span>
+                
+                <div class="flex items-center gap-2">
+                    <label class="text-xs md:text-sm text-neutral-600 whitespace-nowrap">Modo</label>
+                    <select id="modo_pagamento" onchange="alterarModoPagamento()" 
+                            class="px-2 md:px-3 py-1.5 md:py-2 bg-white border border-neutral-200 rounded-lg font-medium focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent text-xs md:text-sm">
+                        <option value="padrao">Padrão (8x)</option>
+                        <option value="avista">À Vista</option>
+                        <option value="entrada40">40% + Parcelas</option>
+                        <option value="personalizado">Personalizado</option>
+                    </select>
+                </div>
+
+                <div id="controles_fluxo" class="flex items-center gap-3 md:gap-4 flex-wrap">
+                    <div class="flex items-center gap-1 md:gap-2" id="grupo_entrada">
+                        <label class="text-xs md:text-sm text-neutral-600 whitespace-nowrap">Entrada</label>
+                        <input type="number" id="pct_entrada" value="10" min="0" max="100" 
+                               class="w-14 md:w-16 px-2 py-1 bg-white border border-neutral-200 rounded text-center font-medium text-sm"
+                               onchange="atualizarFluxoPersonalizado()">
+                        <span class="text-xs md:text-sm text-neutral-400">%</span>
+                    </div>
+
+                    <div class="flex items-center gap-1 md:gap-2" id="grupo_parcelas">
+                        <label class="text-xs md:text-sm text-neutral-600 whitespace-nowrap">Parcelas</label>
+                        <input type="number" id="num_parcelas" value="7" min="1" max="12" 
+                               class="w-14 md:w-16 px-2 py-1 bg-white border border-neutral-200 rounded text-center font-medium text-sm"
+                               onchange="atualizarFluxoPersonalizado()">
+                    </div>
+
+                    <button onclick="distribuirIgualmente()" 
+                            class="px-2 md:px-3 py-1 bg-black text-white text-xs md:text-sm rounded hover:bg-neutral-800 transition-colors whitespace-nowrap">
+                            Distribuir
+                    </button>
+                </div>
+
+                <div class="ml-auto flex items-center gap-2" id="validacao_percentual">
+                    <span class="text-xs md:text-sm text-neutral-500">Total:</span>
+                    <span class="text-xs md:text-sm font-bold" id="total_percentual">100%</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÃO DE OBRA + PROJETO & GESTÃO -->
+    <section class="px-4 sm:px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-white">
+        <div class="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 md:gap-16">
+            <div class="animate-on-scroll">
+                <div class="h-px w-12 bg-black mb-6"></div>
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">Mão de Obra</h2>
+                <p class="text-neutral-500 text-base md:text-lg mb-6 md:mb-8">Equipe completa, do alicerce ao acabamento, incluindo muros laterais.</p>
+                
+                <div class="space-y-0 text-sm md:text-base">
+                    <div class="flex justify-between items-center py-3 md:py-4 border-b border-neutral-200">
+                        <div>
+                            <div class="font-semibold text-neutral-900">Construção Geral</div>
+                            <div class="text-xs md:text-sm text-neutral-500 mt-0.5">Térrea: <span id="resumo_mo_base">R$ 2.200</span>/m² base + muros</div>
+                        </div>
+                        <span class="font-semibold text-base md:text-lg" id="mo_item_geral">R$ 2.200/m²</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 md:py-4 border-b border-neutral-200">
+                        <div>
+                            <div class="font-semibold text-neutral-900">Elétrica Completa</div>
+                            <div class="text-xs md:text-sm text-neutral-500 mt-0.5">Instalação + quadros + pontos</div>
+                        </div>
+                        <span class="font-semibold text-base md:text-lg">R$ 100/m²</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 md:py-4 border-b border-neutral-200">
+                        <div>
+                            <div class="font-semibold text-neutral-900">Gesso & Forro</div>
+                            <div class="text-xs md:text-sm text-neutral-500 mt-0.5">Execução forro e sancas</div>
+                        </div>
+                        <span class="font-semibold text-base md:text-lg">R$ 110/m²</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 md:py-4 border-b border-neutral-200">
+                        <div>
+                            <div class="font-semibold text-neutral-900">Pintura & Acabamentos</div>
+                            <div class="text-xs md:text-sm text-neutral-500 mt-0.5">Pintura, rejunte, limpeza final</div>
+                        </div>
+                        <span class="font-semibold text-base md:text-lg">R$ 250/m²</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 md:py-4 border-b border-neutral-200">
+                        <div>
+                            <div class="font-semibold text-neutral-900">Revestimentos</div>
+                            <div class="text-xs md:text-sm text-neutral-500 mt-0.5">Assentamento pisos e paredes</div>
+                        </div>
+                        <span class="font-semibold text-base md:text-lg">R$ 240/m²</span>
+                    </div>
+                    <div class="flex justify-between items-center py-3 md:py-4 border-b-2 border-neutral-800">
+                        <div>
+                            <div class="font-semibold text-neutral-900">Muros Laterais*</div>
+                            <div class="text-xs md:text-sm text-neutral-500 mt-0.5">119m² (2 lados de 27m x 2.2m)</div>
+                        </div>
+                        <span class="font-semibold text-base md:text-lg text-amber-600" id="mo_item_muros">+R$ 158/m²</span>
+                    </div>
+                </div>
+
+                <div class="mt-6 bg-black text-white p-4 md:p-6 rounded-2xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-2 gap-4">
+                        <div>
+                            <div class="text-xs md:text-sm text-neutral-400 uppercase tracking-wide mb-1">Mão de Obra Total</div>
+                            <div class="text-2xl md:text-3xl font-bold" id="mo_total_simples">R$ 2.658/m²</div>
+                            <div class="text-xs text-neutral-500 mt-1">Inclui R$200/m² execução muros (119m² ÷ <span id="mo_area_simples">150</span>m²)</div>
+                        </div>
+                        <div class="text-left sm:text-right">
+                            <div class="text-xs md:text-sm text-neutral-400 mb-1">Subtotal</div>
+                            <div class="text-xl md:text-2xl font-bold" id="mo_subtotal_simples">R$ 398.700</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="animate-on-scroll">
+                <div class="h-px w-12 bg-black mb-6"></div>
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">Projeto & Gestão</h2>
+                <p class="text-neutral-500 text-base md:text-lg mb-6 md:mb-8">Do papel à realidade, sem você se preocupar.</p>
+                
+                <div class="border border-neutral-200 rounded-2xl p-4 md:p-6 mb-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4 md:mb-6">
+                        <div class="text-xs md:text-sm font-medium text-neutral-500 uppercase tracking-wide">Projeto Completo</div>
+                        <svg class="w-5 h-5 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-2xl md:text-3xl font-bold mb-4 md:mb-6" id="projeto_valor_display">R$ 30.000</div>
+                    <ul class="space-y-2 md:space-y-3 text-xs md:text-sm text-neutral-600">
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Projeto Arquitetônico
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Projeto Estrutural
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Projetos Complementares
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <svg class="w-4 h-4 text-neutral-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            Aprovação na Prefeitura
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="border-2 border-neutral-800 rounded-2xl p-4 md:p-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <div class="text-xs md:text-sm font-medium text-neutral-500 uppercase tracking-wide">Administração</div>
+                        <div class="text-xs md:text-sm font-medium text-neutral-900">Valor</div>
+                    </div>
+                    <div class="flex justify-between items-baseline">
+                        <div class="text-3xl md:text-4xl font-bold">15%</div>
+                        <div class="text-xl md:text-2xl font-semibold" id="admin_valor_display">R$ 149.913</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DETALHAMENTO DE MATERIAIS -->
+    <section class="px-4 sm:px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-neutral-50">
+        <div class="max-w-5xl mx-auto">
+            <div class="mb-8 md:mb-12 animate-on-scroll">
+                <div class="h-px w-12 bg-black mb-6"></div>
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">Detalhamento de Materiais</h2>
+                <p class="text-neutral-500 text-base md:text-lg mb-2">Especificação completa padrão médio-alto (marcas: Deca, Portinari, Suvinil, Eucatex).</p>
+                <div class="flex items-center gap-2 text-xs md:text-sm text-neutral-600">
+                    <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Valores já incluem margem de segurança de 20%</span>
+                </div>
+            </div>
+
+            <div class="space-y-3 md:space-y-4 animate-on-scroll">
+                <!-- Esquadrias Alumínio -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Esquadrias Alumínio</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Perfis 20/25 anodizados, vidros 8mm temperados</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_esq">R$ 75.000</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Porta pivotante entrada alumínio 25</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 5.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Porta correr sala (3,00m × 2,10m, 2 folhas)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 10.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Janelas quartos (4 unid, 1,50×1,20m c/ tela)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 16.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Janelas banheiros (3 unid, 0,60×0,80m)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 5.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Box banheiros (3 unid, vidro 8mm temperado)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 9.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Ferragens e acessórios (maçanetas, trincos)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 9.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Basculantes e fixos área serviço</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 12.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Instalação e mão de obra esquadrias</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 6.000</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-blue-50 rounded-lg text-xs text-blue-800">
+                            <strong>Especificação técnica:</strong> Perfis alumínio 6063-T5 anodização natural 15-20 microns. Vidros temperados 8mm para portas e 6mm para janelas. Ferragens em aço inox ou zamak cromado.
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Alvenaria & Estrutura -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Alvenaria & Estrutura</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Blocos, cimento CP-II, vergalhões CA-50, impermeabilização</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_alv">R$ 149.760</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Blocos cerâmicos 14×19×39 (~15.000un)</span><span class="font-medium text-neutral-900">R$ 32.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Cimento CP-II 50kg (~1.200 sacos)</span><span class="font-medium text-neutral-900">R$ 57.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Areia média (35m³) + Brita (15m³)</span><span class="font-medium text-neutral-900">R$ 7.200</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Ferro/Vergalhões CA-50 (~2.500kg)</span><span class="font-medium text-neutral-900">R$ 24.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Argamassas AC-III (500 sacos)</span><span class="font-medium text-neutral-900">R$ 21.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Impermeabilizantes (bentonita/cristalizante)</span><span class="font-medium text-neutral-900">R$ 7.200</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Tubos PVC, conexões e caixas</span><span class="font-medium text-neutral-900">R$ 3.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Lajes em concreto usinado e fôrmas</span><span class="font-medium text-neutral-900">R$ 28.000</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-neutral-100 rounded-lg text-xs text-neutral-700">
+                            <strong>Especificação técnica:</strong> Blocos cerâmicos de alta resistência (8-10 MPa). Cimento conforme NBR 5732. Vergalhões CA-50 com certificado de qualidade.
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Cobertura Completa (Azul) -->
+                <details class="bg-blue-50 rounded-2xl overflow-hidden group border border-blue-200 shadow-sm" open>
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-blue-100/50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-blue-900 truncate">Cobertura Completa</h4>
+                                <p class="text-xs md:text-sm text-blue-700 mt-0.5 truncate hidden sm:block">Telhas, madeiramento estrutural, calhas, rufos e acessórios</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-blue-900" id="card_cob">R$ 96.480</span>
+                            <svg class="w-5 h-5 text-blue-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-blue-200 bg-blue-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Telhas cerâmicas tipo Colonial (200m² incl. telhado)</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 21.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Madeiramento completo (tesouras, caibros, ripas)</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 36.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Manta térmica aluminizada dupla face</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 4.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Calhas Galvalume/alumínio (60m + condutores)</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 8.640</span></div>
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Rufos e chutes (todos os beirais)</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 3.840</span></div>
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Cumeeiras, colmos e acessórios de telhado</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 3.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Parafusos, pregos, conectores madeira</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 4.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-blue-100"><span class="text-blue-800 truncate mr-2">Calhas especiais (passagens, regiões críticas)</span><span class="font-medium text-blue-900 flex-shrink-0">R$ 3.600</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-blue-100 rounded-lg text-xs text-blue-900">
+                            <strong>Especificação técnica:</strong> Madeiramento em madeira de lei tratada (pinus/autoclave) ou eucalipto selecionado. Telhas cerâmicas resistentes ou opcional concreto pigmentado.
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Fundação -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 7m0 13V7"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Fundação</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Brocas, concreto usinado, vigas baldrame, impermeabilização negativa</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_fund">R$ 67.200</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Brocas mecânicas (aprox. 20 blocos)</span><span class="font-medium text-neutral-900">R$ 30.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Concreto usinado sapatas (25m³)</span><span class="font-medium text-neutral-900">R$ 18.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Vigas baldrame e contra-piso</span><span class="font-medium text-neutral-900">R$ 14.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Impermeabilização negativa (lona asfáltica)</span><span class="font-medium text-neutral-900">R$ 4.800</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-neutral-100 rounded-lg text-xs text-neutral-700">
+                            <strong>Especificação técnica:</strong> Brocas mecânicas ou manuais conforme estaca calculada. Concreto usinado fck 25MPa. Impermeabilização negativa com manta asfáltica 4mm ou argamassa polimérica.
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Muros Laterais (Obrigatório - Âmbar) -->
+                <details class="bg-amber-50 rounded-2xl overflow-hidden group border border-amber-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-amber-100/50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-amber-500 rounded-xl flex items-center justify-center text-white flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-amber-900 truncate">Muros Laterais (Obrigatório)</h4>
+                                <p class="text-xs md:text-sm text-amber-700 mt-0.5 truncate hidden sm:block">Apenas materiais (mão de obra já inclusa no cálculo de MO)</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-amber-900" id="card_muros">R$ 14.280</span>
+                            <svg class="w-5 h-5 text-amber-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-amber-200 bg-amber-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-amber-100"><span class="text-amber-800">Blocos cerâmicos muro (1.200 unid)</span><span class="font-medium text-amber-900">R$ 3.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-amber-100"><span class="text-amber-800">Cimento CP-II (90 sacos)</span><span class="font-medium text-amber-900">R$ 4.320</span></div>
+                            <div class="flex justify-between py-2 border-b border-amber-100"><span class="text-amber-800">Vergalhões CA-60 (armação muro)</span><span class="font-medium text-amber-900">R$ 2.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-amber-100"><span class="text-amber-800">Areia e brita (4m³)</span><span class="font-medium text-amber-900">R$ 960</span></div>
+                            <div class="flex justify-between py-2 border-b border-amber-100"><span class="text-amber-800">Impermeabilização muro (barreira vertical)</span><span class="font-medium text-amber-900">R$ 2.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-amber-100"><span class="text-amber-800">Reboco e acabamento externo</span><span class="font-medium text-amber-900">R$ 1.000</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-amber-100 rounded-lg text-xs text-amber-900">
+                            <strong>Nota:</strong> Muros obrigatórios conforme condomínio Gaivotas: 2 laterais de 27m × 2,2m altura = 118,8m². Mão de obra calculada separadamente a R$200/m².<span class="font-bold"> Valores de materiais apenas.</span>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Pisos -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Pisos</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Porcelanato retificado 84×84 cerâmica</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_pisos">R$ 19.800</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Porcelanato Portinari 84×84 polido (80m²)</span><span class="font-medium text-neutral-900">R$ 10.560</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Porcelanato quartos 60×60 (45m²)</span><span class="font-medium text-neutral-900">R$ 3.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Cerâmica área técnica antiderrapante (25m²)</span><span class="font-medium text-neutral-900">R$ 1.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Argamassa AC-III colante (40 sacos)</span><span class="font-medium text-neutral-900">R$ 1.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Rejunte flexível (30kg)</span><span class="font-medium text-neutral-900">R$ 1.440</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Rodapés porcelanato 10cm (completo)</span><span class="font-medium text-neutral-900">R$ 1.600</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-neutral-100 rounded-lg text-xs text-neutral-700">
+                            <strong>Marcas:</strong> Portinari (Polished), Eliane ou Bianco Gres. Acabamento polido área social e acetinado quartos. <span class="text-neutral-500">Inclui 10% perda técnica.</span>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Revestimentos de Parede -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Revestimentos de Parede</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Porcelanato áreas molhadas, cozinha, gourmet</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_revest">R$ 30.000</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Porcelanato banheiros 30×60 (45m²)</span><span class="font-medium text-neutral-900">R$ 6.300</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Porcelanato cozinha/gourmet (20m²)</span><span class="font-medium text-neutral-900">R$ 2.700</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Pastilhas decorativas (detalhes)</span><span class="font-medium text-neutral-900">R$ 3.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Massa acrilica e selador (80L)</span><span class="font-medium text-neutral-900">R$ 2.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Rejunte especial banheiros (epóxi)</span><span class="font-medium text-neutral-900">R$ 1.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Perfis de acabamento (alumínio/inox)</span><span class="font-medium text-neutral-900">R$ 1.200</span></div>
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Material Elétrico Completo -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Material Elétrico Completo</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Fiação cobre 100%, quadros, iluminação, ar-condicionado</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_eletrico">R$ 47.400</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Fiação cobre 100% (750m fio 2,5mm + 300m 4mm)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 12.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Quadro distribuição principal + barramentos</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 4.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Disjuntores e DRs (12 unid)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 3.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Tomadas e interruptores (60 pontos)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 4.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Iluminação LED completa (40 spots + luminárias)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 9.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Infraestrutura ar-condicionado (3 splits)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 4.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Conduletes e eletrodutos (todo o lote)</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 3.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600 truncate mr-2">Quadros secundários e caixas de passagem</span><span class="font-medium text-neutral-900 flex-shrink-0">R$ 4.200</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-neutral-100 rounded-lg text-xs text-neutral-700">
+                            <strong>Marcas:</strong> Fios Sil ou Prysmian 100% cobre. Disjuntores Siemens ou Schneider. Tomadas e interruptores Pial Legrand ou modulares equivalentes.
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Hidráulica Completa -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Hidráulica Completa</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Tubos PVC, conexões, caixas, louças Deca, metais Deca</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_hidro">R$ 38.400</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Tubos PVC Soldável 20mm e 25mm (todo o lote)</span><span class="font-medium text-neutral-900">R$ 4.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Conexões e registros (200 unid)</span><span class="font-medium text-neutral-900">R$ 6.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Caixas d'água 500L + 1000L</span><span class="font-medium text-neutral-900">R$ 1.200</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Bomba pressurizadora</span><span class="font-medium text-neutral-900">R$ 2.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Louças Deca (3 vasos, 3 lavatórios, 1 louça cozinha)</span><span class="font-medium text-neutral-900">R$ 12.000</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Metais Deca (torneiras, chuveiros, misturadores)</span><span class="font-medium text-neutral-900">R$ 9.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Ralo linear e sifões</span><span class="font-medium text-neutral-900">R$ 2.400</span></div>
+                        </div>
+                        <div class="mt-4 p-3 bg-neutral-100 rounded-lg text-xs text-neutral-700">
+                            <strong>Marcas:</strong> Tubos e conexões Tigre ou Amanco. Louças e metais Deca ou Celite equivalente. Pressurizador Schneider ou Rowa.
+                        </div>
+                    </div>
+                </details>
+
+                <!-- Pintura & Textura -->
+                <details class="bg-white rounded-2xl overflow-hidden group border border-neutral-200 shadow-sm">
+                    <summary class="p-4 md:p-6 flex justify-between items-center hover:bg-neutral-50 transition-all cursor-pointer select-none gap-4">
+                        <div class="flex items-center gap-3 md:gap-4 min-w-0">
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-neutral-100 rounded-xl flex items-center justify-center text-neutral-600 flex-shrink-0">
+                                <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-semibold text-base md:text-lg text-neutral-900 truncate">Pintura & Textura</h4>
+                                <p class="text-xs md:text-sm text-neutral-500 mt-0.5 truncate hidden sm:block">Massa corrida, selador, tinta Suvinil premium</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2 md:gap-4 flex-shrink-0">
+                            <span class="text-base md:text-xl font-bold text-neutral-900" id="card_pintura">R$ 21.600</span>
+                            <svg class="w-5 h-5 text-neutral-400 chevron flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </div>
+                    </summary>
+                    <div class="px-4 md:px-6 pb-4 md:pb-6 pt-2 border-t border-neutral-100 bg-neutral-50/50">
+                        <div class="grid md:grid-cols-2 gap-x-4 md:gap-x-8 gap-y-2 md:gap-y-3 pt-4 text-xs md:text-sm">
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Massa corrida PVA (150kg)</span><span class="font-medium text-neutral-900">R$ 3.600</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Selador acrílico (30L)</span><span class="font-medium text-neutral-900">R$ 1.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Tinta Suvinil premium interna (60L)</span><span class="font-medium text-neutral-900">R$ 7.200</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Tinta externa textura/acrílica (40L)</span><span class="font-medium text-neutral-900">R$ 4.800</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Ferramentas e materiais de aplicação</span><span class="font-medium text-neutral-900">R$ 2.400</span></div>
+                            <div class="flex justify-between py-2 border-b border-neutral-100"><span class="text-neutral-600">Lixas, fitas e proteções</span><span class="font-medium text-neutral-900">R$ 1.800</span></div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESUMO FINAL E FLUXO DE PAGAMENTO -->
+    <section class="px-4 sm:px-6 md:px-12 lg:px-24 py-16 md:py-24 bg-white">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid lg:grid-cols-3 gap-8 md:gap-12">
+                <!-- Resumo dos Valores -->
+                <div class="lg:col-span-2 animate-on-scroll">
+                    <div class="h-px w-12 bg-black mb-6"></div>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight mb-6 md:mb-8">Resumo do Investimento</h2>
+                    
+                    <div class="space-y-3 md:space-y-4 text-sm md:text-base">
+                        <div class="flex justify-between items-center py-2 md:py-3 border-b border-neutral-200">
+                            <span class="text-neutral-600">Mão de Obra (incl. muros)</span>
+                            <span class="font-semibold text-base md:text-lg" id="resumo_mo">R$ 398.700</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 md:py-3 border-b border-neutral-200">
+                            <span class="text-neutral-600">Materiais Construção</span>
+                            <span class="font-semibold text-base md:text-lg" id="resumo_materiais">R$ 559.920</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 md:py-3 border-b border-neutral-200">
+                            <span class="text-neutral-600">Projeto + Administração (15%)</span>
+                            <span class="font-semibold text-base md:text-lg" id="resumo_admin">R$ 173.793</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 md:py-3 border-b border-neutral-200 text-amber-700" id="linha_piscina">
+                            <span class="flex items-center gap-2"><span class="w-2 h-2 bg-amber-500 rounded-full"></span>Piscina (opcional)</span>
+                            <span class="font-semibold text-base md:text-lg">R$ 45.000</span>
+                        </div>
+                        <div class="flex justify-between items-center py-2 md:py-3 border-b border-neutral-200 text-amber-700" id="linha_deck">
+                            <span class="flex items-center gap-2"><span class="w-2 h-2 bg-amber-500 rounded-full"></span>Deck (opcional)</span>
+                            <span class="font-semibold text-base md:text-lg">R$ 15.000</span>
+                        </div>
+                        
+                        <div class="bg-black text-white p-6 md:p-8 rounded-2xl mt-6 md:mt-8">
+                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+                                <div>
+                                    <div class="text-xs md:text-sm text-neutral-400 uppercase tracking-wide mb-2">Total do Investimento</div>
+                                    <div class="text-3xl md:text-4xl lg:text-5xl font-bold" id="total_geral">R$ 1.192.413</div>
+                                    <div class="text-xs md:text-sm text-neutral-400 mt-2" id="valor_m2_final">R$ 7.949/m²</div>
+                                </div>
+                                <div class="text-left sm:text-right w-full sm:w-auto">
+                                    <button onclick="window.print()" class="w-full sm:w-auto px-6 py-3 bg-white text-black rounded-lg font-medium hover:bg-neutral-100 transition-colors">
+                                        Imprimir Proposta
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fluxo de Pagamento -->
+                <div class="animate-on-scroll">
+                    <div class="h-px w-12 bg-black mb-6"></div>
+                    <h2 class="text-xl md:text-2xl font-semibold tracking-tight mb-4 md:mb-6">Fluxo de Pagamento</h2>
+                    
+                    <div class="bg-neutral-50 rounded-2xl p-4 md:p-6 border border-neutral-200" id="fluxo_container">
+                        <div class="space-y-3 md:space-y-4 text-sm" id="lista_pagamentos">
+                            <!-- Preenchido via JS -->
+                        </div>
+                        
+                        <div class="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-neutral-200">
+                            <div class="flex justify-between items-center text-xs md:text-sm text-neutral-500">
+                                <span>Parcelamento máximo:</span>
+                                <span class="font-medium text-neutral-900">12 meses</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs md:text-sm text-neutral-500 mt-2">
+                                <span>Carência obra:</span>
+                                <span class="font-medium text-neutral-900">14 meses</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 md:mt-6 p-3 md:p-4 bg-green-50 border border-green-200 rounded-xl text-xs md:text-sm text-green-800">
+                        <div class="flex items-start gap-2 md:gap-3">
+                            <svg class="w-4 h-4 md:w-5 md:h-5 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <div>
+                                <strong>Garantia LARAU:</strong> 5 anos estrutural, 1 ano hidráulica e elétrica, 6 meses pintura.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer - Apenas Logos -->
+    <footer class="px-4 sm:px-6 md:px-12 lg:px-24 py-8 md:py-12 bg-neutral-900 text-white">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <img src="https://images.groovetech.io/s6whGC437W3Fz_o5IllxeyhfvlaSW7DdNCbJ3RT3XkI/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzMzMjIzNTg1X0xhcmF1TG9nb1doaXRlLnBuZw.webp" 
+                 alt="LARAU" class="h-6 md:h-8 w-auto object-contain">
+            
+            <div class="text-neutral-400 text-xs md:text-sm text-center order-last md:order-none">
+                Proposta válida por 30 dias. Todas as especificações sujeitas à disponibilidade de mercado.
+            </div>
+            
+            <a href="https://apxlbs.com" target="_blank" rel="noopener noreferrer" class="opacity-80 hover:opacity-100 transition-opacity">
+                <img src="https://images.groovetech.io/zLwliusigqNxj8mZZkkiPiY56BB1ZcWvsQdiwPg1haw/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzY5NDM3NTk4X3Bvd2VyZWRieWFweGxic3doaXRlLnBuZw.webp" 
+                     alt="APX LBS" class="h-5 md:h-6 w-auto object-contain">
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // Constantes de valores base (para 150m² térrea)
+        const VALORES_BASE = {
+            mo_geral: 2200,
+            mo_eletrica: 100,
+            mo_gesso: 110,
+            mo_pintura: 250,
+            mo_revest: 240,
+            mo_muro_por_m2: 200, // Valor solicitado: R$200/m² para muros
+            muros_area: 119, // 2 lados de 27m x 2.2m
+            projeto: 30000,
+            admin_pct: 0.15,
+            piscina: 45000,
+            deck: 15000,
+            materiais: {
+                esquadrias: 75000,
+                alvenaria: 149760,
+                cobertura: 96480,
+                fundacao: 67200,
+                muros_mat: 14280,
+                pisos: 19800,
+                revest: 30000,
+                eletrico: 47400,
+                hidro: 38400,
+                pintura: 21600
+            }
+        };
+
+        let fluxoPagamento = [];
+        
+        function formatarMoeda(valor) {
+            return 'R$ ' + valor.toLocaleString('pt-BR', {maximumFractionDigits: 0});
+        }
+        
+        function calcularTudo() {
+            const area = parseInt(document.getElementById('area').value) || 150;
+            const tipo = document.getElementById('tipologia').value;
+            const temPiscina = document.getElementById('piscina').checked;
+            const temDeck = document.getElementById('deck').checked;
+            
+            // Fator tipo (sobrado = 15% a mais em MO)
+            const fatorTipo = tipo === 'sobrado' ? 1.15 : 1;
+            const textoTipo = tipo === 'sobrado' ? 'Sobrado' : 'Térrea';
+            
+            // Atualizar pills
+            document.getElementById('pill_area').textContent = area + 'm²';
+            document.getElementById('pill_tipo').textContent = textoTipo;
+            document.getElementById('mo_area_simples').textContent = area;
+            
+            // Cálculo Mão de Obra
+            const moBase = VALORES_BASE.mo_geral * fatorTipo;
+            const moEletrica = VALORES_BASE.mo_eletrica;
+            const moGesso = VALORES_BASE.mo_gesso;
+            const moPintura = VALORES_BASE.mo_pintura;
+            const moRevest = VALORES_BASE.mo_revest;
+            
+            // Cálculo Muros: custo total dos muros dividido pela área da casa para obter valor/m² adicional
+            const custoTotalMuros = VALORES_BASE.muros_area * VALORES_BASE.mo_muro_por_m2;
+            const moMuroPorM2Casa = custoTotalMuros / area;
+            
+            const moTotalPorM2 = moBase + moEletrica + moGesso + moPintura + moRevest + moMuroPorM2Casa;
+            const moSubtotal = moTotalPorM2 * area;
+            
+            // Atualizar displays de MO
+            document.getElementById('resumo_mo_base').textContent = 'R$ ' + (moBase).toLocaleString();
+            document.getElementById('mo_item_geral').textContent = 'R$ ' + moBase.toLocaleString() + '/m²';
+            document.getElementById('mo_item_muros').textContent = '+R$ ' + Math.round(moMuroPorM2Casa).toLocaleString() + '/m²';
+            document.getElementById('mo_total_simples').textContent = 'R$ ' + Math.round(moTotalPorM2).toLocaleString() + '/m²';
+            document.getElementById('mo_subtotal_simples').textContent = formatarMoeda(moSubtotal);
+            document.getElementById('resumo_mo').textContent = formatarMoeda(moSubtotal);
+            
+            // Materiais (escalonados por área com fator)
+            const fatorArea = area / 150;
+            let totalMateriais = 0;
+            
+            for (let key in VALORES_BASE.materiais) {
+                let valor = VALORES_BASE.materiais[key] * fatorArea;
+                if (key === 'muros_mat') valor = VALORES_BASE.materiais[key]; // Muros não escalona com área
+                totalMateriais += valor;
+                
+                // Atualizar cards se existirem
+                const el = document.getElementById('card_' + key.replace('_mat', ''));
+                if (el) el.textContent = formatarMoeda(valor);
+            }
+            
+            document.getElementById('resumo_materiais').textContent = formatarMoeda(totalMateriais);
+            
+            // Projeto e Admin
+            const projeto = VALORES_BASE.projeto;
+            const baseAdmin = moSubtotal + totalMateriais;
+            const admin = baseAdmin * VALORES_BASE.admin_pct;
+            
+            document.getElementById('projeto_valor_display').textContent = formatarMoeda(projeto);
+            document.getElementById('admin_valor_display').textContent = formatarMoeda(admin);
+            document.getElementById('resumo_admin').textContent = formatarMoeda(projeto + admin);
+            
+            // Opcionais
+            const valorPiscina = temPiscina ? VALORES_BASE.piscina : 0;
+            const valorDeck = temDeck ? VALORES_BASE.deck : 0;
+            
+            document.getElementById('linha_piscina').style.display = temPiscina ? 'flex' : 'none';
+            document.getElementById('linha_deck').style.display = temDeck ? 'flex' : 'none';
+            
+            // Total Geral
+            const total = moSubtotal + totalMateriais + projeto + admin + valorPiscina + valorDeck;
+            document.getElementById('total_geral').textContent = formatarMoeda(total);
+            document.getElementById('valor_m2_final').textContent = 'R$ ' + Math.round(total/area).toLocaleString() + '/m²';
+            
+            // Atualizar fluxo de pagamento
+            atualizarFluxoPagamento(total);
+        }
+        
+        function alterarModoPagamento() {
+            const modo = document.getElementById('modo_pagamento').value;
+            const grupoEntrada = document.getElementById('grupo_entrada');
+            const grupoParcelas = document.getElementById('grupo_parcelas');
+            
+            if (modo === 'avista') {
+                grupoEntrada.style.opacity = '0.5';
+                grupoParcelas.style.opacity = '0.5';
+                document.getElementById('pct_entrada').value = 100;
+                document.getElementById('num_parcelas').value = 0;
+            } else if (modo === 'padrao') {
+                grupoEntrada.style.opacity = '1';
+                grupoParcelas.style.opacity = '1';
+                document.getElementById('pct_entrada').value = 12.5;
+                document.getElementById('num_parcelas').value = 7;
+            } else if (modo === 'entrada40') {
+                grupoEntrada.style.opacity = '1';
+                grupoParcelas.style.opacity = '1';
+                document.getElementById('pct_entrada').value = 40;
+                document.getElementById('num_parcelas').value = 6;
+            } else if (modo === 'personalizado') {
+                grupoEntrada.style.opacity = '1';
+                grupoParcelas.style.opacity = '1';
+            }
+            
+            calcularTudo();
+        }
+        
+        function atualizarFluxoPersonalizado() {
+            calcularTudo();
+        }
+        
+        function distribuirIgualmente() {
+            const numParcelas = parseInt(document.getElementById('num_parcelas').value) || 1;
+            const pctEntrada = parseFloat(document.getElementById('pct_entrada').value) || 0;
+            
+            if (numParcelas > 0) {
+                const restante = 100 - pctEntrada;
+                const porParcela = restante / numParcelas;
+                calcularTudo();
+            }
+        }
+        
+        function atualizarFluxoPagamento(total) {
+            const modo = document.getElementById('modo_pagamento').value;
+            const pctEntrada = parseFloat(document.getElementById('pct_entrada').value) || 0;
+            const numParcelas = parseInt(document.getElementById('num_parcelas').value) || 0;
+            const container = document.getElementById('lista_pagamentos');
+            
+            let html = '';
+            let totalPct = 0;
+            
+            if (modo === 'avista') {
+                html += `
+                    <div class="flex justify-between items-center py-2">
+                        <div class="flex items-center gap-2 md:gap-3">
+                            <div class="w-6 h-6 md:w-8 md:h-8 bg-black text-white rounded-full flex items-center justify-center text-xs md:text-sm font-bold">1</div>
+                            <div>
+                                <div class="font-medium text-sm md:text-base">Pagamento Único</div>
+                                <div class="text-xs text-neutral-500">À vista</div>
+                            </div>
+                        </div>
+                        <div class="font-bold text-sm md:text-base">${formatarMoeda(total)}</div>
+                    </div>
+                `;
+                totalPct = 100;
+            } else {
+                // Entrada
+                const valorEntrada = total * (pctEntrada / 100);
+                totalPct += pctEntrada;
+                
+                html += `
+                    <div class="flex justify-between items-center py-2 border-b border-neutral-200">
+                        <div class="flex items-center gap-2 md:gap-3">
+                            <div class="w-6 h-6 md:w-8 md:h-8 bg-neutral-800 text-white rounded-full flex items-center justify-center text-xs md:text-sm font-bold">1</div>
+                            <div>
+                                <div class="font-medium text-sm md:text-base">Entrada</div>
+                                <div class="text-xs text-neutral-500">Na assinatura</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-bold text-sm md:text-base">${formatarMoeda(valorEntrada)}</div>
+                            <div class="text-xs text-neutral-500">${pctEntrada}%</div>
+                        </div>
+                    </div>
+                `;
+                
+                // Parcelas iguais (simplificado para visualização)
+                if (numParcelas > 0) {
+                    const restante = 100 - pctEntrada;
+                    const pctParcela = restante / numParcelas;
+                    const valorParcela = total * (pctParcela / 100);
+                    totalPct += restante;
+                    
+                    for (let i = 1; i <= Math.min(numParcelas, 4); i++) {
+                        html += `
+                            <div class="flex justify-between items-center py-2 ${i < 4 ? 'border-b border-neutral-100' : ''}">
+                                <div class="flex items-center gap-2 md:gap-3">
+                                    <div class="w-6 h-6 md:w-8 md:h-8 bg-neutral-200 text-neutral-700 rounded-full flex items-center justify-center text-xs md:text-sm font-bold">${i + 1}</div>
+                                    <div>
+                                        <div class="font-medium text-sm md:text-base">Parcela ${i}</div>
+                                        <div class="text-xs text-neutral-500">Mensal</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-sm md:text-base">${formatarMoeda(valorParcela)}</div>
+                                    <div class="text-xs text-neutral-500">${pctParcela.toFixed(1)}%</div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    if (numParcelas > 4) {
+                        html += `
+                            <div class="text-center py-2 text-xs md:text-sm text-neutral-500">
+                                ... mais ${numParcelas - 4} parcelas
+                            </div>
+                        `;
+                    }
+                }
+            }
+            
+            // Validador visual
+            const validador = document.getElementById('total_percentual');
+            validador.textContent = Math.round(totalPct) + '%';
+            validador.className = 'text-xs md:text-sm font-bold ' + (Math.abs(totalPct - 100) < 0.1 ? 'text-green-600' : 'text-red-600');
+            
+            container.innerHTML = html;
+        }
+        
+        // Animação scroll
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            calcularTudo();
+            initScrollAnimations();
+        });
+    </script>
+</body>
+</html>
