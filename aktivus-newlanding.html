@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktivus | Advancing Asset Management</title>
+    <meta name="description" content="Advanced Asset Management 5.0 - Digital twins, IoT and industrial expertise.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            dark: '#0a0515',
+                            darker: '#05030a',
+                            primary: '#130a1f',
+                            secondary: '#1a0b2e',
+                            accent: '#e84c9a',
+                            accentLight: '#ff6b9d',
+                            glow: '#ff1493',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'spin-slow': 'spin 20s linear infinite',
+                        'counter': 'counter 2s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideUp: { '0%': { opacity: '0', transform: 'translateY(30px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+                        pulseGlow: { 
+                            '0%, 100%': { opacity: '0.5', transform: 'scaleY(1)' },
+                            '50%': { opacity: '0.8', transform: 'scaleY(1.1)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-20px) rotate(2deg)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #05030a;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .container-composio {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .container-composio {
+                padding-left: 4rem;
+                padding-right: 4rem;
+            }
+        }
+        
+        .section-padding {
+            padding-top: 8rem;
+            padding-bottom: 8rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .section-padding {
+                padding-top: 10rem;
+                padding-bottom: 10rem;
+            }
+        }
+        
+        .border-subtle {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass {
+            background: rgba(15, 8, 24, 0.6);
+            backdrop-filter: blur(27px);
+            -webkit-backdrop-filter: blur(27px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(232, 76, 154, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px -15px rgba(232, 76, 154, 0.15);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #e84c9a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Botões padronizados com animações sutis */
+        .btn-primary {
+            background: linear-gradient(135deg, #e84c9a 0%, #ff6b9d 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 30px rgba(232, 76, 154, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(232, 76, 154, 0.6);
+        }
+        
+        .btn-outline {
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(232, 76, 154, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-outline:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-outline:hover {
+            border-color: #e84c9a;
+            transform: translateY(-1px);
+        }
+        
+        /* Logos Marquee com fade */
+        .logos-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logos-container::before,
+        .logos-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        .logos-container::before {
+            left: 0;
+            background: linear-gradient(to right, #05030a, transparent);
+        }
+        
+        .logos-container::after {
+            right: 0;
+            background: linear-gradient(to left, #05030a, transparent);
+        }
+        
+        .marquee-track {
+            display: flex;
+            animation: scroll 30s linear infinite;
+            width: max-content;
+        }
+        
+        .marquee-track:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .logo-item {
+            flex-shrink: 0;
+            padding: 0 3rem;
+            opacity: 0.6;
+            transition: all 0.3s;
+            filter: grayscale(100%) brightness(2);
+        }
+        
+        .logo-item:hover {
+            opacity: 1;
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.1);
+        }
+        
+        /* Animação de números */
+        .counter-number {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        /* Cards interativos "Por que escolher" */
+        .why-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .why-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(232, 76, 154, 0.1), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .why-card:hover::before {
+            opacity: 1;
+        }
+        
+        .why-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(232, 76, 154, 0.3);
+            box-shadow: 0 20px 40px -15px rgba(232, 76, 154, 0.2);
+        }
+        
+        .why-icon {
+            transition: transform 0.3s;
+        }
+        
+        .why-card:hover .why-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        /* Imagem flutuante GA 5.0 */
+        .floating-image {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-image::before {
+            content: '';
+            position: absolute;
+            inset: -10px;
+            background: radial-gradient(circle, rgba(232, 76, 154, 0.3), transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: -1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #matrix-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        .light-beam {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 140%;
+            background: linear-gradient(180deg, 
+                rgba(232, 76, 154, 0) 0%, 
+                rgba(232, 76, 154, 0.3) 20%, 
+                rgba(232, 76, 154, 0.15) 50%, 
+                rgba(232, 76, 154, 0.05) 80%, 
+                rgba(232, 76, 154, 0) 100%);
+            filter: blur(60px);
+            z-index: 2;
+            animation: pulseGlow 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05030a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d1b4e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e84c9a;
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 40px rgba(232, 76, 154, 0.3);
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(3, minmax(200px, auto));
+            }
+            
+            .bento-item-large {
+                grid-column: span 2;
+                grid-row: span 2;
+            }
+            
+            .bento-item-wide {
+                grid-column: span 2;
+            }
+        }
+        
+        .bento-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .bento-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            border-color: rgba(232, 76, 154, 0.3);
+        }
+        
+        .bento-stat-number {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #fff 0%, #e84c9a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-sticky {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transition: all 0.4s ease;
+        }
+        
+        .nav-sticky.scrolled {
+            background: rgba(5, 3, 10, 0.8);
+            backdrop-filter: blur(27px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .service-number {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, rgba(232, 76, 154, 0.3), rgba(232, 76, 154, 0.1));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.5;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+        
+        /* Efeito de brilho nos números */
+        .glow-number {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glow-number::after {
+            content: attr(data-value);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: blur(20px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+    </style>
+<base target="_blank">
+</head>
+<body class="bg-[#05030a] antialiased selection:bg-brand-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="nav-sticky py-4 border-b border-transparent">
+        <div class="container-composio">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <img src="https://images.groovetech.io/mS2vIvsQMzZSzWJcYILRF2e5DHzGxi30OBd8JnlFsXM/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzcwMDQzNzEzX1JUWEFrdGl2dXNCcmFuZGluZ0xvZ29XaGl0ZUNvbG9yNDMwSlVMMjIucG5n.webp" 
+                         alt="Aktivus" class="h-10 w-auto brightness-110">
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#why" class="text-sm text-gray-400 hover:text-white transition-colors relative group" data-i18n="nav_why">Por que Aktivus</a>
+                    <a href="#benefits" class="text-sm text-gray-400 hover:text-white transition-colors relative group" data-i18n="nav_benefits">Benefícios</a>
+                    <a href="#ga5" class="text-sm text-gray-400 hover:text-white transition-colors relative group" data-i18n="nav_ga5">Gestão 5.0</a>
+                    <a href="#services" class="text-sm text-gray-400 hover:text-white transition-colors relative group" data-i18n="nav_services">Serviços</a>
+                    <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-colors relative group" data-i18n="nav_contact">Contato</a>
+                    
+                    <div class="flex items-center space-x-1 ml-4 pl-4 border-l border-white/10">
+                        <button onclick="setLanguage('pt')" class="lang-btn active" id="btn-pt">PT</button>
+                        <button onclick="setLanguage('en')" class="lang-btn" id="btn-en">EN</button>
+                        <button onclick="setLanguage('es')" class="lang-btn" id="btn-es">ES</button>
+                    </div>
+                </div>
+
+                <div class="md:hidden flex items-center gap-4">
+                    <div class="flex items-center space-x-1">
+                        <button onclick="setLanguage('pt')" class="lang-btn active text-xs px-2 py-1" id="btn-pt-mobile">PT</button>
+                        <button onclick="setLanguage('en')" class="lang-btn text-xs px-2 py-1" id="btn-en-mobile">EN</button>
+                    </div>
+                    <button id="mobile-menu-btn" class="text-gray-400 hover:text-white p-2 border-subtle rounded-lg">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass absolute w-full border-t border-white/5">
+            <div class="container-composio py-4 space-y-3">
+                <a href="#why" class="block text-gray-400 hover:text-white py-2 transition-colors" data-i18n="nav_why">Por que Aktivus</a>
+                <a href="#benefits" class="block text-gray-400 hover:text-white py-2 transition-colors" data-i18n="nav_benefits">Benefícios</a>
+                <a href="#ga5" class="block text-gray-400 hover:text-white py-2 transition-colors" data-i18n="nav_ga5">Gestão 5.0</a>
+                <a href="#services" class="block text-gray-400 hover:text-white py-2 transition-colors" data-i18n="nav_services">Serviços</a>
+                <a href="#contact" class="block text-gray-400 hover:text-white py-2 transition-colors" data-i18n="nav_contact">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#05030a]">
+        <canvas id="matrix-canvas"></canvas>
+        
+        <div class="light-beam"></div>
+        
+        <div class="absolute inset-0 bg-radial-gradient pointer-events-none z-10" style="background: radial-gradient(circle at center, transparent 0%, #05030a 70%);"></div>
+        
+        <div class="relative z-20 container-composio w-full pt-32 pb-20">
+            <div class="flex flex-col items-center text-center max-w-5xl mx-auto">
+                
+                <div class="reveal active">
+                    <h1 class="text-6xl md:text-7xl lg:text-9xl font-bold tracking-tighter leading-[0.9] mb-8">
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-b from-white/20 to-white/5" style="filter: blur(0.5px);">Advancing</span>
+                        <span class="block text-white text-glow">Asset</span>
+                        <span class="block text-gradient">Management</span>
+                    </h1>
+                </div>
+                
+                <p class="mt-8 max-w-2xl text-lg md:text-xl text-gray-400 leading-relaxed reveal" style="transition-delay: 0.1s" data-i18n="hero_desc">
+                    Na Aktivus, unimos tecnologia de ponta, gêmeos digitais e o know‑how das grandes indústrias para elevar a gestão de ativos a um novo patamar.
+                </p>
+                
+                <div class="mt-12 flex flex-col sm:flex-row gap-4 reveal" style="transition-delay: 0.2s">
+                    <a href="#contact" class="btn-primary text-white px-10 py-5 rounded-full text-base font-semibold flex items-center justify-center gap-2 group radius-pill">
+                        <span data-i18n="cta_main">Agendar Consultoria</span>
+                        <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+                    <a href="#ga5" class="btn-outline text-white px-10 py-5 rounded-full text-base font-medium flex items-center justify-center gap-2 radius-pill">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span data-i18n="cta_secondary">Conheça o GA 5.0</span>
+                    </a>
+                </div>
+
+                <div class="mt-24 grid grid-cols-3 gap-16 max-w-3xl w-full reveal" style="transition-delay: 0.3s">
+                    <div class="text-center relative">
+                        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                        <div class="relative bg-[#05030a] px-4 inline-block">
+                            <div class="text-4xl font-bold text-white mb-1 glow-number counter" data-target="15" data-suffix="+">0</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-widest" data-i18n="stat_years">Anos</div>
+                        </div>
+                    </div>
+                    <div class="text-center relative">
+                        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-brand-accent/30 to-transparent"></div>
+                        <div class="relative bg-[#05030a] px-4 inline-block">
+                            <div class="text-4xl font-bold text-brand-accent mb-1">ISO</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-widest" data-i18n="stat_cert">Certified</div>
+                        </div>
+                    </div>
+                    <div class="text-center relative">
+                        <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+                        <div class="relative bg-[#05030a] px-4 inline-block">
+                            <div class="text-4xl font-bold text-white mb-1 counter" data-target="5" data-suffix=".0">0</div>
+                            <div class="text-xs text-gray-500 uppercase tracking-widest" data-i18n="stat_gen">Gen</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#05030a] to-transparent z-20 pointer-events-none"></div>
+    </section>
+
+    <!-- Integration Logos Marquee -->
+    <section class="py-16 border-y border-white/5 bg-[#05030a]/50">
+        <div class="container-composio mb-10 text-center">
+            <p class="text-sm text-gray-500 uppercase tracking-widest mb-2" data-i18n="marquee_title">Integrações Nativas</p>
+            <p class="text-gray-600 text-sm">Conecte-se com os principais ERPs do mercado</p>
+        </div>
+        
+        <div class="logos-container">
+            <div class="marquee-track">
+                <!-- Primeira fileira de logos -->
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="4" fill="#0070F2"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="14">SAP</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <circle cx="20" cy="20" r="10" fill="#C74634"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="14">Oracle</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="8" width="24" height="24" rx="6" fill="#7B68EE"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="12">Syspro</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="10" fill="#00A651"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="12">TOTVS</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="8" width="24" height="24" rx="4" fill="#FF6F00"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="14">AWS</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="2" fill="#0078D4"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="12">Azure</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <circle cx="20" cy="20" r="10" fill="#0530AD"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="10">IBM</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="4" fill="#EA4335"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="10">Google</text>
+                    </svg>
+                </div>
+                
+                <!-- Duplicados para loop infinito -->
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="4" fill="#0070F2"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="14">SAP</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <circle cx="20" cy="20" r="10" fill="#C74634"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="14">Oracle</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="8" width="24" height="24" rx="6" fill="#7B68EE"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="12">Syspro</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="10" fill="#00A651"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="12">TOTVS</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="8" width="24" height="24" rx="4" fill="#FF6F00"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="14">AWS</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="2" fill="#0078D4"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="12">Azure</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <circle cx="20" cy="20" r="10" fill="#0530AD"/>
+                        <text x="35" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="10">IBM</text>
+                    </svg>
+                </div>
+                <div class="logo-item flex items-center justify-center h-16">
+                    <svg class="h-8 w-auto" viewBox="0 0 120 40" fill="none">
+                        <rect x="5" y="10" width="20" height="20" rx="4" fill="#EA4335"/>
+                        <text x="30" y="26" fill="white" font-family="Arial" font-weight="bold" font-size="10">Google</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Aktivus - Melhorada -->
+    <section id="why" class="relative section-padding border-t border-white/5 bg-[#05030a]">
+        <div class="container-composio">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span>
+                    <span class="text-xs font-medium text-gray-400 uppercase tracking-wider" data-i18n="why_tag">Diferenciais</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight" data-i18n="why_title">Por que escolher a Aktivus?</h2>
+                <p class="text-gray-400 text-lg leading-relaxed" data-i18n="why_subtitle">Expertise comprovada, tecnologia de classe mundial e equipe certificada para entregar resultados reais.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="why-card reveal" style="transition-delay: 0.1s">
+                    <div class="why-icon w-14 h-14 bg-brand-accent/10 rounded-2xl flex items-center justify-center mb-6 text-brand-accent border border-brand-accent/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-i18n="card1_title">Expertise Comprovada</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm" data-i18n="card1_desc">Mais de 15 anos desenvolvendo estratégias personalizadas de gestão de ativos para indústrias brasileiras e multinacionais.</p>
+                    <div class="mt-6 flex items-center gap-2 text-brand-accent text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span>Saiba mais</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-7 7m7-7H3"/></svg>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="why-card reveal" style="transition-delay: 0.2s">
+                    <div class="why-icon w-14 h-14 bg-brand-accent/10 rounded-2xl flex items-center justify-center mb-6 text-brand-accent border border-brand-accent/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-i18n="card2_title">Tecnologia de Classe Mundial</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm" data-i18n="card2_desc">Implementação de sistemas EAM robustos e softwares proprietários como o On Key, integrados a SAP® PM, Syspro e outros ERPs.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="why-card reveal" style="transition-delay: 0.3s">
+                    <div class="why-icon w-14 h-14 bg-brand-accent/10 rounded-2xl flex items-center justify-center mb-6 text-brand-accent border border-brand-accent/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-i18n="card3_title">Equipe Certificada</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm" data-i18n="card3_desc">Consultores com certificações ISO 55001, ISO/IEC 27001, ISO 9001 e 14001, prontos para transferir conhecimento.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="why-card reveal" style="transition-delay: 0.4s">
+                    <div class="why-icon w-14 h-14 bg-brand-accent/10 rounded-2xl flex items-center justify-center mb-6 text-brand-accent border border-brand-accent/20">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3" data-i18n="card4_title">Soluções Sob Medida</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm" data-i18n="card4_desc">Roteiros de melhoria baseados em auditorias de maturidade (AMIP) e indicadores claros de desempenho, custo e risco.</p>
+                </div>
+
+                <!-- Card 5 - Large -->
+                <div class="why-card md:col-span-2 lg:col-span-2 reveal" style="transition-delay: 0.5s">
+                    <div class="flex flex-col md:flex-row gap-6 items-start">
+                        <div class="why-icon w-16 h-16 bg-gradient-to-br from-brand-accent to-purple-600 rounded-2xl flex items-center justify-center text-white flex-shrink-0">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4" data-i18n="card5_title">Treinamento Contínuo</h3>
+                            <p class="text-gray-400 leading-relaxed" data-i18n="card5_desc">Programas de capacitação híbrida (presencial e on‑line) para formar "pessoas inteligentes" que maximizam o valor dos ativos. Investimos na transformação da cultura organizacional através da educação especializada.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENTO GRID SECTION -->
+    <section id="benefits" class="relative section-padding border-t border-white/5 bg-[#0a0515] overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-[#05030a] via-transparent to-[#05030a] pointer-events-none"></div>
+        
+        <div class="container-composio relative z-10">
+            <div class="max-w-3xl mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 mb-6">
+                    <span class="text-xs font-medium text-brand-accent uppercase tracking-wider" data-i18n="benefits_tag">Métricas</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" data-i18n="bento_title">Resultados que Transformam</h2>
+                <p class="text-gray-400 text-lg" data-i18n="bento_subtitle">Descubra como a Aktivus impulsiona a excelência operacional através de métricas reais e tecnologia de ponta.</p>
+            </div>
+
+            <div class="bento-grid">
+                <div class="bento-card bento-item-large bg-gradient-to-br from-brand-accent/20 to-purple-900/10 border-brand-accent/20 reveal group">
+                    <div class="h-full flex flex-col justify-between relative z-10">
+                        <div>
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 mb-4">
+                                <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
+                                <span class="text-xs font-medium text-white/80" data-i18n="bento_live">Em tempo real</span>
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-bold text-white mb-4" data-i18n="bento_twin_title">Digital Twin Integrado</h3>
+                            <p class="text-white/70 leading-relaxed mb-8 text-lg" data-i18n="bento_twin_desc">Gêmeos digitais conectados a sensores IoT fornecem visibilidade completa do ciclo de vida dos ativos.</p>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 rounded-2xl bg-black/20 border border-white/5">
+                                <div class="text-2xl font-bold text-white mb-1 counter" data-target="99.8" data-suffix="%">0</div>
+                                <div class="text-sm text-white/60" data-i18n="bento_uptime">Disponibilidade</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-black/20 border border-white/5">
+                                <div class="text-2xl font-bold text-brand-accent mb-1 counter" data-target="94" data-suffix="%">0</div>
+                                <div class="text-sm text-white/60" data-i18n="bento_pred">Precisão Preditiva</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card reveal flex flex-col justify-center" style="transition-delay: 0.1s">
+                    <div class="w-12 h-12 rounded-xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                    </div>
+                    <div class="bento-stat-number mb-3 counter" data-target="30" data-suffix="%">0</div>
+                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="bento_roi_desc">Redução média em custos operacionais no primeiro ano</p>
+                </div>
+
+                <div class="bento-card reveal flex flex-col justify-center" style="transition-delay: 0.2s">
+                    <div class="w-12 h-12 rounded-xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <div class="bento-stat-number mb-3 counter" data-target="45" data-suffix="%">0</div>
+                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="bento_uptime_desc">Aumento na disponibilidade de equipamentos críticos</p>
+                </div>
+
+                <div class="bento-card bento-item-wide bg-gradient-to-br from-purple-900/20 to-blue-900/10 border-purple-500/20 reveal flex items-center" style="transition-delay: 0.3s">
+                    <div class="flex flex-col md:flex-row md:items-center gap-6 w-full">
+                        <div class="flex-1">
+                            <h3 class="text-xl font-bold text-white mb-2" data-i18n="bento_iso_title">Compliance Total</h3>
+                            <p class="text-white/70 text-sm leading-relaxed mb-4" data-i18n="bento_iso_desc">Auditorias e implementações certificadas nas normas ISO.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full bg-white/10 text-xs text-white border border-white/10">ISO 55001</span>
+                                <span class="px-3 py-1 rounded-full bg-white/10 text-xs text-white border border-white/10">ISO 9001</span>
+                                <span class="px-3 py-1 rounded-full bg-white/10 text-xs text-white border border-white/10">ISO 14001</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card reveal" style="transition-delay: 0.4s">
+                    <div class="h-full flex flex-col">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="bento_pm_title">Manutenção Preditiva</h3>
+                        <p class="text-gray-400 text-sm flex-1" data-i18n="bento_pm_desc">Algoritmos de ML analisam padrões para prevenir falhas.</p>
+                        <div class="mt-4 pt-4 border-t border-white/10">
+                            <div class="flex items-center gap-2 text-xs text-brand-accent">
+                                <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse"></span>
+                                <span>AI Powered</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bento-card reveal" style="transition-delay: 0.5s">
+                    <div class="h-full flex flex-col">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-white mb-2" data-i18n="bento_mobile_title">Gestão Mobile</h3>
+                        <p class="text-gray-400 text-sm flex-1" data-i18n="bento_mobile_desc">Acesse ordens de serviço de qualquer lugar.</p>
+                        <div class="mt-4 flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-brand-accent/30 border-2 border-[#0a0515] flex items-center justify-center text-xs text-white">iOS</div>
+                            <div class="w-8 h-8 rounded-full bg-brand-accent/50 border-2 border-[#0a0515] flex items-center justify-center text-xs text-white">And</div>
+                            <div class="w-8 h-8 rounded-full bg-brand-accent/70 border-2 border-[#0a0515] flex items-center justify-center text-xs text-white">Web</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GA 5.0 Section com Animação -->
+    <section id="ga5" class="relative section-padding bg-[#05030a] border-t border-white/5">
+        <div class="container-composio">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse"></span>
+                        <span class="text-xs font-medium text-brand-accent tracking-wide uppercase" data-i18n="ga5_tag">Indústria 4.0 já chegou</span>
+                    </div>
+                    
+                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight" data-i18n="ga5_title">Gestão de Ativos <span class="text-brand-accent">5.0</span></h2>
+                    <p class="text-gray-400 mb-10 leading-relaxed text-lg" data-i18n="ga5_desc">
+                        Em um mundo hiperconectado, onde sensores e IoT geram yottabytes de dados, a gestão de ativos precisa acompanhar a velocidade da inovação.
+                    </p>
+                    
+                    <ul class="space-y-6 mb-10">
+                        <li class="flex items-start gap-4 text-gray-300 group">
+                            <div class="w-8 h-8 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-brand-accent/20 transition-colors">
+                                <div class="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+                            </div>
+                            <span class="text-lg" data-i18n="ga5_item1">Antecipar falhas e otimizar planos de manutenção</span>
+                        </li>
+                        <li class="flex items-start gap-4 text-gray-300 group">
+                            <div class="w-8 h-8 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-brand-accent/20 transition-colors">
+                                <div class="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+                            </div>
+                            <span class="text-lg" data-i18n="ga5_item2">Tomar decisões baseadas em dados em tempo real</span>
+                        </li>
+                        <li class="flex items-start gap-4 text-gray-300 group">
+                            <div class="w-8 h-8 rounded-lg bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-brand-accent/20 transition-colors">
+                                <div class="w-1.5 h-1.5 rounded-full bg-brand-accent"></div>
+                            </div>
+                            <span class="text-lg" data-i18n="ga5_item3">Aumentar o tempo de atividade e a segurança operacional</span>
+                        </li>
+                    </ul>
+
+                    <div class="grid grid-cols-3 gap-4 mb-10">
+                        <div class="glass border-subtle rounded-2xl p-5 border-l-2 border-brand-accent hover:border-l-4 transition-all">
+                            <div class="text-brand-accent font-bold text-2xl mb-1 counter" data-target="30" data-prefix="-" data-suffix="%">0</div>
+                            <div class="text-xs text-gray-500 leading-tight" data-i18n="ga5_stat1">Redução de paradas</div>
+                        </div>
+                        <div class="glass border-subtle rounded-2xl p-5 border-l-2 border-brand-accent hover:border-l-4 transition-all">
+                            <div class="text-brand-accent font-bold text-2xl mb-1">100%</div>
+                            <div class="text-xs text-gray-500 leading-tight" data-i18n="ga5_stat2">Visibilidade total</div>
+                        </div>
+                        <div class="glass border-subtle rounded-2xl p-5 border-l-2 border-brand-accent hover:border-l-4 transition-all">
+                            <div class="text-brand-accent font-bold text-2xl mb-1">Opt.</div>
+                            <div class="text-xs text-gray-500 leading-tight" data-i18n="ga5_stat3">Custo/Risco</div>
+                        </div>
+                    </div>
+
+                    <a href="#contact" class="btn-primary inline-flex items-center gap-2 text-white px-10 py-5 rounded-full font-semibold radius-pill" data-i18n="ga5_cta">Descubra o GA 5.0</a>
+                </div>
+
+                <div class="relative reveal floating-image" style="transition-delay: 0.2s">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-brand-accent/20 to-purple-600/20 rounded-full blur-3xl animate-pulse"></div>
+                        <div class="aspect-[4/5] rounded-[32px] glass border-subtle p-6 flex items-center justify-center relative overflow-hidden transform transition-transform hover:scale-[1.02] duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-br from-brand-accent/10 to-transparent"></div>
+                            <img src="https://images.groovetech.io/y9Vk9l4FbqTASLa2foKFfQb0zs6Pw9X_fptxhwZU7Ps/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzcwMDQzNzg5X1JUWEFrdGl2dXNCcmFuZGluZ0ltYWdlbnNQYWRyYW8xMzFKVUwyMi5wbmc.webp" 
+                                 alt="Aktivus Asset Management" 
+                                 class="relative z-10 w-full h-full object-contain rounded-2xl animate-float">
+                            
+                            <!-- Elementos flutuantes decorativos -->
+                            <div class="absolute top-8 left-8 glass px-4 py-2 rounded-full text-xs text-brand-accent border border-brand-accent/20 backdrop-blur-md animate-pulse">IoT Sensors</div>
+                            <div class="absolute bottom-8 right-8 glass px-4 py-2 rounded-full text-xs text-brand-accent border border-brand-accent/20 backdrop-blur-md animate-pulse" style="animation-delay: 1s;">AI Analytics</div>
+                            <div class="absolute top-1/2 right-6 glass px-4 py-2 rounded-full text-xs text-white border border-white/10 backdrop-blur-md animate-pulse" style="animation-delay: 2s;">Real-time</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="relative section-padding border-t border-white/5 bg-[#0a0515]">
+        <div class="container-composio">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
+                    <span class="text-xs font-medium text-gray-400 uppercase tracking-wider" data-i18n="services_tag">Portfólio</span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6" data-i18n="services_title">Serviços</h2>
+                <p class="text-gray-400 text-lg" data-i18n="services_subtitle">Cada organização é única. Nossos serviços são modulados de acordo com seu nível de maturidade.</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Service 01 -->
+                <div class="glass border-subtle rounded-[32px] p-8 md:p-12 reveal hover:border-brand-accent/20 transition-colors duration-500 group">
+                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                        <div class="service-number select-none group-hover:opacity-80 transition-opacity">01</div>
+                        <div class="flex-1 w-full">
+                            <h3 class="text-3xl font-bold text-white mb-6 group-hover:text-brand-accent transition-colors" data-i18n="serv1_title">Consultoria e Projetos</h3>
+                            <div class="grid md:grid-cols-3 gap-8">
+                                <div class="group/item">
+                                    <div class="border-t border-dashed border-white/10 mb-4 pt-4">
+                                        <h4 class="text-brand-accent font-semibold mb-3 text-sm uppercase tracking-wider" data-i18n="serv1_subtitle1">Análises de Capacidade</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="serv1_desc1">Identifique lacunas e defina um roadmap para alcançar excelência operacional.</p>
+                                </div>
+                                <div class="group/item">
+                                    <div class="border-t border-dashed border-white/10 mb-4 pt-4">
+                                        <h4 class="text-brand-accent font-semibold mb-3 text-sm uppercase tracking-wider" data-i18n="serv1_subtitle2">Implantação de Políticas</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="serv1_desc2">Alinhadas às normas ISO 55001, 9001, 14001 e 27001.</p>
+                                </div>
+                                <div class="group/item">
+                                    <div class="border-t border-dashed border-white/10 mb-4 pt-4">
+                                        <h4 class="text-brand-accent font-semibold mb-3 text-sm uppercase tracking-wider" data-i18n="serv1_subtitle3">Auditorias</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="serv1_desc3">Engenheiros seniores revisam processos e capacitam equipes.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 02 -->
+                <div class="glass border-subtle rounded-[32px] p-8 md:p-12 reveal hover:border-brand-accent/20 transition-colors duration-500 group" style="transition-delay: 0.1s">
+                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                        <div class="service-number select-none group-hover:opacity-80 transition-opacity">02</div>
+                        <div class="flex-1 w-full">
+                            <h3 class="text-3xl font-bold text-white mb-6 group-hover:text-brand-accent transition-colors" data-i18n="serv2_title">Centro de Cuidado dos Ativos (ACC)</h3>
+                            <div class="grid md:grid-cols-3 gap-8">
+                                <div class="group/item">
+                                    <div class="border-t border-dashed border-white/10 mb-4 pt-4">
+                                        <h4 class="text-brand-accent font-semibold mb-3 text-sm uppercase tracking-wider" data-i18n="serv2_subtitle1">Projetos de Melhoria</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="serv2_desc1">Pontuais para otimizar processos específicos ou reduzir custos críticos.</p>
+                                </div>
+                                <div class="group/item">
+                                    <div class="border-t border-dashed border-white/10 mb-4 pt-4">
+                                        <h4 class="text-brand-accent font-semibold mb-3 text-sm uppercase tracking-wider" data-i18n="serv2_subtitle2">Aumento de Equipe</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="serv2_desc2">Apoio de especialistas para suprir carências internas.</p>
+                                </div>
+                                <div class="group/item">
+                                    <div class="border-t border-dashed border-white/10 mb-4 pt-4">
+                                        <h4 class="text-brand-accent font-semibold mb-3 text-sm uppercase tracking-wider" data-i18n="serv2_subtitle3">Terceirização</h4>
+                                    </div>
+                                    <p class="text-sm text-gray-400 leading-relaxed" data-i18n="serv2_desc3">Planos de manutenção sob gestão da Aktivus.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 03 -->
+                <div class="glass border-subtle rounded-[32px] p-8 md:p-12 reveal hover:border-brand-accent/20 transition-colors duration-500 group" style="transition-delay: 0.2s">
+                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                        <div class="service-number select-none group-hover:opacity-80 transition-opacity">03</div>
+                        <div class="flex-1 w-full">
+                            <h3 class="text-3xl font-bold text-white mb-6 group-hover:text-brand-accent transition-colors" data-i18n="serv3_title">Consultoria TPM</h3>
+                            <p class="text-gray-400 mb-8 text-lg" data-i18n="serv3_desc">Implementação de Total Productive Maintenance para alcançar <span class="text-brand-accent font-semibold">Zero Falhas, Zero Defeitos e Zero Acidentes</span>.</p>
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-6 py-3 rounded-full bg-brand-accent/10 text-brand-accent text-sm border border-brand-accent/20 font-medium hover:bg-brand-accent/20 transition-colors cursor-pointer">Zero Falhas</span>
+                                <span class="px-6 py-3 rounded-full bg-brand-accent/10 text-brand-accent text-sm border border-brand-accent/20 font-medium hover:bg-brand-accent/20 transition-colors cursor-pointer">Manutenção Autônoma</span>
+                                <span class="px-6 py-3 rounded-full bg-brand-accent/10 text-brand-accent text-sm border border-brand-accent/20 font-medium hover:bg-brand-accent/20 transition-colors cursor-pointer">Melhoria Contínua</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service 04 -->
+                <div class="glass border-subtle rounded-[32px] p-8 md:p-12 reveal hover:border-brand-accent/20 transition-colors duration-500 group" style="transition-delay: 0.3s">
+                    <div class="flex flex-col lg:flex-row gap-8 items-start">
+                        <div class="service-number select-none group-hover:opacity-80 transition-opacity">04</div>
+                        <div class="flex-1 w-full">
+                            <h3 class="text-3xl font-bold text-white mb-8 group-hover:text-brand-accent transition-colors" data-i18n="serv4_title">Normas ISO</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                                <div class="glass border-subtle rounded-2xl p-6 text-center border-t-2 border-brand-accent hover:bg-white/5 transition-all group/iso cursor-pointer hover:-translate-y-1">
+                                    <div class="text-brand-accent font-bold text-xl mb-2 group-hover/iso:scale-110 transition-transform">ISO 55001</div>
+                                    <div class="text-xs text-gray-500" data-i18n="iso1">Gestão de Ativos</div>
+                                </div>
+                                <div class="glass border-subtle rounded-2xl p-6 text-center border-t-2 border-brand-accent hover:bg-white/5 transition-all group/iso cursor-pointer hover:-translate-y-1">
+                                    <div class="text-brand-accent font-bold text-xl mb-2 group-hover/iso:scale-110 transition-transform">ISO 27001</div>
+                                    <div class="text-xs text-gray-500" data-i18n="iso2">Segurança</div>
+                                </div>
+                                <div class="glass border-subtle rounded-2xl p-6 text-center border-t-2 border-brand-accent hover:bg-white/5 transition-all group/iso cursor-pointer hover:-translate-y-1">
+                                    <div class="text-brand-accent font-bold text-xl mb-2 group-hover/iso:scale-110 transition-transform">ISO 9001</div>
+                                    <div class="text-xs text-gray-500" data-i18n="iso3">Qualidade</div>
+                                </div>
+                                <div class="glass border-subtle rounded-2xl p-6 text-center border-t-2 border-brand-accent hover:bg-white/5 transition-all group/iso cursor-pointer hover:-translate-y-1">
+                                    <div class="text-brand-accent font-bold text-xl mb-2 group-hover/iso:scale-110 transition-transform">ISO 14001</div>
+                                    <div class="text-xs text-gray-500" data-i18n="iso4">Meio Ambiente</div>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 text-sm" data-i18n="serv4_desc">Serviços incluem implementação completa, treinamento especializado e auditoria interna.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center reveal">
+                <a href="#contact" class="btn-primary inline-flex items-center gap-2 text-white px-10 py-5 rounded-full font-semibold text-lg radius-pill" data-i18n="services_cta">Falar com Especialista</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative section-padding bg-[#05030a] border-t border-white/5">
+        <div class="container-composio">
+            <div class="grid lg:grid-cols-2 gap-20">
+                <div class="reveal">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-accent/10 border border-brand-accent/20 mb-6">
+                        <span class="text-xs font-medium text-brand-accent uppercase tracking-wider">Contato</span>
+                    </div>
+                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight" data-i18n="contact_title">Pronto para otimizar seus ativos?</h2>
+                    <p class="text-gray-400 text-xl mb-12 leading-relaxed" data-i18n="contact_subtitle">Fale agora com nossa equipe de especialistas. Retornaremos em até um dia útil.</p>
+                    
+                    <div class="space-y-4">
+                        <a href="https://wa.me/5519997121170" target="_blank" class="flex items-center gap-6 p-6 rounded-2xl glass-card border-subtle group">
+                            <div class="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/20 flex items-center justify-center text-green-400 group-hover:bg-green-500/20 transition-colors">
+                                <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">WhatsApp</div>
+                                <div class="text-white font-semibold text-xl group-hover:text-brand-accent transition-colors">+55 19 99712‑1170</div>
+                            </div>
+                        </a>
+
+                        <a href="mailto:aktivus@aktivus.com.br" class="flex items-center gap-6 p-6 rounded-2xl glass-card border-subtle group">
+                            <div class="w-14 h-14 rounded-2xl bg-brand-accent/10 border border-brand-accent/20 flex items-center justify-center text-brand-accent group-hover:bg-brand-accent/20 transition-colors">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider mb-1">E-mail</div>
+                                <div class="text-white font-semibold text-xl group-hover:text-brand-accent transition-colors">aktivus@aktivus.com.br</div>
+                            </div>
+                        </a>
+
+                        <div class="flex items-start gap-6 p-6 rounded-2xl glass-card border-subtle">
+                            <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 flex-shrink-0">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <div class="text-xs text-gray-500 uppercase tracking-wider mb-2" data-i18n="address_label">Endereço</div>
+                                <div class="text-white font-medium text-lg">Rua Barão de Mauá, 339, Sala 01<br>Valinhos/SP – CEP 13276‑080</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal" style="transition-delay: 0.2s">
+                    <form id="contactForm" class="glass border-subtle rounded-[32px] p-8 md:p-10 space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-2 uppercase tracking-wider" data-i18n="form_name">Nome</label>
+                                <input type="text" required class="w-full px-5 py-4 rounded-xl bg-[#05030a] border border-white/10 text-white placeholder-gray-600 focus:border-brand-accent focus:outline-none transition-colors" placeholder="Seu nome completo">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-2 uppercase tracking-wider" data-i18n="form_phone">Telefone</label>
+                                <input type="tel" class="w-full px-5 py-4 rounded-xl bg-[#05030a] border border-white/10 text-white placeholder-gray-600 focus:border-brand-accent focus:outline-none transition-colors" placeholder="(00) 00000-0000">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-2 uppercase tracking-wider" data-i18n="form_email">E-mail</label>
+                            <input type="email" required class="w-full px-5 py-4 rounded-xl bg-[#05030a] border border-white/10 text-white placeholder-gray-600 focus:border-brand-accent focus:outline-none transition-colors" placeholder="seu@email.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-2 uppercase tracking-wider" data-i18n="form_subject">Assunto</label>
+                            <select class="w-full px-5 py-4 rounded-xl bg-[#05030a] border border-white/10 text-white focus:border-brand-accent focus:outline-none transition-colors appearance-none cursor-pointer">
+                                <option value="" data-i18n="form_select">Selecione um assunto</option>
+                                <option value="consultoria" data-i18n="form_opt1">Consultoria e Projetos</option>
+                                <option value="acc" data-i18n="form_opt2">Centro de Cuidado dos Ativos</option>
+                                <option value="tpm" data-i18n="form_opt3">Consultoria TPM</option>
+                                <option value="iso" data-i18n="form_opt4">Normas ISO</option>
+                                <option value="outro" data-i18n="form_opt5">Outro assunto</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-2 uppercase tracking-wider" data-i18n="form_message">Mensagem</label>
+                            <textarea rows="4" required class="w-full px-5 py-4 rounded-xl bg-[#05030a] border border-white/10 text-white placeholder-gray-600 focus:border-brand-accent focus:outline-none transition-colors resize-none" placeholder="Como podemos ajudar?"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary text-white font-semibold py-5 rounded-xl flex items-center justify-center gap-2 text-lg">
+                            <span data-i18n="form_submit">Enviar Mensagem</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </button>
+
+                        <p class="text-xs text-gray-600 text-center">
+                            Ao enviar, você concorda com nossa <a href="#" class="text-brand-accent hover:underline">Política de Privacidade</a>.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#05030a] border-t border-white/10 pt-20 pb-12">
+        <div class="container-composio">
+            <div class="footer-grid mb-16">
+                <div>
+                    <img src="https://images.groovetech.io/mS2vIvsQMzZSzWJcYILRF2e5DHzGxi30OBd8JnlFsXM/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzcwMDQzNzEzX1JUWEFrdGl2dXNCcmFuZGluZ0xvZ29XaGl0ZUNvbG9yNDMwSlVMMjIucG5n.webp" 
+                         alt="Aktivus" class="h-8 w-auto brightness-110 mb-6">
+                    <p class="text-gray-500 text-sm leading-relaxed max-w-xs">
+                        Advanced Asset Management 5.0. Unimos tecnologia de ponta, gêmeos digitais e know-how industrial.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 text-sm uppercase tracking-wider">A Empresa</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#why" class="text-gray-500 hover:text-brand-accent transition-colors">Sobre a Aktivus</a></li>
+                        <li><a href="#services" class="text-gray-500 hover:text-brand-accent transition-colors">Nossos Serviços</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-brand-accent transition-colors">Cases de Sucesso</a></li>
+                        <li><a href="#contact" class="text-gray-500 hover:text-brand-accent transition-colors">Fale Conosco</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Soluções</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#services" class="text-gray-500 hover:text-brand-accent transition-colors">Consultoria</a></li>
+                        <li><a href="#services" class="text-gray-500 hover:text-brand-accent transition-colors">Centro de Cuidado (ACC)</a></li>
+                        <li><a href="#services" class="text-gray-500 hover:text-brand-accent transition-colors">Consultoria TPM</a></li>
+                        <li><a href="#services" class="text-gray-500 hover:text-brand-accent transition-colors">Normas ISO</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6 text-sm uppercase tracking-wider">Ajuda</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-gray-500 hover:text-brand-accent transition-colors">Central de Ajuda</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-brand-accent transition-colors">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-500 hover:text-brand-accent transition-colors">Termos e Condições</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 py-8 border-t border-white/5">
+                <div class="text-sm text-gray-600">
+                    <p>© 2025 Aktivus — Todos os direitos reservados</p>
+                    <p class="mt-1">Rua Barão de Mauá, 339, Sala 01, Valinhos/SP – CEP 13276‑080</p>
+                </div>
+
+                <a href="https://apxlbs.com" target="_blank" class="opacity-40 hover:opacity-100 transition-opacity" title="Powered by APXLBS">
+                    <img src="https://images.groovetech.io/zLwliusigqNxj8mZZkkiPiY56BB1ZcWvsQdiwPg1haw/rs:fit:0:0:0/g:no:0:0/c:0:0/aHR0cHM6Ly9hc3NldHMuZ3Jvb3ZlYXBwcy5jb20vaW1hZ2VzLzVlYmFjMjNkNzNlZjNlMTk2ZTk3Y2E5Mi8xNzY5NDM3NTk4X3Bvd2VyZWRieWFweGxic3doaXRlLnBuZw.webp" 
+                         alt="Powered by APXLBS" class="h-4 w-auto grayscale hover:grayscale-0 transition-all">
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/5519997121170" target="_blank" class="fixed bottom-8 right-8 z-50 bg-green-500 text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform border-4 border-[#05030a]">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Matrix Effect
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+        const cols = Math.floor(width / 20);
+        const ypos = Array(cols).fill(0);
+        const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        
+        function matrix() {
+            ctx.fillStyle = '#05030a10';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#e84c9a';
+            ctx.font = '15px monospace';
+            ypos.forEach((y, ind) => {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                const x = ind * 20;
+                ctx.fillText(text, x, y);
+                if (y > 100 + Math.random() * 10000) ypos[ind] = 0;
+                else ypos[ind] = y + 20;
+            });
+        }
+        setInterval(matrix, 50);
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Mouse tracking para cards
+        document.querySelectorAll('.why-card, .bento-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Animação de Contadores
+        const counters = document.querySelectorAll('.counter');
+        const animateCounter = (el) => {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const suffix = el.getAttribute('data-suffix') || '';
+            const prefix = el.getAttribute('data-prefix') || '';
+            const duration = 2000;
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    el.textContent = prefix + (Number.isInteger(target) ? Math.floor(current) : current.toFixed(1)) + suffix;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    el.textContent = prefix + target + suffix;
+                }
+            };
+            updateCounter();
+        };
+
+        // Intersection Observer para counters
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+
+        // Translations
+        const translations = {
+            pt: {
+                nav_why: "Por que Aktivus", nav_benefits: "Benefícios", nav_ga5: "Gestão 5.0", nav_services: "Serviços", nav_contact: "Contato",
+                hero_desc: "Na Aktivus, unimos tecnologia de ponta, gêmeos digitais e o know‑how das grandes indústrias para elevar a gestão de ativos a um novo patamar.",
+                cta_main: "Agendar Consultoria", cta_secondary: "Conheça o GA 5.0",
+                stat_years: "Anos", stat_cert: "Certified", stat_gen: "Generation",
+                why_tag: "Diferenciais", why_title: "Por que escolher a Aktivus?", why_subtitle: "Expertise comprovada, tecnologia de classe mundial e equipe certificada.",
+                card1_title: "Expertise Comprovada", card1_desc: "Mais de 15 anos desenvolvendo estratégias personalizadas de gestão de ativos.",
+                card2_title: "Tecnologia de Classe Mundial", card2_desc: "Implementação de sistemas EAM robustos e softwares proprietários.",
+                card3_title: "Equipe Certificada", card3_desc: "Consultores com certificações ISO 55001, ISO/IEC 27001, ISO 9001 e 14001.",
+                card4_title: "Soluções Sob Medida", card4_desc: "Roteiros de melhoria baseados em auditorias de maturidade (AMIP).",
+                card5_title: "Treinamento Contínuo", card5_desc: "Programas de capacitação híbrida para formar 'pessoas inteligentes'.",
+                marquee_title: "Integrações Nativas",
+                bento_title: "Resultados que Transformam", bento_subtitle: "Descubra como a Aktivus impulsiona a excelência operacional.",
+                bento_live: "Em tempo real", bento_twin_title: "Digital Twin Integrado", bento_twin_desc: "Gêmeos digitais conectados a sensores IoT fornecem visibilidade completa.",
+                bento_uptime: "Disponibilidade", bento_pred: "Precisão Preditiva",
+                bento_roi_desc: "Redução média em custos operacionais no primeiro ano",
+                bento_uptime_desc: "Aumento na disponibilidade de equipamentos críticos",
+                bento_iso_title: "Compliance Total", bento_iso_desc: "Auditorias e implementações certificadas nas normas ISO.",
+                bento_pm_title: "Manutenção Preditiva", bento_pm_desc: "Algoritmos de ML analisam padrões para prevenir falhas.",
+                bento_mobile_title: "Gestão Mobile", bento_mobile_desc: "Acesse ordens de serviço de qualquer lugar.",
+                benefits_tag: "Métricas",
+                ga5_tag: "Indústria 4.0 já chegou", ga5_title: "Gestão de Ativos 5.0",
+                ga5_desc: "Em um mundo hiperconectado, onde sensores e IoT geram yottabytes de dados...",
+                ga5_item1: "Antecipar falhas e otimizar planos de manutenção",
+                ga5_item2: "Tomar decisões baseadas em dados em tempo real",
+                ga5_item3: "Aumentar o tempo de atividade e a segurança operacional",
+                ga5_stat1: "Redução de paradas", ga5_stat2: "Visibilidade total", ga5_stat3: "Custo/Risco",
+                ga5_cta: "Descubra o GA 5.0",
+                services_tag: "Portfólio", services_title: "Serviços", services_subtitle: "Cada organização é única. Nossos serviços são modulados de acordo com seu nível de maturidade.",
+                serv1_title: "Consultoria e Projetos", serv1_subtitle1: "Análises de Capacidade", serv1_desc1: "Identifique lacunas e defina um roadmap.", serv1_subtitle2: "Implantação de Políticas", serv1_desc2: "Alinhadas às normas ISO.", serv1_subtitle3: "Auditorias", serv1_desc3: "Engenheiros seniores revisam processos.",
+                serv2_title: "Centro de Cuidado dos Ativos (ACC)", serv2_subtitle1: "Projetos de Melhoria", serv2_desc1: "Pontuais para otimizar processos.", serv2_subtitle2: "Aumento de Equipe", serv2_desc2: "Apoio de especialistas.", serv2_subtitle3: "Terceirização", serv2_desc3: "Planos de manutenção sob gestão da Aktivus.",
+                serv3_title: "Consultoria TPM", serv3_desc: "Implementação de Total Productive Maintenance para alcançar Zero Falhas.",
+                serv4_title: "Normas ISO", iso1: "Gestão de Ativos", iso2: "Segurança", iso3: "Qualidade", iso4: "Meio Ambiente", serv4_desc: "Serviços incluem implementação completa.",
+                services_cta: "Falar com Especialista",
+                contact_title: "Pronto para otimizar seus ativos?", contact_subtitle: "Fale agora com nossa equipe de especialistas.",
+                address_label: "Endereço",
+                form_name: "Nome", form_phone: "Telefone", form_email: "E-mail", form_subject: "Assunto",
+                form_select: "Selecione um assunto", form_opt1: "Consultoria e Projetos", form_opt2: "Centro de Cuidado dos Ativos", form_opt3: "Consultoria TPM", form_opt4: "Normas ISO", form_opt5: "Outro assunto",
+                form_message: "Mensagem", form_submit: "Enviar Mensagem"
+            },
+            en: {
+                nav_why: "Why Aktivus", nav_benefits: "Benefits", nav_ga5: "Asset Management 5.0", nav_services: "Services", nav_contact: "Contact",
+                hero_desc: "At Aktivus, we combine cutting-edge technology, digital twins and industrial know-how.",
+                cta_main: "Schedule Consultation", cta_secondary: "Discover GA 5.0",
+                stat_years: "Years", stat_cert: "Certified", stat_gen: "Generation",
+                why_tag: "Differentials", why_title: "Why choose Aktivus?", why_subtitle: "Proven expertise, world-class technology and certified team.",
+                card1_title: "Proven Expertise", card1_desc: "Over 15 years developing customized asset management strategies.",
+                card2_title: "World-Class Technology", card2_desc: "Implementation of robust EAM systems and proprietary software.",
+                card3_title: "Certified Team", card3_desc: "Consultants with ISO 55001, ISO/IEC 27001, ISO 9001 and 14001.",
+                card4_title: "Tailored Solutions", card4_desc: "Improvement roadmaps based on maturity assessments (AMIP).",
+                card5_title: "Continuous Training", card5_desc: "Hybrid training programs to form 'smart people'.",
+                marquee_title: "Native Integrations",
+                bento_title: "Transformative Results", bento_subtitle: "Discover how Aktivus drives operational excellence.",
+                bento_live: "Real-time", bento_twin_title: "Integrated Digital Twin", bento_twin_desc: "Digital twins connected to IoT sensors provide complete visibility.",
+                bento_uptime: "Availability", bento_pred: "Predictive Accuracy",
+                bento_roi_desc: "Average reduction in operational costs in the first year",
+                bento_uptime_desc: "Increase in critical equipment availability",
+                bento_iso_title: "Total Compliance", bento_iso_desc: "Certified audits and implementations of ISO standards.",
+                bento_pm_title: "Predictive Maintenance", bento_pm_desc: "ML algorithms analyze patterns to prevent failures.",
+                bento_mobile_title: "Mobile Management", bento_mobile_desc: "Access work orders from anywhere.",
+                benefits_tag: "Metrics",
+                ga5_tag: "Industry 4.0 has arrived", ga5_title: "Asset Management 5.0",
+                ga5_desc: "In a hyperconnected world, where sensors and IoT generate yottabytes of data...",
+                ga5_item1: "Anticipate failures and optimize maintenance plans",
+                ga5_item2: "Make real-time data-driven decisions",
+                ga5_item3: "Increase uptime and operational safety",
+                ga5_stat1: "Downtime reduction", ga5_stat2: "Full visibility", ga5_stat3: "Cost/Risk",
+                ga5_cta: "Discover GA 5.0",
+                services_tag: "Portfolio", services_title: "Services", services_subtitle: "Every organization is unique. Our services are modulated according to your maturity level.",
+                serv1_title: "Consulting and Projects", serv1_subtitle1: "Capability Analysis", serv1_desc1: "Identify gaps and define a roadmap.", serv1_subtitle2: "Policy Implementation", serv1_desc2: "Aligned with ISO standards.", serv1_subtitle3: "Audits", serv1_desc3: "Senior engineers review processes.",
+                serv2_title: "Asset Care Center (ACC)", serv2_subtitle1: "Improvement Projects", serv2_desc1: "Specific to optimize processes.", serv2_subtitle2: "Staff Augmentation", serv2_desc2: "Specialist support.", serv2_subtitle3: "Outsourcing", serv2_desc3: "Maintenance plans managed by Aktivus.",
+                serv3_title: "TPM Consulting", serv3_desc: "Implementation of Total Productive Maintenance to achieve Zero Failures.",
+                serv4_title: "ISO Standards", iso1: "Asset Management", iso2: "Security", iso3: "Quality", iso4: "Environment", serv4_desc: "Services include complete implementation.",
+                services_cta: "Talk to Specialist",
+                contact_title: "Ready to optimize your assets?", contact_subtitle: "Talk to our team of experts. We will respond within one business day.",
+                address_label: "Address",
+                form_name: "Name", form_phone: "Phone", form_email: "Email", form_subject: "Subject",
+                form_select: "Select a subject", form_opt1: "Consulting and Projects", form_opt2: "Asset Care Center", form_opt3: "TPM Consulting", form_opt4: "ISO Standards", form_opt5: "Other subject",
+                form_message: "Message", form_submit: "Send Message"
+            }
+        };
+
+        let currentLang = localStorage.getItem('aktivus-lang') || 'pt';
+        
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('aktivus-lang', lang);
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${lang}`)?.classList.add('active');
+            document.getElementById(`btn-${lang}-mobile`)?.classList.add('active');
+            
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang === 'es' ? 'es-ES' : 'en-US';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+            
+            // Mobile menu
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            btn?.addEventListener('click', () => menu.classList.toggle('hidden'));
+            
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Reveal animation
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            
+            // Form submit
+            document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = this.querySelector('button[type="submit"]');
+                const original = btn.innerHTML;
+                btn.innerHTML = '<span>Enviado!</span>';
+                btn.classList.add('bg-green-600');
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                    btn.classList.remove('bg-green-600');
+                    this.reset();
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
